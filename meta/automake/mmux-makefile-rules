@@ -1,0 +1,128 @@
+# mmux-makefile-rules -- -*- mode: makefile-automake -*-
+#
+# This file is to be included in the main "Makefile.am" with the directive:
+#
+#   include $(top_srcdir)/meta/automake/mmux-makefile-rules
+#
+
+# This  tags generation  regular  expression was  itself generated  by
+# evaluating the following in a GNU Emacs scratch buffer:
+#
+#   (regexp-opt
+#     '("cclib_init"
+#       "cclib_final"
+#       "cclib_alloc"
+#       "cclib_release"
+#       "cclib_new"
+#       "cclib_delete"
+#       "cclib_make"
+#       "cclib_unmake"
+#       "cclib_fun"
+#       "cclib_is"
+#       ;;
+#       "cclib_struct_descriptor"
+#       "cclib_methods_table"
+#       "cclib_method"
+#       "cclib_struct_descriptor_ref_methods_table_pointer"
+#       "cclib_struct_descriptor_set_methods_table_pointer"
+#       "cclib_method_pointer"
+#       "cclib_call"
+#       "cclib_vcall"
+#       "cclib_resource_pointer"
+#       ;;
+#       "cclib_trait_resource_pointer"
+#       ;;
+#       "cclib_exception_handler_function"
+#       "cclib_exception_handler_init_and_register"
+#       ;;
+#       "cclib_exceptional_condition_descriptor"
+#       "cclib_exceptional_condition_descriptor_pointer"
+#       "cclib_exceptional_condition_descriptor_set_parent_to"
+#       "cclib_exceptional_condition_object_is"
+#       ;;
+#       "cclib_struct_descriptor_type"
+#       "cclib_methods_table_type"
+#       "cclib_method_type"
+#       "cclib_exception_handler_type"
+#       "cclib_exceptional_condition_descriptor_type"
+#       "cclib_exceptional_condition_object_type")
+#     'symbols)
+#
+# and wrapping the resulting string into:
+#
+#   '{c}/.../'
+#
+# I am totally NOT happy with this;  I want to develop further to have
+# more precise tags  handling, but I still have not  figure out how to
+# do it.  (Marco Maggi; Apr 21, 2020)
+AM_ETAGSFLAGS		= \
+	--regex='{c}/"\\_<\\(cclib_\\(?:alloc\\|call\\|delete\\|exception\\(?:_handler_\\(?:function\\|init_and_register\\|type\\)\\|al_condition_\\(?:descriptor\\(?:_\\(?:pointer\\|set_parent_to\\|type\\)\\)?\\|object_\\(?:is\\|type\\)\\)\\)\\|f\\(?:inal\\|un\\)\\|i\\(?:nit\\|s\\)\\|m\\(?:ake\\|ethod\\(?:_\\(?:pointer\\|type\\)\\|s_table\\(?:_type\\)?\\)?\\)\\|new\\|re\\(?:lease\\|source_pointer\\)\\|struct_descriptor\\(?:_\\(?:ref_methods_table_pointer\\|set_methods_table_pointer\\|type\\)\\)?\\|trait_resource_pointer\\|unmake\\|vcall\\)\\)\\_>([a-zA-Z0-9_]+)"/'
+	\
+	 $(MMUX_DEPENDENCIES_INCLUDES)
+
+
+#### testing under GDB
+
+$(builddir)/.gdbinit:
+	ln -sv "$(top_srcdir)/gdbinit" "$(builddir)/.gdbinit"
+
+# This rule is meant to be used as:
+#
+#   $ make all gdb-test FILE=tests/inspection CFLAGS='-g'
+#
+# after having created an appropriate file "$(top_srcdir)/.gdbinit".
+#
+gdb-test: $(builddir)/.gdbinit
+	libtool --mode=execute gdb $$FILE
+
+
+#### Valgrind analysis
+#
+# First do this:
+#
+#   make clean
+#   make CFLAGS='-O0 -g' all check
+#
+# To use this rule on the file "tests/standard-allocator" we do:
+#
+#   make valgrind file=standard-allocator
+#
+
+VALGRIND_PROGRAM	= valgrind
+VALGRIND_FLAGS		= --leak-check=yes --track-origins=yes
+VALGRIND_FULL_FLAGS	= $(VALGRIND_FLAGS) --leak-check=full --show-leak-kinds=all
+
+.PHONY: valgrind valgrind-full
+
+valgrind:
+	for f in $(builddir)/tests/$(file) ; \
+	do $(LIBTOOL) --mode=execute $(VALGRIND_PROGRAM) $(VALGRIND_FLAGS) $$f ; \
+	done
+
+valgrind-full:
+	for f in $(builddir)/tests/$(file) ; \
+	do $(LIBTOOL) --mode=execute $(VALGRIND_PROGRAM) $(VALGRIND_FULL_FLAGS) $$f ; \
+	done
+
+
+#### Static analysis with Clang's Static Analyzer
+#
+# See the documentation for the command line tool at:
+#
+#    <http://clang-analyzer.llvm.org/scan-build.html>
+#
+# To run the tool we must do:
+#
+#    $ make clean
+#    $ make clang-static-analysis
+#
+# The  program  "scan-build"  works  by  overriding  the  CC  and  CXX
+# environment variables.
+#
+
+.PHONY: clang-static-analysis
+
+clang-static-analysis:
+	scan-build make
+
+### end of file

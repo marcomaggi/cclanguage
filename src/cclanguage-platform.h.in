@@ -1,0 +1,242 @@
+/*
+  Part of: CCLanguage
+  Contents: public header file for CCLibraries projects
+  Date: Jun  5, 2020
+
+  Abstract
+
+	This header file contains  definitions to be used by all  the packages in the
+	CCLibraries  project.   This  header   file  defines  values  resulting  from
+	inspection of the underlying platforms.
+
+  Copyright (C) 2020 Marco Maggi <mrc.mgg@gmail.com>
+
+  This is free software; you can redistribute  it and/or modify it under the terms of
+  the GNU Lesser General Public License as published by the Free Software Foundation;
+  either version 3.0 of the License, or (at your option) any later version.
+
+  This library  is distributed in the  hope that it  will be useful, but  WITHOUT ANY
+  WARRANTY; without  even the implied  warranty of  MERCHANTABILITY or FITNESS  FOR A
+  PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License along with
+  this library; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+  Suite 330, Boston, MA 02111-1307 USA.
+*/
+
+#ifndef CCLANGUAGE_PLATFORM_H
+#define CCLANGUAGE_PLATFORM_H 1
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/** --------------------------------------------------------------------
+ ** Header files.
+ ** ----------------------------------------------------------------- */
+
+#include <stdint.h>
+
+
+/** --------------------------------------------------------------------
+ ** C language types sizes.
+ ** ----------------------------------------------------------------- */
+
+#define CCLIB_SIZEOF_SINT8			@MMUX_SIZEOF_SINT8@
+#define CCLIB_SIZEOF_UINT8			@MMUX_SIZEOF_UINT8@
+#define CCLIB_SIZEOF_SINT16			@MMUX_SIZEOF_SINT16@
+#define CCLIB_SIZEOF_UINT16			@MMUX_SIZEOF_UINT16@
+#define CCLIB_SIZEOF_SINT32			@MMUX_SIZEOF_SINT32@
+#define CCLIB_SIZEOF_UINT32			@MMUX_SIZEOF_UINT32@
+#define CCLIB_SIZEOF_SINT64			@MMUX_SIZEOF_SINT64@
+#define CCLIB_SIZEOF_UINT64			@MMUX_SIZEOF_UINT64@
+
+#define CCLIB_SIZEOF_SCHAR			@MMUX_SIZEOF_SCHAR@
+#define CCLIB_SIZEOF_UCHAR			@MMUX_SIZEOF_UCHAR@
+#define CCLIB_SIZEOF_SSHRT			@MMUX_SIZEOF_SSHRT@
+#define CCLIB_SIZEOF_USHRT			@MMUX_SIZEOF_USHRT@
+#define CCLIB_SIZEOF_SINT			@MMUX_SIZEOF_SINT@
+#define CCLIB_SIZEOF_UINT			@MMUX_SIZEOF_UINT@
+#define CCLIB_SIZEOF_SLONG			@MMUX_SIZEOF_SLONG@
+#define CCLIB_SIZEOF_ULONG			@MMUX_SIZEOF_ULONG@
+#define CCLIB_SIZEOF_SLLONG			@MMUX_SIZEOF_SLLONG@
+#define CCLIB_SIZEOF_ULLONG			@MMUX_SIZEOF_ULLONG@
+
+#define CCLIB_SIZEOF_SINTMAX			@MMUX_SIZEOF_SINTMAX@
+#define CCLIB_SIZEOF_UINTMAX			@MMUX_SIZEOF_UINTMAX@
+#define CCLIB_SIZEOF_SINTPTR			@MMUX_SIZEOF_SINTPTR@
+#define CCLIB_SIZEOF_UINTPTR			@MMUX_SIZEOF_UINTPTR@
+#define CCLIB_SIZEOF_PTRDIFF			@MMUX_SIZEOF_PTRDIFF@
+
+#define CCLIB_SIZEOF_SSIZE			@MMUX_SIZEOF_SSIZE@
+#define CCLIB_SIZEOF_USIZE			@MMUX_SIZEOF_USIZE@
+#define CCLIB_SIZEOF_OFF			@MMUX_SIZEOF_OFF@
+
+#define CCLIB_SIZEOF_WCHAR			@MMUX_SIZEOF_WCHAR@
+#define CCLIB_SIZEOF_WINT			@MMUX_SIZEOF_WINT@
+
+#define CCLIB_SIZEOF_FLOAT			@MMUX_SIZEOF_FLOAT@
+#define CCLIB_SIZEOF_DOUBLE			@MMUX_SIZEOF_DOUBLE@
+#define CCLIB_SIZEOF_LDOUBLE			@MMUX_SIZEOF_LDOUBLE@
+
+
+/** --------------------------------------------------------------------
+ ** C language types and type aliases.
+ ** ----------------------------------------------------------------- */
+
+typedef int8_t				cclib_sint8_t;
+typedef uint8_t				cclib_uint8_t;
+typedef int16_t				cclib_sint16_t;
+typedef uint16_t			cclib_uint16_t;
+typedef int32_t				cclib_sint32_t;
+typedef uint32_t			cclib_uint32_t;
+typedef int64_t				cclib_sint64_t;
+typedef uint64_t			cclib_uint64_t;
+
+typedef signed char			cclib_schar_t;
+typedef unsigned char			cclib_uchar_t;
+typedef signed short int		cclib_sshort_t;
+typedef unsigned short int		cclib_ushort_t;
+typedef signed int			cclib_sint_t;
+typedef unsigned int			cclib_uint_t;
+typedef signed long			cclib_slong_t;
+typedef unsigned long			cclib_ulong_t;
+typedef signed long long		cclib_sllong_t;
+typedef unsigned long long		cclib_ullong_t;
+
+typedef float				cclib_float_t;
+typedef double				cclib_double_t;
+typedef long double			cclib_ldouble_t;
+
+typedef @MMUX_VALUEOF_SINTMAX_ALIAS@	cclib_sintmax_t;
+typedef @MMUX_VALUEOF_UINTMAX_ALIAS@	cclib_uintmax_t;
+typedef @MMUX_VALUEOF_SINTPTR_ALIAS@	cclib_sintptr_t;
+typedef @MMUX_VALUEOF_UINTMAX_ALIAS@	cclib_uintmax_t;
+typedef @MMUX_VALUEOF_PTRDIFF_ALIAS@	cclib_ptrdiff_t;
+
+typedef @MMUX_VALUEOF_SSIZE_ALIAS@	cclib_ssize_t;
+typedef @MMUX_VALUEOF_USIZE_ALIAS@	cclib_usize_t;
+typedef @MMUX_VALUEOF_OFF_ALIAS@	cclib_off_t;
+
+typedef @MMUX_VALUEOF_WINT_ALIAS@	cclib_wint_t;
+typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
+
+
+/** --------------------------------------------------------------------
+ ** C language types limits.
+ ** ----------------------------------------------------------------- */
+
+#define CCLIB_MIN_SINT8		((cclib_sint8_t)@MMUX_VALUEOF_SINT8_MIN@)
+#define CCLIB_MAX_SINT8		((cclib_sint8_t)@MMUX_VALUEOF_SINT8_MAX@)
+
+#define CCLIB_MIN_UINT8		((cclib_uint8_t)@MMUX_VALUEOF_UINT8_MIN@)
+#define CCLIB_MAX_UINT8		((cclib_uint8_t)@MMUX_VALUEOF_UINT8_MAX@)
+
+#define CCLIB_MIN_SINT16	((cclib_sint16_t)@MMUX_VALUEOF_SINT16_MIN@)
+#define CCLIB_MAX_SINT16	((cclib_sint16_t)@MMUX_VALUEOF_SINT16_MAX@)
+
+#define CCLIB_MIN_UINT16	((cclib_uint16_t)@MMUX_VALUEOF_UINT16_MIN@)
+#define CCLIB_MAX_UINT16	((cclib_uint16_t)@MMUX_VALUEOF_UINT16_MAX@)
+
+#define CCLIB_MIN_SINT32	((cclib_sint32_t)@MMUX_VALUEOF_SINT32_MIN@L)
+#define CCLIB_MAX_SINT32	((cclib_sint32_t)@MMUX_VALUEOF_SINT32_MAX@L)
+
+#define CCLIB_MIN_UINT32	((cclib_uint32_t)@MMUX_VALUEOF_UINT32_MIN@UL)
+#define CCLIB_MAX_UINT32	((cclib_uint32_t)@MMUX_VALUEOF_UINT32_MAX@UL)
+
+#define CCLIB_MIN_SINT64	((cclib_sint64_t)@MMUX_VALUEOF_SINT64_MIN@LL)
+#define CCLIB_MAX_SINT64	((cclib_sint64_t)@MMUX_VALUEOF_SINT64_MAX@LL)
+
+#define CCLIB_MIN_UINT64	((cclib_uint64_t)@MMUX_VALUEOF_UINT64_MIN@ULL)
+#define CCLIB_MAX_UINT64	((cclib_uint64_t)@MMUX_VALUEOF_UINT64_MAX@ULL)
+
+/* ------------------------------------------------------------------ */
+
+#define CCLIB_MIN_SCHAR		((cclib_schar_t)@MMUX_VALUEOF_SCHAR_MIN@a)
+#define CCLIB_MAX_SCHAR		((cclib_schar_t)@MMUX_VALUEOF_SCHAR_MAX@)
+
+#define CCLIB_MIN_UCHAR		((cclib_uchar_t)0)
+#define CCLIB_MAX_UCHAR		((cclib_uchar_t)@MMUX_VALUEOF_UCHAR_MAX@)
+
+#define CCLIB_MIN_SHRT		((cclib_sshrt_t)@MMUX_VALUEOF_SHRT_MIN@)
+#define CCLIB_MAX_SHRT		((cclib_sshrt_t)@MMUX_VALUEOF_SHRT_MAX@)
+
+#define CCLIB_MIN_USHRT		((cclib_ushrt_t)0)
+#define CCLIB_MAX_USHRT		((cclib_ushrt_t)@MMUX_VALUEOF_USHRT_MAX@)
+
+#define CCLIB_MIN_INT		((cclib_sint_t)@MMUX_VALUEOF_INT_MIN@)
+#define CCLIB_MAX_INT		((cclib_sint_t)@MMUX_VALUEOF_INT_MAX@)
+
+#define CCLIB_MIN_UINT		((cclib_uint_t)0)
+#define CCLIB_MAX_UINT		((cclib_uint_t)@MMUX_VALUEOF_UINT_MAX@)
+
+#define CCLIB_MIN_LONG		((cclib_slong_t)@MMUX_VALUEOF_LONG_MIN@L)
+#define CCLIB_MAX_LONG		((cclib_slong_t)@MMUX_VALUEOF_LONG_MAX@L)
+
+#define CCLIB_MIN_ULONG		((cclib_ulong_t)0UL)
+#define CCLIB_MAX_ULONG		((cclib_ulong_t)@MMUX_VALUEOF_ULONG_MAX@UL)
+
+#define CCLIB_MIN_LLONG		((cclib_sllong_t)@MMUX_VALUEOF_LLONG_MIN@LL)
+#define CCLIB_MAX_LLONG		((cclib_sllong_t)@MMUX_VALUEOF_LLONG_MAX@LL)
+
+#define CCLIB_MIN_ULLONG	((cclib_ullong_t)0ULL)
+#define CCLIB_MAX_ULLONG	((cclib_ullong_t)@MMUX_VALUEOF_ULLONG_MAX@ULL)
+
+/* ------------------------------------------------------------------ */
+
+#define CCLIB_MIN_SINTMAX	((cclib_sintmax_t)@MMUX_VALUEOF_SINTMAX_MIN@LL)
+#define CCLIB_MAX_SINTMAX	((cclib_sintmax_t)@MMUX_VALUEOF_SINTMAX_MAX@LL)
+
+#define CCLIB_MIN_UINTMAX	((cclib_uintmax_t)0ULL)
+#define CCLIB_MAX_UINTMAX	((cclib_uintmax_t)@MMUX_VALUEOF_UINTMAX_MAX@ULL)
+
+#define CCLIB_MIN_SINTPTR	((cclib_sintptr_t)@MMUX_VALUEOF_SINTPTR_MIN@LL)
+#define CCLIB_MAX_SINTPTR	((cclib_sintptr_t)@MMUX_VALUEOF_SINTPTR_MAX@LL)
+
+#define CCLIB_MIN_UINTPTR	((cclib_uintptr_t)0ULL)
+#define CCLIB_MAX_UINTPTR	((cclib_uintptr_t)@MMUX_VALUEOF_UINTPTR_MAX@ULL)
+
+#define CCLIB_MIN_PTRDIFF	((cclib_ptrdiff_t)@MMUX_VALUEOF_PTRDIFF_MIN@LL)
+#define CCLIB_MAX_PTRDIFF	((cclib_ptrdiff_t)@MMUX_VALUEOF_PTRDIFF_MAX@LL)
+
+#define CCLIB_MIN_SSIZE		((cclib_ssize_t)@MMUX_VALUEOF_SSIZE_MIN@LL)
+#define CCLIB_MAX_SSIZE		((cclib_ssize_t)@MMUX_VALUEOF_SSIZE_MAX@LL)
+
+#define CCLIB_MIN_USIZE		((cclib_usize_t)0ULL)
+#define CCLIB_MAX_USIZE		((cclib_usize_t)@MMUX_VALUEOF_USIZE_MAX@ULL)
+
+#define CCLIB_MIN_OFF		((cclib_off_t)@MMUX_VALUEOF_OFF_MIN@LL)
+#define CCLIB_MAX_OFF		((cclib_off_t)@MMUX_VALUEOF_OFF_MAX@LL)
+
+/* ------------------------------------------------------------------ */
+
+#define CCLIB_MIN_WINT		((cclib_wint_t)@MMUX_VALUEOF_WINT_MIN@)
+#define CCLIB_MAX_WINT		((cclib_wint_t)@MMUX_VALUEOF_WINT_MAX@)
+
+#define CCLIB_MIN_WCHAR		((cclib_wchar_t)@MMUX_VALUEOF_WCHAR_MIN@)
+#define CCLIB_MAX_WCHAR		((cclib_wchar_t)@MMUX_VALUEOF_WCHAR_MAX@)
+
+/* ------------------------------------------------------------------ */
+
+#define CCLIB_MIN_FLOAT		((cclib_float_t)@MMUX_VALUEOF_FLT_MIN@)
+#define CCLIB_MAX_FLOAT		((cclib_float_t)@MMUX_VALUEOF_FLT_MAX@)
+
+#define CCLIB_MIN_DOUBLE	((cclib_double_t)@MMUX_VALUEOF_DBL_MIN@)
+#define CCLIB_MAX_DOUBLE	((cclib_double_t)@MMUX_VALUEOF_DBL_MAX@)
+
+#define CCLIB_MIN_LDOUBLE	((cclib_ldouble_t)@MMUX_VALUEOF_LDBL_MIN@)
+#define CCLIB_MAX_LDOUBLE	((cclib_ldouble_t)@MMUX_VALUEOF_LDBL_MAX@)
+
+
+/** --------------------------------------------------------------------
+ ** Done.
+ ** ----------------------------------------------------------------- */
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
+
+#endif /* defined CCLANGUAGE_PLATFORM_H */
+
+/* end of file */
