@@ -24,10 +24,11 @@ AM_MAKEINFOHTMLFLAGS	= --split=node -I $(srcdir)/examples -c WORDS_IN_PAGE=0 --c
 	-c PRE_BODY_CLOSE="<p>This document describes version <tt>$(PACKAGE_VERSION)</tt> of <em>$(PACKAGE_NAME)</em>.</p>"
 
 info_TEXINFOS		= doc/cclanguage.texi
-doc_cclanguage_TEXINFOS	=	\
-	doc/macros.texi		\
-	doc/lgpl-3.0.texi	\
-	doc/fdl-1.3.texi
+doc_cclanguage_TEXINFOS	=		\
+	doc/macros.texi			\
+	doc/lgpl-3.0.texi		\
+	doc/fdl-1.3.texi		\
+	doc/overview-linking.texi
 
 ## --------------------------------------------------------------------
 
