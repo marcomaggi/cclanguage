@@ -126,8 +126,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 @menu
 * overview::                    Overview of the package.
 * version::                     Version functions.
-* attributes::                  Compiler attributes for functions.
-* declarations::                Functions and variables visibility declarations.
+* compiler::                    Compiler facilities.
 * macros::                      Helper macros.
 * typedefs::                    Common type definitions and related macros.
 * variadic::                    Variadic preprocessor macros.
@@ -203,17 +202,29 @@ Return an integer representing the library interface current age.
 @end deftypefun
 
 @c page
-@node attributes
-@chapter Compiler attributes for functions
+@node compiler
+@chapter Compiler facilities
 
 
-The following definitions are in the header file @file{cclanguage.h}.  The header file tries to
-determine, through the C preprocessor macros, which function attributes are implemented by the
-compiler and defines the following macros accordingly.  If an attribute is not implemented: the
-corresponding macro is defined to expand to the empty string.
+The interface to the C11 language compiler are defined in the header file
+@file{cclanguage-compiler.h}; this header is included by @file{cclanguage.h}.
 
-A typical function prototype declaration for a function using the facilities of @value{PACKAGE}
-looks like this:
+@menu
+* compiler attributes::         Compiler attributes for functions.
+* compiler visibility::         Functions and variables visibility declarations.
+@end menu
+
+@c page
+@node compiler attributes
+@section Compiler attributes for functions
+
+
+@value{PACKAGE} tries to determine, through the C preprocessor macros, which function attributes are
+implemented by the compiler and defines the following macros accordingly.  If an attribute is not
+implemented: the corresponding macro is defined to expand to the empty string.
+
+A typical function prototype declaration for a function using the facilities of CCLibraries looks
+like this:
 
 @example
 cclib_decl void * cce_sys_malloc (cce_destination_t L, size_t size)
@@ -380,11 +391,8 @@ __attribute__((__visibility__(__VA_ARGS__)))
 @end deffn
 
 @c page
-@node declarations
-@chapter Functions and variables visibility declarations
-
-
-The following definitions are in the header file @file{cclanguage.h}.
+@node compiler visibility
+@section Functions and variables visibility declarations
 
 
 @deffn {Preprocessor Macro} cclib_decl
