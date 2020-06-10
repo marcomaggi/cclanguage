@@ -390,6 +390,15 @@ __attribute__((__visibility__(__VA_ARGS__)))
 @end example
 @end deffn
 
+
+@deffn {Preprocessor Macro} CCLIB_UNUSED
+Preprocessor macro that is meant to expand into an attribute declaration.  It expands into:
+
+@example
+CCLIB_FUNC_ATTRIBUTE_UNUSED
+@end example
+@end deffn
+
 @c page
 @node compiler visibility
 @section Functions and variables visibility declarations
@@ -442,37 +451,44 @@ Pointer--type cast helper.  It expands into:
 So, for example, instead of writing:
 
 @example
-cce_location_t    L[1];
-cce_condition_t * C = cce_condition(L);
-ccevents_timeval_invalid_t * K = (ccevents_timeval_invalid_t *) C;
+cce_condition_t * K = cce_condition(L);
+cce_exceptional_condition_object_t(ccevents_timeval_invalid) * C = \
+  (cce_exceptional_condition_object_t(ccevents_timeval_invalid) *) K;
 @end example
 
 @noindent
 we can write:
 
 @example
-cce_location_t    L[1];
-cce_condition_t * C = cce_condition(L);
-CCLIB_PC(ccevents_timeval_invalid_t, K, C);
+cce_condition_t * K = cce_condition(L);
+CCLIB_PC(cce_exceptional_condition_object_t(ccevents_timeval_invalid), C, K);
 @end example
 
 @noindent
 or:
 
 @example
-cce_location_t    L[1];
-CCLIB_PC(ccevents_timeval_invalid_t, C, cce_condition(L));
+CCLIB_PC(cce_exceptional_condition_object_t(ccevents_timeval_invalid), C, cce_condition(L));
 @end example
 @end deffn
 
+@c page
+@node typedefs
+@chapter Common type definitions and related macros
 
-@deffn {Preprocessor Macro} CCLIB_UNUSED
-Preprocessor macro that is meant to expand into an attribute declaration.  It expands into:
 
-@example
-CCLIB_FUNC_ATTRIBUTE_UNUSED
-@end example
-@end deffn
+The C11 language facilities for type definitions are defined in the header file
+@file{cclanguage-typedefs.h}; this header is included by @file{cclanguage.h}.
+
+@menu
+* typedefs macros::             Preprocessor macros related to
+                                type definitions.
+* typedefs opaque::             Opaque data structures handling.
+@end menu
+
+@c page
+@node typedefs macros
+@section Preprocessor macros related to type definitions
 
 
 @deffn {Preprocessor Macro} CCLIB_STRUCT_TYPEDEF (@var{STRUCT})
@@ -482,15 +498,6 @@ Preprocessor macro that expands into a data structure typedef:
 typedef struct @var{STRUCT}      @var{STRUCT}
 @end example
 @end deffn
-
-@c page
-@node typedefs
-@chapter Common type definitions and related macros
-
-
-@menu
-* typedefs opaque::             Opaque data structures handling.
-@end menu
 
 @c page
 @node typedefs opaque

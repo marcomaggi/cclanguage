@@ -41,8 +41,6 @@ extern "C" {
 /* Type cast macro helper. */
 #define CCLIB_CAST(TYPE,X,Y)		TYPE X = (TYPE) (Y)
 
-#define CCLIB_STRUCT_TYPEDEF(STRUCT)	typedef struct STRUCT STRUCT
-
 
 /** --------------------------------------------------------------------
  ** Header files.
