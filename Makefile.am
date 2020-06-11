@@ -82,18 +82,62 @@ library: libcclanguage.la
 
 #### tests
 
-check_PROGRAMS	= \
-	tests/version
+check_PROGRAMS			=			\
+	tests/version					\
+	tests/test-struct-by-ptr-no-descr		\
+	tests/test-struct-by-ptr-with-descr		\
+	tests/test-struct-by-val-no-descr		\
+	tests/test-struct-by-val-with-descr
 
 TESTS				= $(check_PROGRAMS)
 
 cclanguage_tests_cppflags	= $(AM_CPPFLAGS) -I$(srcdir)/tests
-cclanguage_tests_ldadd		= $(AM_LDFLAGS) libcclanguage.la
+cclanguage_tests_ldadd		= $(AM_LDFLAGS) libcclanguage.la -lm
 
 ## --------------------------------------------------------------------
 
 tests_version_CPPFLAGS		= $(cclanguage_tests_cppflags)
 tests_version_LDADD		= $(cclanguage_tests_ldadd)
+
+## --------------------------------------------------------------------
+
+tests_test_struct_by_ptr_no_descr_SOURCES	=	\
+	tests/struct-by-ptr-no-descr.h			\
+	tests/struct-by-ptr-no-descr.c			\
+	tests/test-struct-by-ptr-no-descr.c
+
+tests_test_struct_by_ptr_no_descr_CPPFLAGS	= $(cclanguage_tests_cppflags)
+tests_test_struct_by_ptr_no_descr_LDADD		= $(cclanguage_tests_ldadd)
+
+## --------------------------------------------------------------------
+
+tests_test_struct_by_ptr_with_descr_SOURCES	=	\
+	tests/struct-by-ptr-with-descr.h		\
+	tests/struct-by-ptr-with-descr.c		\
+	tests/test-struct-by-ptr-with-descr.c
+
+tests_test_struct_by_ptr_with_descr_CPPFLAGS	= $(cclanguage_tests_cppflags)
+tests_test_struct_by_ptr_with_descr_LDADD	= $(cclanguage_tests_ldadd)
+
+## --------------------------------------------------------------------
+
+tests_test_struct_by_val_no_descr_SOURCES	=	\
+	tests/struct-by-val-no-descr.h			\
+	tests/struct-by-val-no-descr.c			\
+	tests/test-struct-by-val-no-descr.c
+
+tests_test_struct_by_val_no_descr_CPPFLAGS	= $(cclanguage_tests_cppflags)
+tests_test_struct_by_val_no_descr_LDADD		= $(cclanguage_tests_ldadd)
+
+## --------------------------------------------------------------------
+
+tests_test_struct_by_val_with_descr_SOURCES	=	\
+	tests/struct-by-val-with-descr.h		\
+	tests/struct-by-val-with-descr.c		\
+	tests/test-struct-by-val-with-descr.c
+
+tests_test_struct_by_val_with_descr_CPPFLAGS	= $(cclanguage_tests_cppflags)
+tests_test_struct_by_val_with_descr_LDADD	= $(cclanguage_tests_ldadd)
 
 ## --------------------------------------------------------------------
 
