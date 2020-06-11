@@ -84,10 +84,13 @@ library: libcclanguage.la
 
 check_PROGRAMS			=			\
 	tests/version					\
+							\
 	tests/test-struct-by-ptr-no-descr		\
 	tests/test-struct-by-ptr-with-descr		\
 	tests/test-struct-by-val-no-descr		\
-	tests/test-struct-by-val-with-descr
+	tests/test-struct-by-val-with-descr		\
+							\
+	tests/test-destructor-trait
 
 TESTS				= $(check_PROGRAMS)
 
@@ -138,6 +141,19 @@ tests_test_struct_by_val_with_descr_SOURCES	=	\
 
 tests_test_struct_by_val_with_descr_CPPFLAGS	= $(cclanguage_tests_cppflags)
 tests_test_struct_by_val_with_descr_LDADD	= $(cclanguage_tests_ldadd)
+
+## --------------------------------------------------------------------
+
+tests_test_destructor_trait_SOURCES		=	\
+	tests/destructor-trait.h			\
+	tests/struct-by-val-with-descr.h		\
+	tests/struct-by-val-with-descr.c		\
+	tests/struct-by-ptr-with-descr.h		\
+	tests/struct-by-ptr-with-descr.c		\
+	tests/test-destructor-trait.c
+
+tests_test_destructor_trait_CPPFLAGS		= $(cclanguage_tests_cppflags)
+tests_test_destructor_trait_LDADD		= $(cclanguage_tests_ldadd)
 
 ## --------------------------------------------------------------------
 
