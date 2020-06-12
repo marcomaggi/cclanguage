@@ -85,7 +85,7 @@ AC_CACHE_SAVE
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile]
-  [src/cclanguage-platform.h]
+  [src/cclanguage-typedefs.h]
   [meta/scripts/cclanguage.pc]
   [meta/slackware/slack-desc])
 MMUX_OUTPUT

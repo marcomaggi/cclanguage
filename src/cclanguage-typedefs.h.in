@@ -6,8 +6,7 @@
   Abstract
 
 	This header file contains  definitions to be used by all  the packages in the
-	CCLibraries  project.   This  header   file  defines  values  resulting  from
-	inspection of the underlying platforms.
+	CCLibraries project.  It defines some common types.
 
   Copyright (C) 2020 Marco Maggi <mrc.mgg@gmail.com>
 
@@ -24,8 +23,8 @@
   Suite 330, Boston, MA 02111-1307 USA.
 */
 
-#ifndef CCLANGUAGE_PLATFORM_H
-#define CCLANGUAGE_PLATFORM_H 1
+#ifndef CCLANGUAGE_TYPEDEFS_H
+#define CCLANGUAGE_TYPEDEFS_H 1
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,6 +36,24 @@ extern "C" {
  ** ----------------------------------------------------------------- */
 
 #include <stdint.h>
+
+
+/** --------------------------------------------------------------------
+ ** Helper macros.
+ ** ----------------------------------------------------------------- */
+
+#define CCLIB_STRUCT_TYPEDEF(STRUCT)	typedef struct STRUCT STRUCT
+
+
+/** --------------------------------------------------------------------
+ ** Common type definitions: opaque data structures handling.
+ ** ----------------------------------------------------------------- */
+
+typedef void				cclib_resource_data_t;
+typedef cclib_resource_data_t *		cclib_resource_pointer_t;
+
+#undef  cclib_resource_pointer
+#define cclib_resource_pointer(EXPR)	((cclib_resource_pointer_t)(EXPR))
 
 
 /** --------------------------------------------------------------------
@@ -237,6 +254,6 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 } // extern "C"
 #endif
 
-#endif /* defined CCLANGUAGE_PLATFORM_H */
+#endif /* defined CCLANGUAGE_TYPEDEFS_H */
 
 /* end of file */

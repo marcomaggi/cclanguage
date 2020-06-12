@@ -57,7 +57,6 @@ cclanguage_LINKER_VERSION	= -version-info $(cclanguage_CURRENT):$(cclanguage_REV
 
 include_HEADERS			=		\
 	src/cclanguage.h			\
-	src/cclanguage-platform.h		\
 	src/cclanguage-compiler.h		\
 	src/cclanguage-typedefs.h		\
 	src/cclanguage-variadic-macros.h	\
@@ -68,7 +67,6 @@ libcclanguage_la_LDFLAGS	= $(cclanguage_LINKER_VERSION)
 libcclanguage_la_SOURCES	=		\
 	src/cclanguage-internals.h		\
 	src/cclanguage.h			\
-	src/cclanguage-platform.h		\
 	src/cclanguage-compiler.h		\
 	src/cclanguage-typedefs.h		\
 	src/cclanguage-variadic-macros.h	\
