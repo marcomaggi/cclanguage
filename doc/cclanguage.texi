@@ -59,6 +59,10 @@
 @set DownloadUrl               @url{https://bitbucket.org/marcomaggi/@value{PACKAGE_NICKNAME}/downloads}
 @set DocumentationUrl          @url{https://marcomaggi.github.io/docs/@value{PACKAGE_NICKNAME}.html}
 
+@c ------------------------------------------------------------------------
+
+@set CCLibrariesExamples                CCLibraries Examples
+
 @c page
 @c ------------------------------------------------------------
 @c Copyright notice.
@@ -131,8 +135,6 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 * typedefs::                    Common type definitions and related macros.
 * variadic::                    Variadic preprocessor macros.
 * structs::                     Defining data structure handling @api{}.
-* exceptions::                  Exception handling helpers.
-* conditions::                  Exceptional-condition objects.
 
 Appendices
 
@@ -481,10 +483,533 @@ The C11 language facilities for type definitions are defined in the header file
 @file{cclanguage-typedefs.h}; this header is included by @file{cclanguage.h}.
 
 @menu
+* typedefs aliases::            Aliases of @posix{} standard types.
 * typedefs macros::             Preprocessor macros related to
                                 type definitions.
 * typedefs opaque::             Opaque data structures handling.
 @end menu
+
+@c page
+@node typedefs aliases
+@section Aliases of @posix{} standard types
+
+
+All the definitions documented in this section are defined in the header file
+@file{cclanguage-typedefs.h}; this header file is included by @file{cclanguage.h}.
+
+@menu
+* typedefs aliases types::      @posix{} standard types.
+* typedefs aliases limits::     Limits of @posix{} standard types.
+* typedefs aliases sizeof::     Size in bytes of @posix{} standard types.
+@end menu
+
+@c page
+@node typedefs aliases types
+@subsection @posix{} standard types
+
+
+@deftp {Typedef} cclib_sint8_t
+An alias for @objtype{int8_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_uint8_t
+An alias for @objtype{uint8_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_sint16_t
+An alias for @objtype{int16_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_uint16_t
+An alias for @objtype{uint16_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_sint32_t
+An alias for @objtype{int32_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_uint32_t
+An alias for @objtype{uint32_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_sint64_t
+An alias for @objtype{int64_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_uint64_t
+An alias for @objtype{uint64_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_schar_t
+An alias for @objtype{signed char}.
+@end deftp
+
+
+@deftp {Typedef} cclib_uchar_t
+An alias for @objtype{unsigned char}.
+@end deftp
+
+
+@deftp {Typedef} cclib_sshort_t
+An alias for @objtype{signed short int}.
+@end deftp
+
+
+@deftp {Typedef} cclib_ushort_t
+An alias for @objtype{unsigned short int}.
+@end deftp
+
+
+@deftp {Typedef} cclib_sint_t
+An alias for @objtype{signed int}.
+@end deftp
+
+
+@deftp {Typedef} cclib_uint_t
+An alias for @objtype{unsigned int}.
+@end deftp
+
+
+@deftp {Typedef} cclib_slong_t
+An alias for @objtype{signed long}.
+@end deftp
+
+
+@deftp {Typedef} cclib_ulong_t
+An alias for @objtype{unsigned long}.
+@end deftp
+
+
+@deftp {Typedef} cclib_sllong_t
+An alias for @objtype{signed long long}.
+@end deftp
+
+
+@deftp {Typedef} cclib_ullong_t
+An alias for @objtype{unsigned long long}.
+@end deftp
+
+
+@deftp {Typedef} cclib_float_t
+An alias for @objtype{float}.
+@end deftp
+
+
+@deftp {Typedef} cclib_double_t
+An alias for @objtype{double}.
+@end deftp
+
+
+@deftp {Typedef} cclib_ldouble_t
+An alias for @objtype{long double}.
+@end deftp
+
+
+@deftp {Typedef} cclib_sintmax_t
+An alias for the @objtype{intXX_t} type that matches in size the standard @objtype{intmax_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_uintmax_t
+An alias for the @objtype{uintXX_t} type that matches in size the standard @objtype{uintmax_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_sintptr_t
+An alias for the @objtype{intXX_t} type that matches in size the standard @objtype{intptr_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_uintmax_t
+An alias for the @objtype{uintXX_t} type that matches in size the standard @objtype{uintmax_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_ptrdiff_t
+An alias for the @objtype{intXX_t} type that matches in size the standard @objtype{ptrdiff_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_ssize_t
+An alias for the @objtype{intXX_t} type that matches in size the standard @objtype{ssize_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_usize_t
+An alias for the @objtype{uintXX_t} type that matches in size the standard @objtype{size_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_off_t
+An alias for the @objtype{intXX_t} type that matches in size the standard @objtype{off_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_wint_t
+An alias for the @objtype{intXX_t} type that matches in size the standard @objtype{wint_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_wchar_t
+An alias for the @objtype{intXX_t} type that matches in size the standard @objtype{wchar_t}.
+@end deftp
+
+@c page
+@node typedefs aliases limits
+@subsection Limits of @posix{} standard types
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SINT8
+@deffnx {Preprocessor Macro} CCLIB_MAX_SINT8
+Constant limits for the type @objtype{cclib_sint8_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_UINT8
+@deffnx {Preprocessor Macro} CCLIB_MAX_UINT8
+Constant limits for the type @objtype{cclib_uint8_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SINT16
+@deffnx {Preprocessor Macro} CCLIB_MAX_SINT16
+Constant limits for the type @objtype{cclib_sint16_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_UINT16
+@deffnx {Preprocessor Macro} CCLIB_MAX_UINT16
+Constant limits for the type @objtype{cclib_uint16_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SINT32
+@deffnx {Preprocessor Macro} CCLIB_MAX_SINT32
+Constant limits for the type @objtype{cclib_sint32_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_UINT32
+@deffnx {Preprocessor Macro} CCLIB_MAX_UINT32
+Constant limits for the type @objtype{cclib_uint32_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SINT64
+@deffnx {Preprocessor Macro} CCLIB_MAX_SINT64
+Constant limits for the type @objtype{cclib_sint64_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_UINT64
+@deffnx {Preprocessor Macro} CCLIB_MAX_UINT64
+Constant limits for the type @objtype{cclib_uint64_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SCHAR
+@deffnx {Preprocessor Macro} CCLIB_MAX_SCHAR
+Constant limits for the type @objtype{cclib_schar_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_UCHAR
+@deffnx {Preprocessor Macro} CCLIB_MAX_UCHAR
+Constant limits for the type @objtype{cclib_uchar_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SSHORT
+@deffnx {Preprocessor Macro} CCLIB_MAX_SSHORT
+Constant limits for the type @objtype{cclib_sshort_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_USHORT
+@deffnx {Preprocessor Macro} CCLIB_MAX_USHORT
+Constant limits for the type @objtype{cclib_ushort_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SINT
+@deffnx {Preprocessor Macro} CCLIB_MAX_SINT
+Constant limits for the type @objtype{cclib_sint_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_UINT
+@deffnx {Preprocessor Macro} CCLIB_MAX_UINT
+Constant limits for the type @objtype{cclib_uint_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SLONG
+@deffnx {Preprocessor Macro} CCLIB_MAX_SLONG
+Constant limits for the type @objtype{cclib_slong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_ULONG
+@deffnx {Preprocessor Macro} CCLIB_MAX_ULONG
+Constant limits for the type @objtype{cclib_ulong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SLLONG
+@deffnx {Preprocessor Macro} CCLIB_MAX_SLLONG
+Constant limits for the type @objtype{cclib_sllong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_ULLONG
+@deffnx {Preprocessor Macro} CCLIB_MAX_ULLONG
+Constant limits for the type @objtype{cclib_ullong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_FLOAT
+@deffnx {Preprocessor Macro} CCLIB_MAX_FLOAT
+Constant limits for the type @objtype{cclib_float_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_DOUBLE
+@deffnx {Preprocessor Macro} CCLIB_MAX_DOUBLE
+Constant limits for the type @objtype{cclib_double_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_LDOUBLE
+@deffnx {Preprocessor Macro} CCLIB_MAX_LDOUBLE
+Constant limits for the type @objtype{cclib_ldouble_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SINTMAX
+@deffnx {Preprocessor Macro} CCLIB_MAX_SINTMAX
+Constant limits for the type @objtype{cclib_sintmax_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_UINTMAX
+@deffnx {Preprocessor Macro} CCLIB_MAX_UINTMAX
+Constant limits for the type @objtype{cclib_uintmax_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SINTPTR
+@deffnx {Preprocessor Macro} CCLIB_MAX_SINTPTR
+Constant limits for the type @objtype{cclib_sintptr_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_UINTMAX
+@deffnx {Preprocessor Macro} CCLIB_MAX_UINTMAX
+Constant limits for the type @objtype{cclib_uintmax_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_PTRDIFF
+@deffnx {Preprocessor Macro} CCLIB_MAX_PTRDIFF
+Constant limits for the type @objtype{cclib_ptrdiff_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_SSIZE
+@deffnx {Preprocessor Macro} CCLIB_MAX_SSIZE
+Constant limits for the type @objtype{cclib_ssize_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_USIZE
+@deffnx {Preprocessor Macro} CCLIB_MAX_USIZE
+Constant limits for the type @objtype{cclib_usize_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_OFF
+@deffnx {Preprocessor Macro} CCLIB_MAX_OFF
+Constant limits for the type @objtype{cclib_off_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_WINT
+@deffnx {Preprocessor Macro} CCLIB_MAX_WINT
+Constant limits for the type @objtype{cclib_wint_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_WCHAR
+@deffnx {Preprocessor Macro} CCLIB_MAX_WCHAR
+Constant limits for the type @objtype{cclib_wchar_t}.
+@end deffn
+
+@c page
+@node typedefs aliases sizeof
+@subsection Size in bytes of @posix{} standard types
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SINT8
+The size in bytes of the type @objtype{cclib_sint8_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_UINT8
+The size in bytes of the type @objtype{cclib_uint8_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SINT16
+The size in bytes of the type @objtype{cclib_sint16_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_UINT16
+The size in bytes of the type @objtype{cclib_uint16_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SINT32
+The size in bytes of the type @objtype{cclib_sint32_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_UINT32
+The size in bytes of the type @objtype{cclib_uint32_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SINT64
+The size in bytes of the type @objtype{cclib_sint64_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_UINT64
+The size in bytes of the type @objtype{cclib_uint64_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SCHAR
+The size in bytes of the type @objtype{cclib_schar_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_UCHAR
+The size in bytes of the type @objtype{cclib_uchar_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SSHORT
+The size in bytes of the type @objtype{cclib_sshort_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_USHORT
+The size in bytes of the type @objtype{cclib_ushort_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SINT
+The size in bytes of the type @objtype{cclib_sint_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_UINT
+The size in bytes of the type @objtype{cclib_uint_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SLONG
+The size in bytes of the type @objtype{cclib_slong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_ULONG
+The size in bytes of the type @objtype{cclib_ulong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SLLONG
+The size in bytes of the type @objtype{cclib_sllong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_ULLONG
+The size in bytes of the type @objtype{cclib_ullong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_FLOAT
+The size in bytes of the type @objtype{cclib_float_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_DOUBLE
+The size in bytes of the type @objtype{cclib_double_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_LDOUBLE
+The size in bytes of the type @objtype{cclib_ldouble_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SINTMAX
+The size in bytes of the type @objtype{cclib_sintmax_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_UINTMAX
+The size in bytes of the type @objtype{cclib_uintmax_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SINTPTR
+The size in bytes of the type @objtype{cclib_sintptr_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_UINTMAX
+The size in bytes of the type @objtype{cclib_uintmax_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_PTRDIFF
+The size in bytes of the type @objtype{cclib_ptrdiff_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SSIZE
+The size in bytes of the type @objtype{cclib_ssize_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_USIZE
+The size in bytes of the type @objtype{cclib_usize_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_OFF
+The size in bytes of the type @objtype{cclib_off_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_WINT
+The size in bytes of the type @objtype{cclib_wint_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_WCHAR
+The size in bytes of the type @objtype{cclib_wchar_t}.
+@end deffn
 
 @c page
 @node typedefs macros
@@ -528,9 +1053,9 @@ Cast to @objtype{cclib_resource_pointer_t} the result of evaluating the expressi
 @chapter Variadic preprocessor macros
 
 
-The following definitions are in the header file @file{cclanguage.h}.  The variadic macros
-machinery implemented in the header file is derived from code found on Stack Overflow (@aurl{} last
-accessed Apr 1, 2020):
+The following definitions are in the header file @file{cclanguage-variadic-macros.h}; this header
+file is included by @file{cclanguage.h}.  The variadic macros machinery implemented in the header
+file is derived from code found on Stack Overflow (@aurl{} last accessed Apr 1, 2020):
 
 @center @url{https://stackoverflow.com/a/26408195}
 
@@ -538,13 +1063,13 @@ The machinery is composed of a number of preprocessor macros, of which only @cfu
 public.
 
 
-@deffn {Preprocessor Macro} CCLIB_VNAME (@var{FUNC}, @var{ARG}, ...)
-Expand into the name of a C language function or preprocessor macro; the name has @var{FUNC} as
-prefix and @code{_0}, @code{_1}, @code{_2}, @dots{} as suffix, depending on how many arguments are
-in the macro use after the mandatory @var{FUNC}.  We can use up to 63 arguments, generating names
-with suffix from @code{_1} to @code{_63}.
+@deffn {Preprocessor Macro} CCLIB_VNAME (@var{THING}, @varo{ARG}, @var{ARG}, @dots{})
+Expand into a C language name, usable as function, preprocessor macro or whatever; the name has
+@var{THING} as prefix and @code{_0}, @code{_1}, @code{_2}, @dots{} as suffix, depending on how many
+arguments are in the macro use after the mandatory @var{THING}.  We can use up to 63 arguments,
+generating names with suffix from @code{_1} to @code{_63}.
 
-@strong{NOTE} It is @strong{mandatory} to use at least one argument after @var{FUNC}: @var{ARG} is
+@strong{NOTE} It is @strong{mandatory} to use at least one argument after @var{THING}: @varo{ARG} is
 not optional!
 @end deffn
 
@@ -652,6 +1177,9 @@ my_two(alpha,beta)(1,2,4);
 @chapter Defining data structure handling @api{}
 
 
+The C11 language facilities for data structure type definitions are defined in the header file
+@file{cclanguage-structs.h}; this header is included by @file{cclanguage.h}.
+
 @menu
 * structs common::              Well known functions for @struct{} types.
 * structs values::              Data structures as values.
@@ -744,7 +1272,7 @@ determine the type of a data structure at run--time.
 
 
 The following code is a usage example of common function implementation for @struct{} types; this
-example is distributed in source form under the directory @file{examples} of CCExceptions, with the
+example is distributed in source form under in the package @value{CCLibrariesExamples}, with the
 file stem @code{struct-by-ptr-no-descr}.
 
 @smallexample
@@ -851,9 +1379,9 @@ data structure then use a pointer to it as argument to functions; but if a data 
 There is no better way to learn how to use this @api{} than to peruse the distributed and installed
 examples, they are the files with stem @code{struct-by-val-no-descr}.
 
-The header file @file{cclanguage.h} defines some macros especially for use with structures as
-values.  Some of these macros are variadic and accept from zero up to three @var{VARIANT} arguments;
-@ref{variadic, Variadic preprocessor macros}.
+The header file @file{cclanguage-structs.h} defines some macros especially for use with structures
+as values.  Some of these macros are variadic and accept from zero up to three @var{VARIANT}
+arguments; @ref{variadic, Variadic preprocessor macros}.
 
 
 @defmac cclib_make (@var{STRUCT}, @var{VARIANT}, @dots{})
@@ -895,8 +1423,8 @@ instances passed by value.
 
 
 A ``data structure with descriptor'' (or struct-with-descr) is just a regular C language data
-structure in which a field is itself a data structure defined by the @file{cclanguage.h} @api{} of
-preprocessor macros.  It is something like this pseudo--code:
+structure in which a field is itself a data structure defined by the @file{cclanguage-structs.h}
+@api{} of preprocessor macros.  It is something like this pseudo--code:
 
 @example
 struct cclib_descr_t @{
@@ -1138,7 +1666,7 @@ Traits are data structures with the following characteristics:
 
 @itemize
 @item
-Traits implement the @file{cclanguage.h} common data structures @api{}.
+Traits implement the @file{cclanguage-structs.h} common data structures @api{}.
 
 @item
 Traits are passed by value as arguments to functions, @ref{structs values, Data
@@ -1194,160 +1722,6 @@ struct-with-descr, @ref{structs descr, Data structures with descriptor}.
 Given a trait data structure @var{VAR} as argument: return a pointer to the underlying resource the
 @var{TRAIT} operates upon.
 @end deftypefn
-
-@c page
-@node exceptions
-@chapter Exception handling helpers
-
-
-The location handlers @api{} defined by CCExceptions requires data types and functions with specific
-roles, @ccexceptionsref{handlers, The location handlers @api{}}.  The header file
-@file{cclanguage.h} defines some preprocessor macros to tag the names of such definitions with
-their intended purpose.
-
-There is no better way to learn how to use this @api{} than to peruse the distributed and installed
-examples; all the examples defining a data structure type also implement the associated
-exception--handlers.
-
-All the macros are variadic and accept from zero up to three @var{VARIANT} arguments;
-@ref{variadic, Variadic preprocessor macros}.
-
-
-@defmac cclib_exception_handler_type (@var{STRUCT}, @var{VARIANT}, @dots{})
-@defmacx cclib_exception_handler_t (@var{STRUCT}, @var{VARIANT}, @dots{})
-Given the name of a data structure type @var{STRUCT}, and an optional variant specification: expand
-into the name of an exception--handler structure to be used to finalise instances of the structure
-type.  The data structure types should be wrappers for @objtype{cce_clean_handler_t} and
-@objtype{cce_error_handler_t}.
-@end defmac
-
-
-@defmac cclib_exception_handler_function (@var{STRUCT}, @var{VARIANT}, @dots{})
-Given the name of a data structure type @var{STRUCT}, and an optional variant specification: expand
-into the name of a function to be used as exception--handler.  These functions should have the type
-signature defined by the types @objtype{cce_clean_handler_fun_t} and
-@objtype{cce_error_handler_fun_t}.
-@end defmac
-
-
-@defmac cclib_exception_handler_init_and_register (@var{STRUCT}, @var{VARIANT}, @dots{})
-Given the name of a data structure type @var{STRUCT}, and an optional variant specification: expand
-into the name of a function to be used to initialise an exception handler to finalise an instance of
-the structure type.  These functions should call @cfunc{cce_init_and_register_handler} to perform
-the operation.
-@end defmac
-
-@c page
-@node conditions
-@chapter Exceptional--condition objects
-
-
-The exceptional--condition objects @api{} defined by CCExceptions requires data types and functions
-with specific roles, @ccexceptionsref{conditions, Exceptional condition descriptors}.  The header
-file @file{cclanguage.h} defines some preprocessor macros to tag the names of such definitions with
-their intended purpose.
-
-There is no better way to learn how to use this @api{} than to peruse the distributed and installed
-examples, they are the files with stem @code{condition-object}.
-
-All the macros are variadic and accept from zero up to three @var{VARIANT} arguments; @ref{variadic,
-Variadic preprocessor macros}.  The @var{STEM} argument to a macro must uniquely identify an
-exceptional--condition object type; it should be composed by:
-
-@itemize
-@item
-A library or context prefix, like @code{cce_} for CCExceptions types.
-
-@item
-An exceptional--condition description, like @code{logic_error}.
-@end itemize
-
-
-@defmac cclib_exceptional_condition_descriptor_type (@var{STEM}, @var{VARIANT}, @dots{})
-@defmacx cclib_exceptional_condition_descriptor_t (@var{STEM}, @var{VARIANT}, @dots{})
-Expand into the name of an exceptional--condition descriptor type.  Usage example:
-
-@example
-struct cclib_exceptional_condition_descriptor_type(my_error) @{
-  cce_descriptor_t      descriptor;
-@};
-@end example
-@end defmac
-
-
-@defmac cclib_exceptional_condition_descriptor (@var{STEM}, @var{VARIANT}, @dots{})
-Expand into the name of an exceptional--condition descriptor variable.  Usage example:
-
-@example
-static cclib_exceptional_condition_descriptor_type(my_error)
-    cclib_exceptional_condition_descriptor(my_error) = @{
-  .descriptor.parent            = ...,
-  .descriptor.final             = ...,
-  .descriptor.delete            = ...,
-  .descriptor.static_message    = ...
-@};
-@end example
-@end defmac
-
-
-@deftypefn {Preprocessor Macro} {cce_descriptor_t *} cclib_exceptional_condition_descriptor_pointer (@var{STEM}, @var{VARIANT}, @dots{})
-This macro is similar to @cfunc{cce_descriptor_pointer}, @ccexceptionsref{conditions descriptors,
-cce_descriptor_pointer}.  Expand into an expression evaluating to the pointer to an
-exceptional--condition descriptor variable.  The expression:
-
-@example
-cclib_exceptional_condition_descriptor_pointer(my_error)
-@end example
-
-@noindent
-expands into the address of the field @code{descriptor} in the data structure variable:
-
-@example
-cclib_exceptional_condition_descriptor(my_error)
-@end example
-@end deftypefn
-
-
-@defmac cclib_exceptional_condition_descriptor_set_parent_to (@var{STEM}, @var{VARIANT}, @dots{})
-This macro is similar to @cfunc{cce_descriptor_set_parent_to}, @ccexceptionsref{conditions
-descriptors, cce_descriptor_set_parent_to}.  Expand into the name of a function that set the parent
-of a descriptor.  Usage example:
-
-@example
-void
-cclib_exceptional_condition_descriptor_set_parent_to(my_error) (cce_descriptor_t * const D)
-@{
-  D->parent = cclib_exceptional_condition_descriptor_pointer(my_error);
-@}
-@end example
-@end defmac
-
-
-@defmac cclib_exceptional_condition_object_type (@var{STEM}, @var{VARIANT}, @dots{})
-@defmacx cclib_exceptional_condition_object_t (@var{STEM}, @var{VARIANT}, @dots{})
-Expand into the name of an exceptional--condition object type.
-@end defmac
-
-
-@defmac cclib_exceptional_condition_object_is (@var{STEM}, @var{VARIANT}, @dots{})
-Expand into the name of a predicate function which, applied to an argument of type
-@code{cce_condition_t const *}, returns @ctrue{} if the argument is a pointer to an
-exceptional--condition object of type:
-
-@example
-cclib_exceptional_condition_object_type (@var{STEM}, @var{VARIANT}, @dots{})
-@end example
-
-Usage example:
-
-@example
-bool
-cclib_exceptional_condition_object_is(my_error) (cce_condition_t const * C)
-@{
-  return cce_condition_is(C, cclib_exceptional_condition_descriptor_pointer(my_error));
-@}
-@end example
-@end defmac
 
 @c page
 @c ------------------------------------------------------------
