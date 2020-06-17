@@ -176,26 +176,26 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_MIN_UCHAR		((cclib_uchar_t)0)
 #define CCLIB_MAX_UCHAR		((cclib_uchar_t)@MMUX_VALUEOF_UCHAR_MAX@)
 
-#define CCLIB_MIN_SHRT		((cclib_sshrt_t)@MMUX_VALUEOF_SHRT_MIN@)
-#define CCLIB_MAX_SHRT		((cclib_sshrt_t)@MMUX_VALUEOF_SHRT_MAX@)
+#define CCLIB_MIN_SSHRT		((cclib_sshrt_t)@MMUX_VALUEOF_SHRT_MIN@)
+#define CCLIB_MAX_SSHRT		((cclib_sshrt_t)@MMUX_VALUEOF_SHRT_MAX@)
 
 #define CCLIB_MIN_USHRT		((cclib_ushrt_t)0)
 #define CCLIB_MAX_USHRT		((cclib_ushrt_t)@MMUX_VALUEOF_USHRT_MAX@)
 
-#define CCLIB_MIN_INT		((cclib_sint_t)@MMUX_VALUEOF_INT_MIN@)
-#define CCLIB_MAX_INT		((cclib_sint_t)@MMUX_VALUEOF_INT_MAX@)
+#define CCLIB_MIN_SINT		((cclib_sint_t)@MMUX_VALUEOF_INT_MIN@)
+#define CCLIB_MAX_SINT		((cclib_sint_t)@MMUX_VALUEOF_INT_MAX@)
 
 #define CCLIB_MIN_UINT		((cclib_uint_t)0)
 #define CCLIB_MAX_UINT		((cclib_uint_t)@MMUX_VALUEOF_UINT_MAX@)
 
-#define CCLIB_MIN_LONG		((cclib_slong_t)@MMUX_VALUEOF_LONG_MIN@L)
-#define CCLIB_MAX_LONG		((cclib_slong_t)@MMUX_VALUEOF_LONG_MAX@L)
+#define CCLIB_MIN_SLONG		((cclib_slong_t)@MMUX_VALUEOF_LONG_MIN@L)
+#define CCLIB_MAX_SLONG		((cclib_slong_t)@MMUX_VALUEOF_LONG_MAX@L)
 
 #define CCLIB_MIN_ULONG		((cclib_ulong_t)0UL)
 #define CCLIB_MAX_ULONG		((cclib_ulong_t)@MMUX_VALUEOF_ULONG_MAX@UL)
 
-#define CCLIB_MIN_LLONG		((cclib_sllong_t)@MMUX_VALUEOF_LLONG_MIN@LL)
-#define CCLIB_MAX_LLONG		((cclib_sllong_t)@MMUX_VALUEOF_LLONG_MAX@LL)
+#define CCLIB_MIN_SLLONG	((cclib_sllong_t)@MMUX_VALUEOF_LLONG_MIN@LL)
+#define CCLIB_MAX_SLLONG	((cclib_sllong_t)@MMUX_VALUEOF_LLONG_MAX@LL)
 
 #define CCLIB_MIN_ULLONG	((cclib_ullong_t)0ULL)
 #define CCLIB_MAX_ULLONG	((cclib_ullong_t)@MMUX_VALUEOF_ULLONG_MAX@ULL)
