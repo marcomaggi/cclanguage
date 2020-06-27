@@ -123,11 +123,13 @@ $ make html
 $ make install-html
 ```
 
+Usage examples for this package, and all the packages in the CCLibraries
+project, are available in the companion package CCLibraries Examples.
+
 ## Credits
 
 The  stuff was  written by  Marco Maggi.   If this  package exists  it's
 because of the great GNU software tools that he uses all the time.
-
 
 ## Bugs
 
@@ -159,6 +161,9 @@ the GNU Project software can be found here:
 
 [http://www.gnu.org/](http://www.gnu.org/)
 
+the companion package CCLibraries Examples is available from:
+
+[http://github.com/marcomaggi/cclibraries-examples/](http://github.com/marcomaggi/cclibraries-examples/)
 
 ## Badges and static analysis
 

@@ -120,6 +120,10 @@ documentation in HTML format by running:
    $ make html
    $ make install-html
 
+  Usage  examples  for  this  package,  and  all  the  packages  in  the
+CCLibraries project, are available  in the companion package CCLibraries
+Examples.
+
 
 A. Credits
 ----------
@@ -159,6 +163,10 @@ the documentation is available online:
 the GNU Project software can be found here:
 
 			 <http://www.gnu.org/>
+
+the companion package CCLibraries Examples is available from:
+
+	  <http://github.com/marcomaggi/cclibraries-examples/>
 
 
 D. Badges and static analysis
