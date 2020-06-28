@@ -122,13 +122,8 @@ extern "C" {
 
 
 /** --------------------------------------------------------------------
- ** Automatically generated names API: data structure with descriptor.
+ ** Automatically generated names API: methods table.
  ** ----------------------------------------------------------------- */
-
-/* Given a data  structure name STRUCT, which  is meant to be a  "struct with descr":
-   expand into the type name of its descriptor field. */
-#define cclib_struct_descriptor_type(STRUCT)			cclib_struct_descriptor_ ## STRUCT ## _descr_t
-#define cclib_struct_descriptor_t(STRUCT)			cclib_struct_descriptor_ ## STRUCT ## _descr_t
 
 /* Given a struct type name STRUCT  and an optional variant specification VAR: expand
    into the name of the struct's methods table type. */
@@ -169,6 +164,11 @@ extern "C" {
 /** --------------------------------------------------------------------
  ** Automatically generated definitions API: data structure with descriptor.
  ** ----------------------------------------------------------------- */
+
+/* Given a data  structure name STRUCT, which  is meant to be a  "struct with descr":
+   expand into the type name of its descriptor field. */
+#define cclib_struct_descriptor_type(STRUCT)			cclib_struct_descriptor_ ## STRUCT ## _descr_t
+#define cclib_struct_descriptor_t(STRUCT)			cclib_struct_descriptor_ ## STRUCT ## _descr_t
 
 /* Define everything needed to declare a "struct with descriptor":
  *
