@@ -89,7 +89,8 @@ check_PROGRAMS			=			\
 	tests/test-struct-by-val-with-descr		\
 							\
 	tests/test-destructor-trait			\
-	tests/test-variadic-macros
+	tests/test-variadic-macros			\
+	tests/test-virtual-methods
 
 TESTS				= $(check_PROGRAMS)
 
@@ -156,11 +157,15 @@ tests_test_destructor_trait_LDADD		= $(cclanguage_tests_ldadd)
 
 ## --------------------------------------------------------------------
 
-tests_test_variadic_macros_SOURCES		=	\
-	tests/test-variadic-macros.c
-
+tests_test_variadic_macros_SOURCES		= tests/test-variadic-macros.c
 tests_test_variadic_macros_CPPFLAGS		= $(cclanguage_tests_cppflags)
 tests_test_variadic_macros_LDADD		= $(cclanguage_tests_ldadd)
+
+## --------------------------------------------------------------------
+
+tests_test_virtual_methods_SOURCES		= tests/test-virtual-methods.c
+tests_test_virtual_methods_CPPFLAGS		= $(cclanguage_tests_cppflags)
+tests_test_virtual_methods_LDADD		= $(cclanguage_tests_ldadd)
 
 ## --------------------------------------------------------------------
 
