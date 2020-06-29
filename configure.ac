@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 MMUX_PKG_VERSIONS([0],[1],[0],[devel.0])
-AC_INIT([Cclanguage],[MMUX_PACKAGE_VERSION],
+AC_INIT([CCLanguage],[MMUX_PACKAGE_VERSION],
   [mrc.mgg@gmail.com],
   [cclanguage],[http://github.com/marcomaggi/cclanguage/])
 MMUX_INIT
