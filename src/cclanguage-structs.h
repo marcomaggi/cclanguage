@@ -142,6 +142,14 @@ extern "C" {
 #define cclib_methods_table_4(STRUCT, VAR1, VAR2, VAR3)		STRUCT ## __methods_table__ ## VAR1 ## _ ## VAR2 ## __ ## VAR3
 #define cclib_methods_table(...)				CCLIB_VNAME(cclib_methods_table, __VA_ARGS__)
 
+/* Given a struct type name STRUCT  and an optional variant specification VAR: expand
+   into the name of the struct's methods table's pointer. */
+#define cclib_methods_table_ptr_1(STRUCT)			STRUCT ## __methods_table_ptr
+#define cclib_methods_table_ptr_2(STRUCT, VAR)			STRUCT ## __methods_table_ptr__ ## VAR
+#define cclib_methods_table_ptr_3(STRUCT, VAR1, VAR2)		STRUCT ## __methods_table_ptr__ ## VAR1 ## _ ## VAR2
+#define cclib_methods_table_ptr_4(STRUCT, VAR1, VAR2, VAR3)	STRUCT ## __methods_table_ptr__ ## VAR1 ## _ ## VAR2 ## __ ## VAR3
+#define cclib_methods_table_ptr(...)				CCLIB_VNAME(cclib_methods_table_ptr, __VA_ARGS__)
+
 /* Given the  struct type name  STRUCT, the method  name METHOD, an  optional variant
    specification  VAR: expand  into  the type  name  of that  variant  of the  method
    function for the struct type. */

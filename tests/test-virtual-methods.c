@@ -142,6 +142,8 @@ static cclib_methods_table_t(my_stuff_t) cclib_methods_table(my_stuff_t) = {
   .gamma	= cclib_method(my_stuff_t, gamma),
 };
 
+cclib_methods_table_t(my_stuff_t) const * const cclib_methods_table_ptr(my_stuff_t) = &cclib_methods_table(my_stuff_t);
+
 
 /** --------------------------------------------------------------------
  ** Let's go.
@@ -151,7 +153,7 @@ static void
 initialise_methods_tables (void)
 {
   /* Copy the methods from "my_thing_t"'s table into "my_stuff_t"'s table. */
-  CCLIB_PC(cclib_methods_table_type(my_thing_t), T, &cclib_methods_table(my_stuff_t));
+  CCLIB_PC(cclib_methods_table_type(my_thing_t), T, cclib_methods_table_ptr(my_stuff_t));
   *T = cclib_methods_table(my_thing_t);
 
   /* Override method "beta" for "my_stuff_t". */

@@ -1396,6 +1396,17 @@ static cclib_methods_table_type(my_vector_t) const cclib_methods_table(my_vector
 @end defmac
 
 
+@defmac cclib_methods_table_ptr (@var{STRUCT_TYPE}, @var{VARIANT}, @dots{})
+Given a data structure name @var{STRUCT} and an optional variant specification: expand into the name
+of a methods table's pointer.
+
+@example
+cclib_methods_table_type(my_vector_t) const * const \
+  cclib_methods_table_ptr(my_vector_t, embedded) = &cclib_methods_table(my_vector_t, embedded);
+@end example
+@end defmac
+
+
 @defmac cclib_method_type (@var{STRUCT}, @var{METHOD}, @var{VARIANT}, @dots{})
 @defmacx cclib_method_t (@var{STRUCT}, @var{METHOD}, @var{VARIANT}, @dots{})
 These two preprocessor macros are aliases: they expand into the same result.  Given a data structure
