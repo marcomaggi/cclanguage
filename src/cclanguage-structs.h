@@ -126,6 +126,14 @@ extern "C" {
  ** ----------------------------------------------------------------- */
 
 /* Given a struct type name STRUCT  and an optional variant specification VAR: expand
+   into the name of the struct's methods table fields definitions. */
+#define cclib_methods_table_fields_1(STRUCT)			STRUCT ## __methods_table_fields
+#define cclib_methods_table_fields_2(STRUCT, VAR)		STRUCT ## __methods_table_fields__ ## VAR
+#define cclib_methods_table_fields_3(STRUCT, VAR1, VAR2)	STRUCT ## __methods_table_fields__ ## VAR1 ## _ ## VAR2
+#define cclib_methods_table_fields_4(STRUCT, VAR1, VAR2, VAR3)	STRUCT ## __methods_table_fields__ ## VAR1 ## _ ## VAR2 ## __ ## VAR3
+#define cclib_methods_table_fields(...)				CCLIB_VNAME(cclib_methods_table_fields, __VA_ARGS__)
+
+/* Given a struct type name STRUCT  and an optional variant specification VAR: expand
    into the name of the struct's methods table type. */
 #define cclib_methods_table_type_1(STRUCT)			STRUCT ## __methods_table_t
 #define cclib_methods_table_type_2(STRUCT, VAR)			STRUCT ## __methods_table_t__ ## VAR

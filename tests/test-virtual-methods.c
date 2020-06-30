@@ -28,7 +28,6 @@
   PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE IS  PROVIDED ON AN "AS IS" BASIS, AND
   THE AUTHOR  AND DISTRIBUTORS  HAVE NO OBLIGATION  TO PROVIDE  MAINTENANCE, SUPPORT,
   UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-
 */
 
 
@@ -51,12 +50,16 @@ CCLIB_STRUCT_TYPEDEF(cclib_methods_table_t(my_thing_t));
 typedef int cclib_method_t(my_thing_t, alpha) (int a);
 typedef int cclib_method_t(my_thing_t, beta)  (int b);
 
-#define CCLIB_METHODS_TABLE_MY_THING_T			    \
+#define my_thing_t__methods_table_fields		    \
   cclib_method_t(my_thing_t, alpha)	*alpha;		    \
   cclib_method_t(my_thing_t, beta)	*beta
 
 struct cclib_methods_table_t(my_thing_t) {
-  CCLIB_METHODS_TABLE_MY_THING_T;
+#if 1
+  my_thing_t__methods_table_fields;
+#else
+  cclib_methods_table_fields(my_thing_t);
+#endif
 };
 
 
@@ -100,7 +103,11 @@ typedef int cclib_method_t(my_stuff_t, delta) (int d);
 typedef int cclib_method_t(my_stuff_t, gamma) (int g);
 
 struct cclib_methods_table_t(my_stuff_t) {
-  CCLIB_METHODS_TABLE_MY_THING_T;
+#if 1
+  my_thing_t__methods_table_fields;
+#else
+  cclib_methods_table_fields(my_thing_t);
+#endif
   cclib_method_t(my_stuff_t, delta)	*delta;
   cclib_method_t(my_stuff_t, gamma)	*gamma;
 };
