@@ -90,7 +90,8 @@ check_PROGRAMS			=			\
 							\
 	tests/test-destructor-trait			\
 	tests/test-variadic-macros			\
-	tests/test-virtual-methods
+	tests/test-virtual-methods			\
+	tests/test-type-aliases
 
 TESTS				= $(check_PROGRAMS)
 
@@ -166,6 +167,12 @@ tests_test_variadic_macros_LDADD		= $(cclanguage_tests_ldadd)
 tests_test_virtual_methods_SOURCES		= tests/test-virtual-methods.c
 tests_test_virtual_methods_CPPFLAGS		= $(cclanguage_tests_cppflags)
 tests_test_virtual_methods_LDADD		= $(cclanguage_tests_ldadd)
+
+## --------------------------------------------------------------------
+
+tests_test_type_aliases_SOURCES			= tests/test-type-aliases.c
+tests_test_type_aliases_CPPFLAGS		= $(cclanguage_tests_cppflags)
+tests_test_type_aliases_LDADD			= $(cclanguage_tests_ldadd)
 
 ## --------------------------------------------------------------------
 
