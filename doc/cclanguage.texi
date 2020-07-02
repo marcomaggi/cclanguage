@@ -506,6 +506,8 @@ All the definitions documented in this section are defined in the header file
 * typedefs aliases types::      @posix{} standard types.
 * typedefs aliases limits::     Limits of @posix{} standard types.
 * typedefs aliases sizeof::     Size in bytes of @posix{} standard types.
+* typedefs aliases cast::       Casting values to @posix{} standard types.
+* typedefs aliases print::      Printing values of @posix{} standard types.
 @end menu
 
 @c page
@@ -672,188 +674,270 @@ An alias for the @objtype{intXX_t} type that matches in size the standard @objty
 @subsection Limits of @posix{} standard types
 
 
+@defmac cclib_type_max (@var{TYPE})
+Expand into the preprocessor symbol representing the maximum value in a type range.  The expansion
+body is:
+
+@example
+(CCLIB_MAX_ ## @var{TYPE})
+@end example
+@end defmac
+
+
+@defmac cclib_type_min (@var{TYPE})
+Expand into the preprocessor symbol representing the minimum value in a type range.  The expansion
+body is:
+
+@example
+(CCLIB_MIN_ ## @var{TYPE})
+@end example
+@end defmac
+
+
 @deffn {Preprocessor Macro} CCLIB_MIN_SINT8
 @deffnx {Preprocessor Macro} CCLIB_MAX_SINT8
+@deffnx {Preprocessor Macro} CCLIB_MIN_sint8
+@deffnx {Preprocessor Macro} CCLIB_MAX_sint8
 Constant limits for the type @objtype{cclib_sint8_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_UINT8
 @deffnx {Preprocessor Macro} CCLIB_MAX_UINT8
+@deffnx {Preprocessor Macro} CCLIB_MIN_uint8
+@deffnx {Preprocessor Macro} CCLIB_MAX_uint8
 Constant limits for the type @objtype{cclib_uint8_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SINT16
 @deffnx {Preprocessor Macro} CCLIB_MAX_SINT16
+@deffnx {Preprocessor Macro} CCLIB_MIN_sint16
+@deffnx {Preprocessor Macro} CCLIB_MAX_sint16
 Constant limits for the type @objtype{cclib_sint16_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_UINT16
 @deffnx {Preprocessor Macro} CCLIB_MAX_UINT16
+@deffnx {Preprocessor Macro} CCLIB_MIN_uint16
+@deffnx {Preprocessor Macro} CCLIB_MAX_uint16
 Constant limits for the type @objtype{cclib_uint16_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SINT32
 @deffnx {Preprocessor Macro} CCLIB_MAX_SINT32
+@deffnx {Preprocessor Macro} CCLIB_MIN_sint32
+@deffnx {Preprocessor Macro} CCLIB_MAX_sint32
 Constant limits for the type @objtype{cclib_sint32_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_UINT32
 @deffnx {Preprocessor Macro} CCLIB_MAX_UINT32
+@deffnx {Preprocessor Macro} CCLIB_MIN_uint32
+@deffnx {Preprocessor Macro} CCLIB_MAX_uint32
 Constant limits for the type @objtype{cclib_uint32_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SINT64
 @deffnx {Preprocessor Macro} CCLIB_MAX_SINT64
+@deffnx {Preprocessor Macro} CCLIB_MIN_sint64
+@deffnx {Preprocessor Macro} CCLIB_MAX_sint64
 Constant limits for the type @objtype{cclib_sint64_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_UINT64
 @deffnx {Preprocessor Macro} CCLIB_MAX_UINT64
+@deffnx {Preprocessor Macro} CCLIB_MIN_uint64
+@deffnx {Preprocessor Macro} CCLIB_MAX_uint64
 Constant limits for the type @objtype{cclib_uint64_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SCHAR
 @deffnx {Preprocessor Macro} CCLIB_MAX_SCHAR
+@deffnx {Preprocessor Macro} CCLIB_MIN_schar
+@deffnx {Preprocessor Macro} CCLIB_MAX_schar
 Constant limits for the type @objtype{cclib_schar_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_UCHAR
 @deffnx {Preprocessor Macro} CCLIB_MAX_UCHAR
+@deffnx {Preprocessor Macro} CCLIB_MIN_uchar
+@deffnx {Preprocessor Macro} CCLIB_MAX_uchar
 Constant limits for the type @objtype{cclib_uchar_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SSHORT
 @deffnx {Preprocessor Macro} CCLIB_MAX_SSHORT
+@deffnx {Preprocessor Macro} CCLIB_MIN_sshort
+@deffnx {Preprocessor Macro} CCLIB_MAX_sshort
 Constant limits for the type @objtype{cclib_sshort_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_USHORT
 @deffnx {Preprocessor Macro} CCLIB_MAX_USHORT
+@deffnx {Preprocessor Macro} CCLIB_MIN_ushort
+@deffnx {Preprocessor Macro} CCLIB_MAX_ushort
 Constant limits for the type @objtype{cclib_ushort_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SINT
 @deffnx {Preprocessor Macro} CCLIB_MAX_SINT
+@deffnx {Preprocessor Macro} CCLIB_MIN_sint
+@deffnx {Preprocessor Macro} CCLIB_MAX_sint
 Constant limits for the type @objtype{cclib_sint_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_UINT
 @deffnx {Preprocessor Macro} CCLIB_MAX_UINT
+@deffnx {Preprocessor Macro} CCLIB_MIN_uint
+@deffnx {Preprocessor Macro} CCLIB_MAX_uint
 Constant limits for the type @objtype{cclib_uint_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SLONG
 @deffnx {Preprocessor Macro} CCLIB_MAX_SLONG
+@deffnx {Preprocessor Macro} CCLIB_MIN_slong
+@deffnx {Preprocessor Macro} CCLIB_MAX_slong
 Constant limits for the type @objtype{cclib_slong_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_ULONG
 @deffnx {Preprocessor Macro} CCLIB_MAX_ULONG
+@deffnx {Preprocessor Macro} CCLIB_MIN_ulong
+@deffnx {Preprocessor Macro} CCLIB_MAX_ulong
 Constant limits for the type @objtype{cclib_ulong_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SLLONG
 @deffnx {Preprocessor Macro} CCLIB_MAX_SLLONG
+@deffnx {Preprocessor Macro} CCLIB_MIN_sllong
+@deffnx {Preprocessor Macro} CCLIB_MAX_sllong
 Constant limits for the type @objtype{cclib_sllong_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_ULLONG
 @deffnx {Preprocessor Macro} CCLIB_MAX_ULLONG
+@deffnx {Preprocessor Macro} CCLIB_MIN_ullong
+@deffnx {Preprocessor Macro} CCLIB_MAX_ullong
 Constant limits for the type @objtype{cclib_ullong_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_FLOAT
 @deffnx {Preprocessor Macro} CCLIB_MAX_FLOAT
+@deffnx {Preprocessor Macro} CCLIB_MIN_float
+@deffnx {Preprocessor Macro} CCLIB_MAX_float
 Constant limits for the type @objtype{cclib_float_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_DOUBLE
 @deffnx {Preprocessor Macro} CCLIB_MAX_DOUBLE
+@deffnx {Preprocessor Macro} CCLIB_MIN_double
+@deffnx {Preprocessor Macro} CCLIB_MAX_double
 Constant limits for the type @objtype{cclib_double_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_LDOUBLE
 @deffnx {Preprocessor Macro} CCLIB_MAX_LDOUBLE
+@deffnx {Preprocessor Macro} CCLIB_MIN_ldouble
+@deffnx {Preprocessor Macro} CCLIB_MAX_ldouble
 Constant limits for the type @objtype{cclib_ldouble_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SINTMAX
 @deffnx {Preprocessor Macro} CCLIB_MAX_SINTMAX
+@deffnx {Preprocessor Macro} CCLIB_MIN_sintmax
+@deffnx {Preprocessor Macro} CCLIB_MAX_sintmax
 Constant limits for the type @objtype{cclib_sintmax_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_UINTMAX
 @deffnx {Preprocessor Macro} CCLIB_MAX_UINTMAX
+@deffnx {Preprocessor Macro} CCLIB_MIN_uintmax
+@deffnx {Preprocessor Macro} CCLIB_MAX_uintmax
 Constant limits for the type @objtype{cclib_uintmax_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SINTPTR
 @deffnx {Preprocessor Macro} CCLIB_MAX_SINTPTR
+@deffnx {Preprocessor Macro} CCLIB_MIN_sintptr
+@deffnx {Preprocessor Macro} CCLIB_MAX_sintptr
 Constant limits for the type @objtype{cclib_sintptr_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_UINTMAX
 @deffnx {Preprocessor Macro} CCLIB_MAX_UINTMAX
+@deffnx {Preprocessor Macro} CCLIB_MIN_uintmax
+@deffnx {Preprocessor Macro} CCLIB_MAX_uintmax
 Constant limits for the type @objtype{cclib_uintmax_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_PTRDIFF
 @deffnx {Preprocessor Macro} CCLIB_MAX_PTRDIFF
+@deffnx {Preprocessor Macro} CCLIB_MIN_ptrdiff
+@deffnx {Preprocessor Macro} CCLIB_MAX_ptrdiff
 Constant limits for the type @objtype{cclib_ptrdiff_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_SSIZE
 @deffnx {Preprocessor Macro} CCLIB_MAX_SSIZE
+@deffnx {Preprocessor Macro} CCLIB_MIN_ssize
+@deffnx {Preprocessor Macro} CCLIB_MAX_ssize
 Constant limits for the type @objtype{cclib_ssize_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_USIZE
 @deffnx {Preprocessor Macro} CCLIB_MAX_USIZE
+@deffnx {Preprocessor Macro} CCLIB_MIN_usize
+@deffnx {Preprocessor Macro} CCLIB_MAX_usize
 Constant limits for the type @objtype{cclib_usize_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_OFF
 @deffnx {Preprocessor Macro} CCLIB_MAX_OFF
+@deffnx {Preprocessor Macro} CCLIB_MIN_off
+@deffnx {Preprocessor Macro} CCLIB_MAX_off
 Constant limits for the type @objtype{cclib_off_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_WINT
 @deffnx {Preprocessor Macro} CCLIB_MAX_WINT
+@deffnx {Preprocessor Macro} CCLIB_MIN_wint
+@deffnx {Preprocessor Macro} CCLIB_MAX_wint
 Constant limits for the type @objtype{cclib_wint_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_MIN_WCHAR
 @deffnx {Preprocessor Macro} CCLIB_MAX_WCHAR
+@deffnx {Preprocessor Macro} CCLIB_MIN_wchar
+@deffnx {Preprocessor Macro} CCLIB_MAX_wchar
 Constant limits for the type @objtype{cclib_wchar_t}.
 @end deffn
 
@@ -862,158 +946,563 @@ Constant limits for the type @objtype{cclib_wchar_t}.
 @subsection Size in bytes of @posix{} standard types
 
 
+@defmac cclib_type_sizeof (@var{TYPE})
+Expand into the preprocessor symbol representing the size of a type in bytes.  The expansion body
+is:
+
+@example
+(CCLIB_SIZEOF_ ## @var{TYPE})
+@end example
+@end defmac
+
+
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SINT8
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sint8
 The size in bytes of the type @objtype{cclib_sint8_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_UINT8
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_uint8
 The size in bytes of the type @objtype{cclib_uint8_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SINT16
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sint16
 The size in bytes of the type @objtype{cclib_sint16_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_UINT16
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_uint16
 The size in bytes of the type @objtype{cclib_uint16_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SINT32
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sint32
 The size in bytes of the type @objtype{cclib_sint32_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_UINT32
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_uint32
 The size in bytes of the type @objtype{cclib_uint32_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SINT64
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sint64
 The size in bytes of the type @objtype{cclib_sint64_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_UINT64
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_uint64
 The size in bytes of the type @objtype{cclib_uint64_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SCHAR
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_schar
 The size in bytes of the type @objtype{cclib_schar_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_UCHAR
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_uchar
 The size in bytes of the type @objtype{cclib_uchar_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SSHORT
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sshort
 The size in bytes of the type @objtype{cclib_sshort_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_USHORT
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_ushort
 The size in bytes of the type @objtype{cclib_ushort_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SINT
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sint
 The size in bytes of the type @objtype{cclib_sint_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_UINT
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_uint
 The size in bytes of the type @objtype{cclib_uint_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SLONG
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_slong
 The size in bytes of the type @objtype{cclib_slong_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_ULONG
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_ulong
 The size in bytes of the type @objtype{cclib_ulong_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SLLONG
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sllong
 The size in bytes of the type @objtype{cclib_sllong_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_ULLONG
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_ullong
 The size in bytes of the type @objtype{cclib_ullong_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_FLOAT
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_float
 The size in bytes of the type @objtype{cclib_float_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_DOUBLE
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_double
 The size in bytes of the type @objtype{cclib_double_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_LDOUBLE
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_ldouble
 The size in bytes of the type @objtype{cclib_ldouble_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SINTMAX
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sintmax
 The size in bytes of the type @objtype{cclib_sintmax_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_UINTMAX
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_uintmax
 The size in bytes of the type @objtype{cclib_uintmax_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SINTPTR
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sintptr
 The size in bytes of the type @objtype{cclib_sintptr_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_UINTMAX
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_uintmax
 The size in bytes of the type @objtype{cclib_uintmax_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_PTRDIFF
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_ptrdiff
 The size in bytes of the type @objtype{cclib_ptrdiff_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SSIZE
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_ssize
 The size in bytes of the type @objtype{cclib_ssize_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_USIZE
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_usize
 The size in bytes of the type @objtype{cclib_usize_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_OFF
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_off
 The size in bytes of the type @objtype{cclib_off_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_WINT
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_wint
 The size in bytes of the type @objtype{cclib_wint_t}.
 @end deffn
 
 
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_WCHAR
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_wchar
 The size in bytes of the type @objtype{cclib_wchar_t}.
+@end deffn
+
+@c page
+@node typedefs aliases cast
+@subsection Casting values to @posix{} standard types
+
+
+@deftypefn {Preprocessor Macro} cclib_sint8_t cclib_sint8 (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_sint8_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uint8_t cclib_uint8 (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_uint8_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sint16_t cclib_sint16 (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_sint16_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uint16_t cclib_uint16 (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_uint16_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sint32_t cclib_sint32 (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_sint32_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uint32_t cclib_uint32 (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_uint32_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sint64_t cclib_sint64 (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_sint64_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uint64_t cclib_uint64 (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_uint64_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_schar_t cclib_schar (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_schar_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uchar_t cclib_uchar (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_uchar_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sshort_t cclib_sshort (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_sshort_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_ushort_t cclib_ushort (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_ushort_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sint_t cclib_sint (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_sint_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uint_t cclib_uint (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_uint_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_slong_t cclib_slong (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_slong_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_ulong_t cclib_ulong (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_ulong_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sllong_t cclib_sllong (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_sllong_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_ullong_t cclib_ullong (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_ullong_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_float_t cclib_float (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_float_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_double_t cclib_double (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_double_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_ldouble_t cclib_ldouble (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_ldouble_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sintmax_t cclib_sintmax (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_sintmax_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uintmax_t cclib_uintmax (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_uintmax_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sintptr_t cclib_sintptr (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_sintptr_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uintmax_t cclib_uintmax (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_uintmax_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_ptrdiff_t cclib_ptrdiff (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_ptrdiff_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_ssize_t cclib_ssize (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_ssize_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_usize_t cclib_usize (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_usize_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_off_t cclib_off (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_off_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_wint_t cclib_wint (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_wint_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_wchar_t cclib_wchar (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_wchar_t}.
+@end deftypefn
+
+@c page
+@node typedefs aliases print
+@subsection Printing values of @posix{} standard types
+
+
+The format specifiers described in this section are strings without the leading @samp{%} symbol; so
+@samp{CCLIB_PRI_SINT} expands into @samp{"d"}, @samp{CCLIB_PRI_UINT} expands into @samp{"u"}, and so
+on.
+
+
+@defmac cclib_type_pri (@var{TYPE})
+Expand into the preprocessor symbol representing the @cfunc{printf} format specifier for @var{TYPE}.
+The expansion body is:
+
+@example
+(CCLIB_PRI_ ## @var{TYPE})
+@end example
+@end defmac
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SINT8
+@deffnx {Preprocessor Macro} CCLIB_PRI_sint8
+The @cfunc{printf} format specifier of the type @objtype{cclib_sint8_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_UINT8
+@deffnx {Preprocessor Macro} CCLIB_PRI_uint8
+The @cfunc{printf} format specifier of the type @objtype{cclib_uint8_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SINT16
+@deffnx {Preprocessor Macro} CCLIB_PRI_sint16
+The @cfunc{printf} format specifier of the type @objtype{cclib_sint16_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_UINT16
+@deffnx {Preprocessor Macro} CCLIB_PRI_uint16
+The @cfunc{printf} format specifier of the type @objtype{cclib_uint16_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SINT32
+@deffnx {Preprocessor Macro} CCLIB_PRI_sint32
+The @cfunc{printf} format specifier of the type @objtype{cclib_sint32_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_UINT32
+@deffnx {Preprocessor Macro} CCLIB_PRI_uint32
+The @cfunc{printf} format specifier of the type @objtype{cclib_uint32_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SINT64
+@deffnx {Preprocessor Macro} CCLIB_PRI_sint64
+The @cfunc{printf} format specifier of the type @objtype{cclib_sint64_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_UINT64
+@deffnx {Preprocessor Macro} CCLIB_PRI_uint64
+The @cfunc{printf} format specifier of the type @objtype{cclib_uint64_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SCHAR
+@deffnx {Preprocessor Macro} CCLIB_PRI_schar
+The @cfunc{printf} format specifier of the type @objtype{cclib_schar_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_UCHAR
+@deffnx {Preprocessor Macro} CCLIB_PRI_uchar
+The @cfunc{printf} format specifier of the type @objtype{cclib_uchar_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SSHORT
+@deffnx {Preprocessor Macro} CCLIB_PRI_sshort
+The @cfunc{printf} format specifier of the type @objtype{cclib_sshort_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_USHORT
+@deffnx {Preprocessor Macro} CCLIB_PRI_ushort
+The @cfunc{printf} format specifier of the type @objtype{cclib_ushort_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SINT
+@deffnx {Preprocessor Macro} CCLIB_PRI_sint
+The @cfunc{printf} format specifier of the type @objtype{cclib_sint_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_UINT
+@deffnx {Preprocessor Macro} CCLIB_PRI_uint
+The @cfunc{printf} format specifier of the type @objtype{cclib_uint_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SLONG
+@deffnx {Preprocessor Macro} CCLIB_PRI_slong
+The @cfunc{printf} format specifier of the type @objtype{cclib_slong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_ULONG
+@deffnx {Preprocessor Macro} CCLIB_PRI_ulong
+The @cfunc{printf} format specifier of the type @objtype{cclib_ulong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SLLONG
+@deffnx {Preprocessor Macro} CCLIB_PRI_sllong
+The @cfunc{printf} format specifier of the type @objtype{cclib_sllong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_ULLONG
+@deffnx {Preprocessor Macro} CCLIB_PRI_ullong
+The @cfunc{printf} format specifier of the type @objtype{cclib_ullong_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_FLOAT
+@deffnx {Preprocessor Macro} CCLIB_PRI_float
+The @cfunc{printf} format specifier of the type @objtype{cclib_float_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_DOUBLE
+@deffnx {Preprocessor Macro} CCLIB_PRI_double
+The @cfunc{printf} format specifier of the type @objtype{cclib_double_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_LDOUBLE
+@deffnx {Preprocessor Macro} CCLIB_PRI_ldouble
+The @cfunc{printf} format specifier of the type @objtype{cclib_ldouble_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SINTMAX
+@deffnx {Preprocessor Macro} CCLIB_PRI_sintmax
+The @cfunc{printf} format specifier of the type @objtype{cclib_sintmax_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_UINTMAX
+@deffnx {Preprocessor Macro} CCLIB_PRI_uintmax
+The @cfunc{printf} format specifier of the type @objtype{cclib_uintmax_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SINTPTR
+@deffnx {Preprocessor Macro} CCLIB_PRI_sintptr
+The @cfunc{printf} format specifier of the type @objtype{cclib_sintptr_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_UINTMAX
+@deffnx {Preprocessor Macro} CCLIB_PRI_uintmax
+The @cfunc{printf} format specifier of the type @objtype{cclib_uintmax_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_PTRDIFF
+@deffnx {Preprocessor Macro} CCLIB_PRI_ptrdiff
+The @cfunc{printf} format specifier of the type @objtype{cclib_ptrdiff_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_SSIZE
+@deffnx {Preprocessor Macro} CCLIB_PRI_ssize
+The @cfunc{printf} format specifier of the type @objtype{cclib_ssize_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_USIZE
+@deffnx {Preprocessor Macro} CCLIB_PRI_usize
+The @cfunc{printf} format specifier of the type @objtype{cclib_usize_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_OFF
+@deffnx {Preprocessor Macro} CCLIB_PRI_off
+The @cfunc{printf} format specifier of the type @objtype{cclib_off_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_WINT
+@deffnx {Preprocessor Macro} CCLIB_PRI_wint
+The @cfunc{printf} format specifier of the type @objtype{cclib_wint_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_WCHAR
+@deffnx {Preprocessor Macro} CCLIB_PRI_wchar
+The @cfunc{printf} format specifier of the type @objtype{cclib_wchar_t}.
 @end deffn
 
 @c page

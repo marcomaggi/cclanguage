@@ -48,10 +48,35 @@
 static void
 test_schar (void)
 {
-  cclib_schar_t		X = 1;
-  cclib_schar_t		Y = 2;
+  cclib_schar_t		X = cclib_schar(1);
+  cclib_schar_t		Y = cclib_schar(2);
+  cclib_schar_t		max = CCLIB_MAX_SCHAR;
+  cclib_schar_t		min = CCLIB_MIN_SCHAR;
 
   assert(X != Y);
+  assert(CCLIB_MAX_SCHAR == max);
+  assert(CCLIB_MIN_SCHAR == min);
+  assert(CCLIB_SIZEOF_SCHAR == sizeof(cclib_schar_t));
+  assert(cclib_type_max(schar) == max);
+  assert(cclib_type_min(schar) == min);
+  assert(cclib_type_sizeof(schar) == sizeof(cclib_schar_t));
+}
+
+static void
+test_uchar (void)
+{
+  cclib_uchar_t		X = cclib_uchar(1);
+  cclib_uchar_t		Y = cclib_uchar(2);
+  cclib_uchar_t		max = CCLIB_MAX_UCHAR;
+  cclib_uchar_t		min = CCLIB_MIN_UCHAR;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_UCHAR == max);
+  assert(CCLIB_MIN_UCHAR == min);
+  assert(CCLIB_SIZEOF_UCHAR == sizeof(cclib_uchar_t));
+  assert(cclib_type_max(uchar) == max);
+  assert(cclib_type_min(uchar) == min);
+  assert(cclib_type_sizeof(uchar) == sizeof(cclib_uchar_t));
 }
 
 
@@ -63,6 +88,7 @@ int
 main (void)
 {
   test_schar();
+  test_uchar();
 
   exit(EXIT_SUCCESS);
 }

@@ -13,6 +13,13 @@
 #
 
 
+AC_DEFUN([MMUX_C_REQUIRE_STANDARD_HEADERS],
+  [AC_HEADER_STDC
+   dnl These are needed for CCLibraries.
+   AC_CHECK_HEADERS([float.h math.h inttypes.h limits.h stdint.h stddef.h unistd.h wchar.h])
+   AC_HEADER_STDBOOL])
+
+
 # MMUX_C_COMPUTE_SIGNED_INT(OUTPUT_VARIABLE, EXPRESSION, INCLUDES, ACTION-IF-FAILS)
 #
 # DESCRIPTION
@@ -181,6 +188,34 @@ AC_DEFUN([MMUX_C_COMPUTE_UNSIGNED_LONG_LONG],
    rm -f conftest.val])
 
 
+# MMUX_C_COMPUTE_FLOAT(OUTPUT_VARIABLE, EXPRESSION, INCLUDES, ACTION-IF-FAILS)
+#
+# DESCRIPTION
+#
+#   Compute the  integer value of a  C language expression; the  expected result must be  a "float".
+#   Store the result in a shell variable.
+#
+# ARGUMENTS
+#
+#   $1 - The output variable name.
+#   $2 - The C language expression.
+#   $3 - A chunk of C language code that includes the required header files.
+#   $4 - Action if fails.
+#
+AC_DEFUN([MMUX_C_COMPUTE_FLOAT],
+  [AC_RUN_IFELSE([AC_LANG_SOURCE([AC_INCLUDES_DEFAULT
+     $3
+     int main (void)
+     {
+        FILE *f = fopen ("conftest.val", "w");
+        fprintf(f, "%+A", $2);
+        return ferror (f) || fclose (f) != 0;
+     }])],
+     [AS_VAR_SET([$1],[`cat conftest.val`])],
+     [$4],[$4])
+   rm -f conftest.val])
+
+
 # MMUX_C_COMPUTE_DOUBLE(OUTPUT_VARIABLE, EXPRESSION, INCLUDES, ACTION-IF-FAILS)
 #
 # DESCRIPTION
@@ -284,7 +319,7 @@ AC_DEFUN([MMUX_C_COMPUTE_STRING],
 #     MMUX_C_DEFINE_SIZEOF_OUPTUT([MAX_OF_INT],[INT_MAX],[$mmux_cv_valueof_INT_MAX])
 #
 #   Define the C language preprocessor macro "MMUX_VALUEOF_MAX_OF_INT" to "mmux_cv_valueof_INT_MAX".
-#   Define the GNU Autoconf substitution "MMUX_SIZEOF_MAX_OF_INT" to "mmux_cv_valueof_INT_MAX".
+#   Define the GNU Autoconf substitution "MMUX_VALUEOF_MAX_OF_INT" to "mmux_cv_valueof_INT_MAX".
 #
 AC_DEFUN([MMUX_C_VALUEOF_TEST_OUTPUT],
   [AC_DEFINE_UNQUOTED([MMUX_VALUEOF_$1],[$3],[the value of '$2'])
@@ -773,6 +808,77 @@ AC_DEFUN([MMUX_C_UNSIGNED_LONG_LONG_CONSTANT_TEST],[MMUX_C_UNSIGNED_LONG_LONG_VA
 AC_DEFUN([MMUX_C_UNSIGNED_LONG_LONG_CONSTANT_TESTS],[m4_map_args_w($1,[MMUX_C_UNSIGNED_LONG_LONG_CONSTANT_TEST(],[,$2)])])
 
 
+# MMUX_C_FLOAT_VALUEOF_TEST(OUTPUT_VARIABLE, EXPRESSION, INCLUDES, ACTION-IF-FAILS)
+#
+# DESCRIPTION
+#
+#   Determine  the  "float"  value  of  an  expression.   Store  the  result  in  the  cached  value
+#   "mmux_cv_c_valueof_$1".  Define the substitution "MMUX_VALUEOF_$1".
+#
+# ARGUMENTS
+#
+#   $1 - Output variable stem, it must be a valid C language name.
+#   $2 - The C language expression evaluating to a "float".
+#   $3 - A chunk of C language code that includes the required header files.
+#   $4 - Action if fails.
+#
+# USAGE EXAMPLE
+#
+#   Determine  the value  of DBL_EPSILON  as defined  by "float.h".   Store it  in the  cached shell
+#   variable       "mmux_cv_c_valueof_DBL_EPSILON_VALUE".        Define       the       substitution
+#   "MMUX_VALUEOF_DBL_EPSILON_VALUE".
+#
+#     MMUX_C_FLOAT_VALUEOF_TEST([DBL_EPSILON_VALUE],[DBL_EPSILON],[
+#     #include <float.h>
+#     ])
+#
+AC_DEFUN([MMUX_C_FLOAT_VALUEOF_TEST],
+  [AC_CACHE_CHECK([the floating-point 'float' value of '$2'],
+     [mmux_cv_c_valueof_$1],
+     [MMUX_C_COMPUTE_FLOAT([mmux_cv_c_valueof_$1],
+       [$2],
+       [$3],
+       [m4_if([$4],,[AS_VAR_SET([mmux_cv_c_valueof_$1],["0"])],[$4])])])
+   MMUX_C_VALUEOF_TEST_OUTPUT([$1],[$2],[$mmux_cv_c_valueof_$1])])
+
+# MMUX_C_FLOAT_CONSTANT_TEST
+#
+# DESCRIPTION
+#
+#   Wrapper for MMUX_C_FLOAT_VALUEOF_TEST.  Determine the value of a preprocessor symbol.
+#
+# ARGUMENTS
+#
+#   $1 - Constant name to be determined, it must fit into a "float".  Output variable stem.
+#   $2 - A chunk of C language code that includes the required header files.
+#
+# USAGE EXAMPLE
+#
+#   Determine the  value of  DBL_EPSILON as  defined by "float.h".   Store it  in the  cached shell#
+#   variable "mmux_cv_c_valueof_DBL_EPSILON".  Define the substitution "MMUX_VALUEOF_DBL_EPSILON".
+#
+#     MMUX_C_FLOAT_CONSTANT_TEST([DBL_EPSILON],[
+#     #include <float.h>
+#     ])
+#
+AC_DEFUN([MMUX_C_FLOAT_CONSTANT_TEST],[MMUX_C_FLOAT_VALUEOF_TEST([$1],[$1],[$2])])
+
+# MMUX_C_FLOAT_CONSTANT_TESTS
+#
+# DESCRIPTION
+#
+#   Wrapper  for MMUX_C_FLOAT_CONSTANT_TEST  that  applies  this macro  to  a  list of  preprocesso
+#   symbols.
+#
+# ARGUMENTS
+#
+#   $1 -  Space separated list  of constant names  to be determined, they  must fit into  a "float".
+#        Every name is also an output variable stem.  $2  - A chunk of C language code that includes
+#        the required header files.
+#
+AC_DEFUN([MMUX_C_FLOAT_CONSTANT_TESTS],[m4_map_args_w($1,[MMUX_C_FLOAT_CONSTANT_TEST(],[,$2)])])
+
+
 # MMUX_C_DOUBLE_VALUEOF_TEST(OUTPUT_VARIABLE, EXPRESSION, INCLUDES, ACTION-IF-FAILS)
 #
 # DESCRIPTION
@@ -921,7 +1027,7 @@ AC_DEFUN([MMUX_C_LONG_DOUBLE_CONSTANT_TESTS],[m4_map_args_w($1,[MMUX_C_LONG_DOUB
 # DESCRIPTION
 #
 #   Determine  the  string  value  of  an  expression.    Store  the  result  in  the  cached  value
-#   "mmux_cv_c_string_valueof_$1".  Define the substitution "MMUX_VALUEOF_$1".
+#   "mmux_cv_c_valueof_$1".  Define the substitution "MMUX_VALUEOF_$1".
 #
 # ARGUMENTS
 #
@@ -933,8 +1039,7 @@ AC_DEFUN([MMUX_C_LONG_DOUBLE_CONSTANT_TESTS],[m4_map_args_w($1,[MMUX_C_LONG_DOUB
 # USAGE EXAMPLE
 #
 #   Determine the value of "strerror(EINVAL)" as defined by "errno.h".  Store it in the cached shell
-#   variable       "mmux_cv_c_string_valueof_STREINVAL".         Define       the       substitution
-#   "MMUX_VALUEOF_STREINVAL".
+#   variable "mmux_cv_c_valueof_STREINVAL".  Define the substitution "MMUX_VALUEOF_STREINVAL".
 #
 #     MMUX_C_STRING_VALUEOF_TEST([STREINVAL],[strerror(EINVAL)],[
 #     #include <errno.h>
@@ -942,7 +1047,7 @@ AC_DEFUN([MMUX_C_LONG_DOUBLE_CONSTANT_TESTS],[m4_map_args_w($1,[MMUX_C_LONG_DOUB
 #
 AC_DEFUN([MMUX_C_STRING_VALUEOF_TEST],
   [AC_CACHE_CHECK([the ASCIIZ string 'char *' value of '$2'],
-     [mmux_cv_c_string_valueof_$1],
+     [mmux_cv_c_valueof_$1],
      [MMUX_C_COMPUTE_STRING([mmux_cv_c_valueof_$1],
        [$2],
        [$3],
@@ -1080,7 +1185,8 @@ AC_DEFUN([MMUX_C_SET_SIZE_OF_FIXED_WIDTH_TYPE],
 #   Determine the size in bytes of the C language standard types defined by the C library.
 #
 AC_DEFUN([MMUX_C_DETERMINE_SIZE_OF_LIBC_TYPES],
-  [AX_REQUIRE_DEFINED([MMUX_INCLUDE_UNISTD_H])
+  [AC_REQUIRE([MMUX_C_REQUIRE_STANDARD_HEADERS])
+   AX_REQUIRE_DEFINED([MMUX_INCLUDE_UNISTD_H])
    AX_REQUIRE_DEFINED([MMUX_INCLUDE_STDDEF_H])
    AX_REQUIRE_DEFINED([MMUX_INCLUDE_STDINT_H])
    AX_REQUIRE_DEFINED([MMUX_INCLUDE_WCHAR_H])
@@ -1122,8 +1228,11 @@ AC_DEFUN([MMUX_C_DETERMINE_SIZE_OF_LIBC_TYPES],
    MMUX_C_DETERMINE_SIZEOF_TYPE([SSIZE],   [ssize_t],   [MMUX_INCLUDE_UNISTD_H])
    MMUX_C_DETERMINE_SIZEOF_TYPE([USIZE],   [size_t],    [MMUX_INCLUDE_STDDEF_H])
 
-   MMUX_C_DETERMINE_SIZEOF_TYPE([OFF],     [off_t],     [MMUX_INCLUDE_UNISTD_H])
+   MMUX_C_DETERMINE_SIZEOF_TYPE([OFF],     [off_t],
+[MMUX_REQUIRE_POSIX_SOURCE_200809
+MMUX_INCLUDE_UNISTD_H])
    ])
+
 
 
 # MMUX_C_DEFINE_MAX_LIMIT_OUPTUT(STEM, DESCRIPTION, LIMIT_VALUE)
@@ -1334,7 +1443,8 @@ AC_DEFUN([MMUX_C_SET_LIMITS_OF_FIXED_WIDTH_TYPE],
 #   Determine the range limits of the C language standard types defined by the C library.
 #
 AC_DEFUN([MMUX_C_DETERMINE_LIMITS_OF_LIBC_TYPES],
-  [AC_REQUIRE([MMUX_C_DETERMINE_SIZE_OF_LIBC_TYPES])
+  [AC_REQUIRE([MMUX_C_REQUIRE_STANDARD_HEADERS])
+   AC_REQUIRE([MMUX_C_DETERMINE_SIZE_OF_LIBC_TYPES])
    AX_REQUIRE_DEFINED([MMUX_INCLUDE_LIMITS_H])
    AX_REQUIRE_DEFINED([MMUX_INCLUDE_FLOAT_H])
 
@@ -1422,6 +1532,7 @@ AC_DEFUN([MMUX_C_DETERMINE_LIMITS_OF_LIBC_TYPES],
 AC_DEFUN([MMUX_C_DEFINE_TYPE_ALIAS_OUTPUT],
   [AC_DEFINE_UNQUOTED([MMUX_VALUEOF_$1_ALIAS],[$3],[the range maximum limit of '$2'])
    AC_SUBST([MMUX_VALUEOF_$1_ALIAS],          [$3])])
+
 
 # MMUX_C_DETERMINE_SIGNED_INTEGER_TYPE_ALIAS(STEM, TYPENAME)
 #
@@ -1513,7 +1624,8 @@ AC_DEFUN([MMUX_C_DETERMINE_UNSIGNED_INTEGER_TYPE_ALIAS],
 #   the standard C library types.
 #
 AC_DEFUN([MMUX_C_DETERMINE_ALIASES_OF_LIBC_TYPES],
-  [AC_REQUIRE([MMUX_C_DETERMINE_SIZE_OF_LIBC_TYPES])
+  [AC_REQUIRE([MMUX_C_REQUIRE_STANDARD_HEADERS])
+   AC_REQUIRE([MMUX_C_DETERMINE_SIZE_OF_LIBC_TYPES])
 
    MMUX_C_DETERMINE_SIGNED_INTEGER_TYPE_ALIAS(SINTMAX,          intmax_t)
    MMUX_C_DETERMINE_SIGNED_INTEGER_TYPE_ALIAS(SINTPTR,          intptr_t)
@@ -1527,6 +1639,153 @@ AC_DEFUN([MMUX_C_DETERMINE_ALIASES_OF_LIBC_TYPES],
 
    MMUX_C_DETERMINE_SIGNED_INTEGER_TYPE_ALIAS(WINT,             wint_t)
    MMUX_C_DETERMINE_SIGNED_INTEGER_TYPE_ALIAS(WCHAR,            wchar_t)
+   ])
+
+
+AC_DEFUN([MMUX_C_DETERMINE_PRINTF_FORMAT_OF_FIXED_WIDTH_LIBC_TYPES],
+  [MMUX_C_STRING_VALUEOF_TEST([PRI_SINT8],  [PRId8],  [MMUX_INCLUDE_INTTYPES_H], [AC_MSG_ERROR([cannot determine value of PRId8])])
+   MMUX_C_STRING_VALUEOF_TEST([PRI_UINT8],  [PRIu8],  [MMUX_INCLUDE_INTTYPES_H], [AC_MSG_ERROR([cannot determine value of PRIu8])])
+   MMUX_C_STRING_VALUEOF_TEST([PRI_SINT16], [PRId16], [MMUX_INCLUDE_INTTYPES_H], [AC_MSG_ERROR([cannot determine value of PRId16])])
+   MMUX_C_STRING_VALUEOF_TEST([PRI_UINT16], [PRIu16], [MMUX_INCLUDE_INTTYPES_H], [AC_MSG_ERROR([cannot determine value of PRIu16])])
+   MMUX_C_STRING_VALUEOF_TEST([PRI_SINT32], [PRId32], [MMUX_INCLUDE_INTTYPES_H], [AC_MSG_ERROR([cannot determine value of PRId32])])
+   MMUX_C_STRING_VALUEOF_TEST([PRI_UINT32], [PRIu32], [MMUX_INCLUDE_INTTYPES_H], [AC_MSG_ERROR([cannot determine value of PRIu32])])
+   MMUX_C_STRING_VALUEOF_TEST([PRI_SINT64], [PRId64], [MMUX_INCLUDE_INTTYPES_H], [AC_MSG_ERROR([cannot determine value of PRId64])])
+   MMUX_C_STRING_VALUEOF_TEST([PRI_UINT64], [PRIu64], [MMUX_INCLUDE_INTTYPES_H], [AC_MSG_ERROR([cannot determine value of PRIu64])])])
+
+
+# MMUX_C_DEFINE_PRINTF_FORMAT_TYPE_ALIAS_OUTPUT(STEM, TYPE, FORMAT-STRING)
+#
+# DESCRIPTION
+#
+#   Set the output that defines the ASCIIZ string to use as format specification.
+#
+# ARGUMENTS
+#
+#   $1 - The upper case standard type stem (SCHAR, UCHAR, SINTPTR, UINTPTR, ...).
+#   $2 - The C language type, used for documentation purposes.
+#   $3 - The format specification string.
+#
+# USAGE EXAMPLE
+#
+#   Example, to set the format specification of "cclib_ptrdiff_t":
+#
+#     MMUX_C_DEFINE_PRINTF_FORMAT_TYPE_ALIAS_OUTPUT([PTRDIFF],[cclib_ptrdiff_t],["$mmux_cv_c_valueof_PRI_PTRDIFF"])
+#
+#   Define the C language preprocessor macro "MMUX_VALUEOF_PRI_PTRDIFF" to "mmux_cv_c_valueof_PRI_PTRDIFF".
+#   Define the GNU Autoconf substitution "MMUX_VALUEOF_PRI_PTRDIFF" to "mmux_cv_c_valueof_PRI_PTRDIFF".
+#
+AC_DEFUN([MMUX_C_DEFINE_PRINTF_FORMAT_TYPE_ALIAS_OUTPUT],
+  [AC_DEFINE_UNQUOTED([MMUX_VALUEOF_PRI_$1],[$3],[the printf format specification of '$2'])
+   AC_SUBST([MMUX_VALUEOF_PRI_$1],          [$3])])
+
+
+# MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS(STEM, TYPE, ACTION-IF-FAIL)
+#
+# DESCRIPTION
+#
+#   Given the  type STEM of a  signed integer standard type:  determine the ASCIIZ string  to use as
+#   format specification for that type.  Assume that the variable "$mmux_cv_c_sizeof_$STEM" contains
+#   the size in bytes of the type.
+#
+# ARGUMENTS
+#
+#   $1 - The upper case standard type stem (SCHAR, SINTPTR, ...).
+#   $2 - The C language type, used for documentation purposes.
+#   $3 - Optional action if fail.
+#
+AC_DEFUN([MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS],
+  [AC_REQUIRE([MMUX_C_DETERMINE_PRINTF_FORMAT_OF_FIXED_WIDTH_LIBC_TYPES])
+   AC_CACHE_CHECK([the value of 'PRI_$1'],
+     [mmux_cv_c_valueof_PRI_$1],
+     [AS_IF([test "$mmux_cv_c_sizeof_$1" = "$mmux_cv_c_sizeof_SINT8"],
+            [AS_VAR_SET([mmux_cv_c_valueof_PRI_$1],[$mmux_cv_c_valueof_PRI_SINT8])],
+
+            [test "$mmux_cv_c_sizeof_$1" = "$mmux_cv_c_sizeof_SINT16"],
+            [AS_VAR_SET([mmux_cv_c_valueof_PRI_$1],[$mmux_cv_c_valueof_PRI_SINT16])],
+
+            [test "$mmux_cv_c_sizeof_$1" = "$mmux_cv_c_sizeof_SINT32"],
+            [AS_VAR_SET([mmux_cv_c_valueof_PRI_$1],[$mmux_cv_c_valueof_PRI_SINT32])],
+
+            [test "$mmux_cv_c_sizeof_$1" = "$mmux_cv_c_sizeof_SINT64"],
+            [AS_VAR_SET([mmux_cv_c_valueof_PRI_$1],[$mmux_cv_c_valueof_PRI_SINT64])],
+
+            [m4_if([$3],,[AC_MSG_ERROR([cannot determine printf format specification for type $2],[1])],[$4])])])
+
+   MMUX_C_DEFINE_PRINTF_FORMAT_TYPE_ALIAS_OUTPUT([$1],[$2],["$mmux_cv_c_valueof_PRI_$1"])])
+
+
+# MMUX_C_DETERMINE_PRINTF_FORMAT_UNSIGNED_INTEGER_TYPE_ALIAS(STEM, TYPE, ACTION-IF-FAIL)
+#
+# DESCRIPTION
+#
+#   Given the type STEM of an unsigned integer  standard type: determine the ASCIIZ string to use as
+#   format specification for that type.  Assume that the variable "$mmux_cv_c_sizeof_$STEM" contains
+#   the size in bytes of the type.
+#
+# ARGUMENTS
+#
+#   $1 - The upper case standard type stem (UCHAR, UINTPTR, ...).
+#   $2 - The C language type, used for documentation purposes.
+#   $3 - Optional action if fail.
+#
+AC_DEFUN([MMUX_C_DETERMINE_PRINTF_FORMAT_UNSIGNED_INTEGER_TYPE_ALIAS],
+  [AC_REQUIRE([MMUX_C_DETERMINE_PRINTF_FORMAT_OF_FIXED_WIDTH_LIBC_TYPES])
+   AC_CACHE_CHECK([the value of 'PRI_$1'],
+     [mmux_cv_c_valueof_PRI_$1],
+     [AS_IF([test "$mmux_cv_c_sizeof_$1" = "$mmux_cv_c_sizeof_UINT8"],
+            [AS_VAR_SET([mmux_cv_c_valueof_PRI_$1],[$mmux_cv_c_valueof_PRI_UINT8])],
+
+            [test "$mmux_cv_c_sizeof_$1" = "$mmux_cv_c_sizeof_UINT16"],
+            [AS_VAR_SET([mmux_cv_c_valueof_PRI_$1],[$mmux_cv_c_valueof_PRI_UINT16])],
+
+            [test "$mmux_cv_c_sizeof_$1" = "$mmux_cv_c_sizeof_UINT32"],
+            [AS_VAR_SET([mmux_cv_c_valueof_PRI_$1],[$mmux_cv_c_valueof_PRI_UINT32])],
+
+            [test "$mmux_cv_c_sizeof_$1" = "$mmux_cv_c_sizeof_UINT64"],
+            [AS_VAR_SET([mmux_cv_c_valueof_PRI_$1],[$mmux_cv_c_valueof_PRI_UINT64])],
+
+            [m4_if([$3],,[AC_MSG_ERROR([cannot determine printf format specification for type $2],[1])],[$4])])])
+
+   MMUX_C_DEFINE_PRINTF_FORMAT_TYPE_ALIAS_OUTPUT([$1],[$2],["$mmux_cv_c_valueof_PRI_$1"])])
+
+
+# MMUX_C_DETERMINE_PRINTF_FORMAT_OF_LIBC_TYPES
+#
+# DESCRIPTION
+#
+#   Determine the  ASCIIZ string to use  as format specification  for the C language  standard types
+#   defined by the C library.
+#
+AC_DEFUN([MMUX_C_DETERMINE_PRINTF_FORMAT_OF_LIBC_TYPES],
+  [AC_REQUIRE([MMUX_C_REQUIRE_STANDARD_HEADERS])
+   AC_REQUIRE([MMUX_C_DETERMINE_SIZE_OF_LIBC_TYPES])
+   AX_REQUIRE_DEFINED([MMUX_INCLUDE_INTTYPES_H])
+
+   MMUX_C_DETERMINE_PRINTF_FORMAT_OF_FIXED_WIDTH_LIBC_TYPES
+
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([SCHAR], [cclib_schar_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_UNSIGNED_INTEGER_TYPE_ALIAS([UCHAR], [cclib_uchar_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([SSHRT], [cclib_sshrt_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_UNSIGNED_INTEGER_TYPE_ALIAS([USHRT], [cclib_ushrt_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([SINT], [cclib_sint_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_UNSIGNED_INTEGER_TYPE_ALIAS([UINT], [cclib_uint_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([SLONG], [cclib_slong_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_UNSIGNED_INTEGER_TYPE_ALIAS([ULONG], [cclib_ulong_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([SLLONG], [cclib_sllong_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_UNSIGNED_INTEGER_TYPE_ALIAS([ULLONG], [cclib_ullong_t])
+
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([SINTMAX], [cclib_sintmax_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_UNSIGNED_INTEGER_TYPE_ALIAS([UINTMAX], [cclib_uintmax_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([SINTPTR], [cclib_sintptr_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_UNSIGNED_INTEGER_TYPE_ALIAS([UINTPTR], [cclib_uintptr_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([PTRDIFF], [cclib_ptrdiff_t])
+
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([SSIZE], [cclib_ssize_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_UNSIGNED_INTEGER_TYPE_ALIAS([USIZE], [cclib_usize_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([OFF], [cclib_off_t])
+
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([WCHAR], [cclib_wchar_t])
+   MMUX_C_DETERMINE_PRINTF_FORMAT_SIGNED_INTEGER_TYPE_ALIAS([WINT], [cclib_wint_t])
    ])
 
 

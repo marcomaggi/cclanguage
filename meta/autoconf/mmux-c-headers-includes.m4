@@ -5,6 +5,12 @@
 # the macros as "INCLUDES" argument to other macros.
 #
 
+AC_DEFUN([MMUX_REQUIRE_POSIX_SOURCE_200809],[
+#ifndef _POSIX_C_SOURCE
+#  define _POSIX_C_SOURCE 200809L
+#endif
+])
+
 AC_DEFUN([MMUX_INCLUDE_ARPA_INET_H],[
 #ifdef HAVE_ARPA_INET_H
 #  include <arpa/inet.h>
@@ -39,6 +45,12 @@ AC_DEFUN([MMUX_INCLUDE_FLOAT_H],[
 AC_DEFUN([MMUX_INCLUDE_GRP_H],[
 #ifdef HAVE_GRP_H
 #  include <grp.h>
+#endif
+])
+
+AC_DEFUN([MMUX_INCLUDE_INTTYPES_H],[
+#ifdef HAVE_INTTYPES_H
+#  include <inttypes.h>
 #endif
 ])
 
