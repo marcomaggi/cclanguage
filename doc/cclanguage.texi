@@ -508,6 +508,7 @@ All the definitions documented in this section are defined in the header file
 * typedefs aliases sizeof::     Size in bytes of @posix{} standard types.
 * typedefs aliases cast::       Casting values to @posix{} standard types.
 * typedefs aliases print::      Printing values of @posix{} standard types.
+* typedefs aliases const::      Declaring constant values.
 @end menu
 
 @c page
@@ -555,6 +556,27 @@ An alias for @objtype{uint64_t}.
 @end deftp
 
 
+@deftp {Typedef} cclib_byte_t
+An alias for @objtype{cclib_sint8_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_octet_t
+An alias for @objtype{cclib_uint8_t}.
+@end deftp
+
+
+@deftp {Typedef} cclib_word_t
+An alias for the type @objtype{cclib_sintXX_t} whose size equals the size of @code{void *}; it is
+meant to be the integer capable of storing a machine word.
+@end deftp
+
+
+@deftp {Typedef} cclib_char_t
+An alias for @objtype{char}.
+@end deftp
+
+
 @deftp {Typedef} cclib_schar_t
 An alias for @objtype{signed char}.
 @end deftp
@@ -565,12 +587,12 @@ An alias for @objtype{unsigned char}.
 @end deftp
 
 
-@deftp {Typedef} cclib_sshort_t
+@deftp {Typedef} cclib_sshrt_t
 An alias for @objtype{signed short int}.
 @end deftp
 
 
-@deftp {Typedef} cclib_ushort_t
+@deftp {Typedef} cclib_ushrt_t
 An alias for @objtype{unsigned short int}.
 @end deftp
 
@@ -758,6 +780,38 @@ Constant limits for the type @objtype{cclib_uint64_t}.
 @end deffn
 
 
+@deffn {Preprocessor Macro} CCLIB_MIN_BYTE
+@deffnx {Preprocessor Macro} CCLIB_MAX_BYTE
+@deffnx {Preprocessor Macro} CCLIB_MIN_byte
+@deffnx {Preprocessor Macro} CCLIB_MAX_byte
+Constant limits for the type @objtype{cclib_byte_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_OCTET
+@deffnx {Preprocessor Macro} CCLIB_MAX_OCTET
+@deffnx {Preprocessor Macro} CCLIB_MIN_octet
+@deffnx {Preprocessor Macro} CCLIB_MAX_octet
+Constant limits for the type @objtype{cclib_octet_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_WORD
+@deffnx {Preprocessor Macro} CCLIB_MAX_WORD
+@deffnx {Preprocessor Macro} CCLIB_MIN_word
+@deffnx {Preprocessor Macro} CCLIB_MAX_word
+Constant limits for the type @objtype{cclib_word_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_MIN_CHAR
+@deffnx {Preprocessor Macro} CCLIB_MAX_CHAR
+@deffnx {Preprocessor Macro} CCLIB_MIN_char
+@deffnx {Preprocessor Macro} CCLIB_MAX_char
+Constant limits for the type @objtype{cclib_char_t}.
+@end deffn
+
+
 @deffn {Preprocessor Macro} CCLIB_MIN_SCHAR
 @deffnx {Preprocessor Macro} CCLIB_MAX_SCHAR
 @deffnx {Preprocessor Macro} CCLIB_MIN_schar
@@ -774,19 +828,19 @@ Constant limits for the type @objtype{cclib_uchar_t}.
 @end deffn
 
 
-@deffn {Preprocessor Macro} CCLIB_MIN_SSHORT
-@deffnx {Preprocessor Macro} CCLIB_MAX_SSHORT
-@deffnx {Preprocessor Macro} CCLIB_MIN_sshort
-@deffnx {Preprocessor Macro} CCLIB_MAX_sshort
-Constant limits for the type @objtype{cclib_sshort_t}.
+@deffn {Preprocessor Macro} CCLIB_MIN_SSHRT
+@deffnx {Preprocessor Macro} CCLIB_MAX_SSHRT
+@deffnx {Preprocessor Macro} CCLIB_MIN_sshrt
+@deffnx {Preprocessor Macro} CCLIB_MAX_sshrt
+Constant limits for the type @objtype{cclib_sshrt_t}.
 @end deffn
 
 
-@deffn {Preprocessor Macro} CCLIB_MIN_USHORT
-@deffnx {Preprocessor Macro} CCLIB_MAX_USHORT
-@deffnx {Preprocessor Macro} CCLIB_MIN_ushort
-@deffnx {Preprocessor Macro} CCLIB_MAX_ushort
-Constant limits for the type @objtype{cclib_ushort_t}.
+@deffn {Preprocessor Macro} CCLIB_MIN_USHRT
+@deffnx {Preprocessor Macro} CCLIB_MAX_USHRT
+@deffnx {Preprocessor Macro} CCLIB_MIN_ushrt
+@deffnx {Preprocessor Macro} CCLIB_MAX_ushrt
+Constant limits for the type @objtype{cclib_ushrt_t}.
 @end deffn
 
 
@@ -1004,6 +1058,30 @@ The size in bytes of the type @objtype{cclib_uint64_t}.
 @end deffn
 
 
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_BYTE
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_byte
+The size in bytes of the type @objtype{cclib_byte_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_OCTET
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_octet
+The size in bytes of the type @objtype{cclib_octet_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_WORD
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_word
+The size in bytes of the type @objtype{cclib_word_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_CHAR
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_char
+The size in bytes of the type @objtype{cclib_char_t}.
+@end deffn
+
+
 @deffn {Preprocessor Macro} CCLIB_SIZEOF_SCHAR
 @deffnx {Preprocessor Macro} CCLIB_SIZEOF_schar
 The size in bytes of the type @objtype{cclib_schar_t}.
@@ -1016,15 +1094,15 @@ The size in bytes of the type @objtype{cclib_uchar_t}.
 @end deffn
 
 
-@deffn {Preprocessor Macro} CCLIB_SIZEOF_SSHORT
-@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sshort
-The size in bytes of the type @objtype{cclib_sshort_t}.
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_SSHRT
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_sshrt
+The size in bytes of the type @objtype{cclib_sshrt_t}.
 @end deffn
 
 
-@deffn {Preprocessor Macro} CCLIB_SIZEOF_USHORT
-@deffnx {Preprocessor Macro} CCLIB_SIZEOF_ushort
-The size in bytes of the type @objtype{cclib_ushort_t}.
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_USHRT
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_ushrt
+The size in bytes of the type @objtype{cclib_ushrt_t}.
 @end deffn
 
 
@@ -1186,6 +1264,26 @@ Cast the result of @var{EXPR} to @objtype{cclib_uint64_t}.
 @end deftypefn
 
 
+@deftypefn {Preprocessor Macro} cclib_byte_t cclib_byte (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_byte_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_octet_t cclib_octet (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_octet_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_word_t cclib_word (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_word_t}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_char_t cclib_char (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_char_t}.
+@end deftypefn
+
+
 @deftypefn {Preprocessor Macro} cclib_schar_t cclib_schar (@var{EXPR})
 Cast the result of @var{EXPR} to @objtype{cclib_schar_t}.
 @end deftypefn
@@ -1196,13 +1294,13 @@ Cast the result of @var{EXPR} to @objtype{cclib_uchar_t}.
 @end deftypefn
 
 
-@deftypefn {Preprocessor Macro} cclib_sshort_t cclib_sshort (@var{EXPR})
-Cast the result of @var{EXPR} to @objtype{cclib_sshort_t}.
+@deftypefn {Preprocessor Macro} cclib_sshrt_t cclib_sshrt (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_sshrt_t}.
 @end deftypefn
 
 
-@deftypefn {Preprocessor Macro} cclib_ushort_t cclib_ushort (@var{EXPR})
-Cast the result of @var{EXPR} to @objtype{cclib_ushort_t}.
+@deftypefn {Preprocessor Macro} cclib_ushrt_t cclib_ushrt (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_ushrt_t}.
 @end deftypefn
 
 
@@ -1368,6 +1466,30 @@ The @cfunc{printf} format specifier of the type @objtype{cclib_uint64_t}.
 @end deffn
 
 
+@deffn {Preprocessor Macro} CCLIB_PRI_BYTE
+@deffnx {Preprocessor Macro} CCLIB_PRI_byte
+The @cfunc{printf} format specifier of the type @objtype{cclib_byte_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_OCTET
+@deffnx {Preprocessor Macro} CCLIB_PRI_octet
+The @cfunc{printf} format specifier of the type @objtype{cclib_octet_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_WORD
+@deffnx {Preprocessor Macro} CCLIB_PRI_word
+The @cfunc{printf} format specifier of the type @objtype{cclib_word_t}.
+@end deffn
+
+
+@deffn {Preprocessor Macro} CCLIB_PRI_CHAR
+@deffnx {Preprocessor Macro} CCLIB_PRI_char
+The @cfunc{printf} format specifier of the type @objtype{cclib_char_t}.
+@end deffn
+
+
 @deffn {Preprocessor Macro} CCLIB_PRI_SCHAR
 @deffnx {Preprocessor Macro} CCLIB_PRI_schar
 The @cfunc{printf} format specifier of the type @objtype{cclib_schar_t}.
@@ -1380,15 +1502,15 @@ The @cfunc{printf} format specifier of the type @objtype{cclib_uchar_t}.
 @end deffn
 
 
-@deffn {Preprocessor Macro} CCLIB_PRI_SSHORT
-@deffnx {Preprocessor Macro} CCLIB_PRI_sshort
-The @cfunc{printf} format specifier of the type @objtype{cclib_sshort_t}.
+@deffn {Preprocessor Macro} CCLIB_PRI_SSHRT
+@deffnx {Preprocessor Macro} CCLIB_PRI_sshrt
+The @cfunc{printf} format specifier of the type @objtype{cclib_sshrt_t}.
 @end deffn
 
 
-@deffn {Preprocessor Macro} CCLIB_PRI_USHORT
-@deffnx {Preprocessor Macro} CCLIB_PRI_ushort
-The @cfunc{printf} format specifier of the type @objtype{cclib_ushort_t}.
+@deffn {Preprocessor Macro} CCLIB_PRI_USHRT
+@deffnx {Preprocessor Macro} CCLIB_PRI_ushrt
+The @cfunc{printf} format specifier of the type @objtype{cclib_ushrt_t}.
 @end deffn
 
 
@@ -1504,6 +1626,92 @@ The @cfunc{printf} format specifier of the type @objtype{cclib_wint_t}.
 @deffnx {Preprocessor Macro} CCLIB_PRI_wchar
 The @cfunc{printf} format specifier of the type @objtype{cclib_wchar_t}.
 @end deffn
+
+@c page
+@node typedefs aliases const
+@subsection Declaring constant values
+
+
+@deftypefn {Preprocessor Macro} cclib_sint32_t cclib_sint32_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_sint32_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uint32_t cclib_uint32_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_uint32_t}.  If the value has size
+different from an @objtype{unsigned int}: append to @var{VAL} the appropriate suffix @code{UL} or
+@var{ULL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sint64_t cclib_sint64_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_sint64_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uint64_t cclib_uint64_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_uint64_t}.  If the value has size
+different from an @objtype{unsigned int}: append to @var{VAL} the appropriate suffix @code{UL} or
+@var{ULL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_word_t cclib_word_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_word_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sintptr_t cclib_sintptr_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_sintptr_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uintptr_t cclib_uintptr_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_uintptr_t}.  If the value has size
+different from an @objtype{unsigned int}: append to @var{VAL} the appropriate suffix @code{UL} or
+@var{ULL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sintmax_t cclib_sintmax_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_sintmax_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_uintmax_t cclib_uintmax_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_uintmax_t}.  If the value has size
+different from an @objtype{unsigned int}: append to @var{VAL} the appropriate suffix @code{UL} or
+@var{ULL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_ptrdiff_t cclib_ptrdiff_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_ptrdiff_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_off_t cclib_off_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_off_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_wint_t cclib_wint_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_wint_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_wchar_t cclib_wchar_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_wchar_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
 
 @c page
 @node typedefs macros
