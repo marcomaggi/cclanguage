@@ -208,8 +208,8 @@ test_uint16 (void)
 static void
 test_sint32 (void)
 {
-  cclib_sint32_t		X = cclib_sint32(1);
-  cclib_sint32_t		Y = cclib_sint32(2);
+  cclib_sint32_t		X = cclib_sint32_const(1);
+  cclib_sint32_t		Y = cclib_sint32_const(2);
   cclib_sint32_t		max = CCLIB_MAX_SINT32;
   cclib_sint32_t		min = CCLIB_MIN_SINT32;
 
@@ -245,8 +245,8 @@ test_sint32 (void)
 static void
 test_uint32 (void)
 {
-  cclib_uint32_t		X = cclib_uint32(1);
-  cclib_uint32_t		Y = cclib_uint32(2);
+  cclib_uint32_t		X = cclib_uint32_const(1);
+  cclib_uint32_t		Y = cclib_uint32_const(2);
   cclib_uint32_t		max = CCLIB_MAX_UINT32;
   cclib_uint32_t		min = CCLIB_MIN_UINT32;
 
@@ -288,8 +288,8 @@ test_uint32 (void)
 static void
 test_sint64 (void)
 {
-  cclib_sint64_t		X = cclib_sint64(1);
-  cclib_sint64_t		Y = cclib_sint64(2);
+  cclib_sint64_t		X = cclib_sint64_const(1);
+  cclib_sint64_t		Y = cclib_sint64_const(2);
   cclib_sint64_t		max = CCLIB_MAX_SINT64;
   cclib_sint64_t		min = CCLIB_MIN_SINT64;
 
@@ -325,8 +325,8 @@ test_sint64 (void)
 static void
 test_uint64 (void)
 {
-  cclib_uint64_t		X = cclib_uint64(1);
-  cclib_uint64_t		Y = cclib_uint64(2);
+  cclib_uint64_t		X = cclib_uint64_const(1);
+  cclib_uint64_t		Y = cclib_uint64_const(2);
   cclib_uint64_t		max = CCLIB_MAX_UINT64;
   cclib_uint64_t		min = CCLIB_MIN_UINT64;
 
@@ -362,7 +362,7 @@ test_uint64 (void)
 
 
 /** --------------------------------------------------------------------
- ** Byte an octet types.
+ ** Byte, octet, word types.
  ** ----------------------------------------------------------------- */
 
 static void
@@ -437,6 +437,43 @@ test_octet (void)
     snprintf(buffer, 1024, "%" cclib_type_pri(octet), cclib_type_min(octet));
     sscanf(buffer, "%" cclib_type_pri(octet), &out);
     assert(cclib_type_min(octet) == cclib_octet(out));
+  }
+}
+
+static void
+test_word (void)
+{
+  cclib_word_t		X = cclib_word_const(1);
+  cclib_word_t		Y = cclib_word_const(2);
+  cclib_word_t		max = CCLIB_MAX_WORD;
+  cclib_word_t		min = CCLIB_MIN_WORD;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_WORD == max);
+  assert(CCLIB_MIN_WORD == min);
+  assert(CCLIB_SIZEOF_WORD == sizeof(cclib_word_t));
+  assert(cclib_type_max(word) == max);
+  assert(cclib_type_min(word) == min);
+  assert(cclib_type_sizeof(word) == sizeof(cclib_word_t));
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_word_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(word), cclib_type_max(word));
+    sscanf(buffer, "%" cclib_type_pri(word), &out);
+    assert(cclib_type_max(word) == cclib_word(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_type_t(word)	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(word), cclib_type_min(word));
+    sscanf(buffer, "%" cclib_type_pri(word), &out);
+    assert(cclib_type_min(word) == cclib_word(out));
   }
 }
 
@@ -567,6 +604,7 @@ main (void)
 {
   test_byte();
   test_octet();
+  test_word();
 
   test_sint8();
   test_uint8();

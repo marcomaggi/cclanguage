@@ -516,6 +516,15 @@ All the definitions documented in this section are defined in the header file
 @subsection @posix{} standard types
 
 
+@defmac cclib_type_t (@var{STEM})
+Expand into one of the @code{cclib_XX_t} types.  The expansion is:
+
+@example
+cclib_ ## STEM ## _t
+@end example
+@end defmac
+
+
 @deftp {Typedef} cclib_sint8_t
 An alias for @objtype{int8_t}.
 @end deftp

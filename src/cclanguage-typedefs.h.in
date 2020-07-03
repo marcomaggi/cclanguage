@@ -44,12 +44,13 @@ extern "C" {
 
 #define CCLIB_STRUCT_TYPEDEF(STRUCT)	typedef struct STRUCT STRUCT
 
-#define cclib_type_max(TYPE)	(CCLIB_MAX_ ## TYPE)
-#define cclib_type_min(TYPE)	(CCLIB_MIN_ ## TYPE)
-#define cclib_type_sizeof(TYPE)	(CCLIB_SIZEOF_ ## TYPE)
+#define cclib_type_t(STEM)	cclib_ ## STEM ## _t
+#define cclib_type_max(STEM)	(CCLIB_MAX_ ## STEM)
+#define cclib_type_min(STEM)	(CCLIB_MIN_ ## STEM)
+#define cclib_type_sizeof(STEM)	(CCLIB_SIZEOF_ ## STEM)
 
 /* No parentheses around this macro expansion!!! */
-#define cclib_type_pri(TYPE)	CCLIB_PRI_ ## TYPE
+#define cclib_type_pri(STEM)	CCLIB_PRI_ ## STEM
 
 
 /** --------------------------------------------------------------------
@@ -371,7 +372,15 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_MIN_uint32	CCLIB_MIN_UINT32
 #define CCLIB_MAX_uint32	CCLIB_MAX_UINT32
 
-#define CCLIB_MIN_SINT64	cclib_sint64_const(@MMUX_VALUEOF_SINT64_MIN@)
+/* NOTE If we define:
+ *
+ *   #define CCLIB_MIN_SINT64	-9223372036854775808L
+ *
+ * the preprocessor will first read 9223372036854775808L  and then will try to negate
+ * it.  But 9223372036854775808L is too big to fit into a sint64: so an error will be
+ * raised.  This is why we must define it as it is.  (Marco Maggi; Jul  3, 2020)
+ */
+#define CCLIB_MIN_SINT64	(-cclib_sint64_const(@MMUX_VALUEOF_SINT64_MAX@) - cclib_sint64_const(1))
 #define CCLIB_MAX_SINT64	cclib_sint64_const(@MMUX_VALUEOF_SINT64_MAX@)
 #define CCLIB_MIN_sint64	CCLIB_MIN_SINT64
 #define CCLIB_MAX_sint64	CCLIB_MAX_SINT64
@@ -393,10 +402,10 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_MIN_octet		CCLIB_MIN_uint8
 #define CCLIB_MAX_octet		CCLIB_MAX_uint8
 
-#define CCLIB_MIN_WORD		cclib_word_const(@MMUX_VALUEOF_WORD_MIN@)
+#define CCLIB_MIN_WORD		(-cclib_word_const(@MMUX_VALUEOF_WORD_MAX@) - cclib_word_const(1))
 #define CCLIB_MAX_WORD		cclib_word_const(@MMUX_VALUEOF_WORD_MAX@)
-#define CCLIB_MIN_word		CCLIB_MIN_word
-#define CCLIB_MAX_word		CCLIB_MAX_word
+#define CCLIB_MIN_word		CCLIB_MIN_WORD
+#define CCLIB_MAX_word		CCLIB_MAX_WORD
 
 /* ------------------------------------------------------------------ */
 
