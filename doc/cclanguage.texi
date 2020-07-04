@@ -666,8 +666,8 @@ An alias for the @objtype{intXX_t} type that matches in size the standard @objty
 @end deftp
 
 
-@deftp {Typedef} cclib_uintmax_t
-An alias for the @objtype{uintXX_t} type that matches in size the standard @objtype{uintmax_t}.
+@deftp {Typedef} cclib_uintptr_t
+An alias for the @objtype{uintXX_t} type that matches in size the standard @objtype{uintptr_t}.
 @end deftp
 
 
@@ -949,11 +949,11 @@ Constant limits for the type @objtype{cclib_sintptr_t}.
 @end deffn
 
 
-@deffn {Preprocessor Macro} CCLIB_MIN_UINTMAX
-@deffnx {Preprocessor Macro} CCLIB_MAX_UINTMAX
-@deffnx {Preprocessor Macro} CCLIB_MIN_uintmax
-@deffnx {Preprocessor Macro} CCLIB_MAX_uintmax
-Constant limits for the type @objtype{cclib_uintmax_t}.
+@deffn {Preprocessor Macro} CCLIB_MIN_UINTPTR
+@deffnx {Preprocessor Macro} CCLIB_MAX_UINTPTR
+@deffnx {Preprocessor Macro} CCLIB_MIN_uintptr
+@deffnx {Preprocessor Macro} CCLIB_MAX_uintptr
+Constant limits for the type @objtype{cclib_uintptr_t}.
 @end deffn
 
 
@@ -1187,9 +1187,9 @@ The size in bytes of the type @objtype{cclib_sintptr_t}.
 @end deffn
 
 
-@deffn {Preprocessor Macro} CCLIB_SIZEOF_UINTMAX
-@deffnx {Preprocessor Macro} CCLIB_SIZEOF_uintmax
-The size in bytes of the type @objtype{cclib_uintmax_t}.
+@deffn {Preprocessor Macro} CCLIB_SIZEOF_UINTPTR
+@deffnx {Preprocessor Macro} CCLIB_SIZEOF_uintptr
+The size in bytes of the type @objtype{cclib_uintptr_t}.
 @end deffn
 
 
@@ -1373,8 +1373,8 @@ Cast the result of @var{EXPR} to @objtype{cclib_sintptr_t}.
 @end deftypefn
 
 
-@deftypefn {Preprocessor Macro} cclib_uintmax_t cclib_uintmax (@var{EXPR})
-Cast the result of @var{EXPR} to @objtype{cclib_uintmax_t}.
+@deftypefn {Preprocessor Macro} cclib_uintptr_t cclib_uintptr (@var{EXPR})
+Cast the result of @var{EXPR} to @objtype{cclib_uintptr_t}.
 @end deftypefn
 
 
@@ -1595,9 +1595,9 @@ The @cfunc{printf} format specifier of the type @objtype{cclib_sintptr_t}.
 @end deffn
 
 
-@deffn {Preprocessor Macro} CCLIB_PRI_UINTMAX
-@deffnx {Preprocessor Macro} CCLIB_PRI_uintmax
-The @cfunc{printf} format specifier of the type @objtype{cclib_uintmax_t}.
+@deffn {Preprocessor Macro} CCLIB_PRI_UINTPTR
+@deffnx {Preprocessor Macro} CCLIB_PRI_uintptr
+The @cfunc{printf} format specifier of the type @objtype{cclib_uintptr_t}.
 @end deffn
 
 
@@ -1670,6 +1670,32 @@ different from an @objtype{unsigned int}: append to @var{VAL} the appropriate su
 @deftypefn {Preprocessor Macro} cclib_word_t cclib_word_const (@var{VAL})
 Declare a constant, compile--time, value of type @objtype{cclib_word_t}.  If the value has size
 different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_slong_t cclib_slong_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_slong_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_ulong_t cclib_ulong_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_ulong_t}.  If the value has size
+different from an @objtype{unsigned int}: append to @var{VAL} the appropriate suffix @code{UL} or
+@var{ULL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_sllong_t cclib_sllong_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_sllong_t}.  If the value has size
+different from an @objtype{int}: append to @var{VAL} the appropriate suffix @code{L} or @var{LL}.
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} cclib_ullong_t cclib_ullong_const (@var{VAL})
+Declare a constant, compile--time, value of type @objtype{cclib_ullong_t}.  If the value has size
+different from an @objtype{unsigned int}: append to @var{VAL} the appropriate suffix @code{UL} or
+@var{ULL}.
 @end deftypefn
 
 

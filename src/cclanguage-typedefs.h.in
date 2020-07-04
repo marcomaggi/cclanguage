@@ -100,7 +100,7 @@ typedef long double			cclib_ldouble_t;
 typedef @MMUX_VALUEOF_SINTMAX_ALIAS@	cclib_sintmax_t;
 typedef @MMUX_VALUEOF_UINTMAX_ALIAS@	cclib_uintmax_t;
 typedef @MMUX_VALUEOF_SINTPTR_ALIAS@	cclib_sintptr_t;
-typedef @MMUX_VALUEOF_UINTMAX_ALIAS@	cclib_uintmax_t;
+typedef @MMUX_VALUEOF_UINTPTR_ALIAS@	cclib_uintptr_t;
 typedef @MMUX_VALUEOF_PTRDIFF_ALIAS@	cclib_ptrdiff_t;
 
 typedef @MMUX_VALUEOF_SSIZE_ALIAS@	cclib_ssize_t;
@@ -283,6 +283,28 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #  define cclib_word_const(VAL)		cclib_word(VAL ## LL)
 #endif
 
+#if   (CCLIB_SIZEOF_SLONG == CCLIB_SIZEOF_SINT)
+#  define cclib_slong_const(VAL)	cclib_slong(VAL)
+#  define cclib_ulong_const(VAL)	cclib_ulong(VAL)
+#elif (CCLIB_SIZEOF_SLONG == CCLIB_SIZEOF_SLONG)
+#  define cclib_slong_const(VAL)	cclib_slong(VAL ## L)
+#  define cclib_ulong_const(VAL)	cclib_ulong(VAL ## UL)
+#else
+#  define cclib_slong_const(VAL)	cclib_slong(VAL ## LL)
+#  define cclib_ulong_const(VAL)	cclib_ulong(VAL ## ULL)
+#endif
+
+#if   (CCLIB_SIZEOF_SLLONG == CCLIB_SIZEOF_SINT)
+#  define cclib_sllong_const(VAL)	cclib_sllong(VAL)
+#  define cclib_ullong_const(VAL)	cclib_ullong(VAL)
+#elif (CCLIB_SIZEOF_SLLONG == CCLIB_SIZEOF_SLONG)
+#  define cclib_sllong_const(VAL)	cclib_sllong(VAL ## L)
+#  define cclib_ullong_const(VAL)	cclib_ullong(VAL ## UL)
+#else
+#  define cclib_sllong_const(VAL)	cclib_sllong(VAL ## LL)
+#  define cclib_ullong_const(VAL)	cclib_ullong(VAL ## ULL)
+#endif
+
 #if   (CCLIB_SIZEOF_SINTPTR == CCLIB_SIZEOF_SINT)
 #  define cclib_sintptr_const(VAL)	cclib_sintptr(VAL)
 #  define cclib_uintptr_const(VAL)	cclib_uintptr(VAL)
@@ -444,7 +466,7 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_MIN_uint		CCLIB_MIN_UINT
 #define CCLIB_MAX_uint		CCLIB_MAX_UINT
 
-#define CCLIB_MIN_SLONG		cclib_slong(@MMUX_VALUEOF_LONG_MIN@L)
+#define CCLIB_MIN_SLONG		(-cclib_slong_const(@MMUX_VALUEOF_LONG_MAX@) - cclib_slong_const(1))
 #define CCLIB_MAX_SLONG		cclib_slong(@MMUX_VALUEOF_LONG_MAX@L)
 #define CCLIB_MIN_slong		CCLIB_MIN_SLONG
 #define CCLIB_MAX_slong		CCLIB_MAX_SLONG
@@ -454,7 +476,7 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_MIN_ulong		CCLIB_MIN_ULONG
 #define CCLIB_MAX_ulong		CCLIB_MAX_ULONG
 
-#define CCLIB_MIN_SLLONG	cclib_sllong(@MMUX_VALUEOF_LLONG_MIN@LL)
+#define CCLIB_MIN_SLLONG	(-cclib_sllong_const(@MMUX_VALUEOF_LLONG_MAX@) - cclib_sllong_const(1))
 #define CCLIB_MAX_SLLONG	cclib_sllong(@MMUX_VALUEOF_LLONG_MAX@LL)
 #define CCLIB_MIN_sllong	CCLIB_MIN_SLLONG
 #define CCLIB_MAX_sllong	CCLIB_MAX_SLLONG
@@ -466,7 +488,7 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 
 /* ------------------------------------------------------------------ */
 
-#define CCLIB_MIN_SINTMAX	cclib_sintmax_const(@MMUX_VALUEOF_SINTMAX_MIN@)
+#define CCLIB_MIN_SINTMAX	(-cclib_sintmax_const(@MMUX_VALUEOF_SINTMAX_MAX@) - cclib_sintmax_const(1))
 #define CCLIB_MAX_SINTMAX	cclib_sintmax_const(@MMUX_VALUEOF_SINTMAX_MAX@)
 #define CCLIB_MIN_sintmax	CCLIB_MIN_SINTMAX
 #define CCLIB_MAX_sintmax	CCLIB_MAX_SINTMAX
@@ -476,7 +498,7 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_MIN_uintmax	CCLIB_MIN_UINTMAX
 #define CCLIB_MAX_uintmax	CCLIB_MAX_UINTMAX
 
-#define CCLIB_MIN_SINTPTR	cclib_sintptr_const(@MMUX_VALUEOF_SINTPTR_MIN@)
+#define CCLIB_MIN_SINTPTR	(-cclib_sintptr_const(@MMUX_VALUEOF_SINTPTR_MAX@) - cclib_sintptr_const(1))
 #define CCLIB_MAX_SINTPTR	cclib_sintptr_const(@MMUX_VALUEOF_SINTPTR_MAX@)
 #define CCLIB_MIN_sintptr	CCLIB_MIN_SINTPTR
 #define CCLIB_MAX_sintptr	CCLIB_MAX_SINTPTR
@@ -486,12 +508,12 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_MIN_uintptr	CCLIB_MIN_UINTPTR
 #define CCLIB_MAX_uintptr	CCLIB_MAX_UINTPTR
 
-#define CCLIB_MIN_PTRDIFF	cclib_ptrdiff_const(@MMUX_VALUEOF_PTRDIFF_MIN@)
+#define CCLIB_MIN_PTRDIFF	(-cclib_ptrdiff_const(@MMUX_VALUEOF_PTRDIFF_MAX@) - cclib_ptrdiff_const(1))
 #define CCLIB_MAX_PTRDIFF	cclib_ptrdiff_const(@MMUX_VALUEOF_PTRDIFF_MAX@)
 #define CCLIB_MIN_ptrdiff	CCLIB_MIN_PTRDIFF
 #define CCLIB_MAX_ptrdiff	CCLIB_MAX_PTRDIFF
 
-#define CCLIB_MIN_SSIZE		cclib_ssize_const(@MMUX_VALUEOF_SSIZE_MIN@)
+#define CCLIB_MIN_SSIZE		(-cclib_ssize_const(@MMUX_VALUEOF_SSIZE_MAX@) - cclib_ssize_const(1))
 #define CCLIB_MAX_SSIZE		cclib_ssize_const(@MMUX_VALUEOF_SSIZE_MAX@)
 #define CCLIB_MIN_ssize		CCLIB_MIN_SSIZE
 #define CCLIB_MAX_ssize		CCLIB_MAX_SSIZE
@@ -501,7 +523,7 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_MIN_usize		CCLIB_MIN_USIZE
 #define CCLIB_MAX_usize		CCLIB_MAX_USIZE
 
-#define CCLIB_MIN_OFF		cclib_off_const(@MMUX_VALUEOF_OFF_MIN@)
+#define CCLIB_MIN_OFF		(-cclib_off_const(@MMUX_VALUEOF_OFF_MAX@) - cclib_off_const(1))
 #define CCLIB_MAX_OFF		cclib_off_const(@MMUX_VALUEOF_OFF_MAX@)
 #define CCLIB_MIN_off		CCLIB_MIN_OFF
 #define CCLIB_MAX_off		CCLIB_MAX_OFF

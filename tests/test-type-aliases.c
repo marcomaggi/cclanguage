@@ -596,6 +596,569 @@ test_uchar (void)
 
 
 /** --------------------------------------------------------------------
+ ** Integer types.
+ ** ----------------------------------------------------------------- */
+
+static void
+test_sint (void)
+{
+  cclib_sint_t		X = cclib_sint(1);
+  cclib_sint_t		Y = cclib_sint(2);
+  cclib_sint_t		max = CCLIB_MAX_SINT;
+  cclib_sint_t		min = CCLIB_MIN_SINT;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_SINT == max);
+  assert(CCLIB_MIN_SINT == min);
+  assert(CCLIB_SIZEOF_SINT == sizeof(cclib_sint_t));
+  assert(cclib_type_max(sint) == max);
+  assert(cclib_type_min(sint) == min);
+  assert(cclib_type_sizeof(sint) == sizeof(cclib_sint_t));
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_sint_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(sint), cclib_type_max(sint));
+    sscanf(buffer, "%" cclib_type_pri(sint), &out);
+    assert(cclib_type_max(sint) == cclib_sint(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_sint_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(sint), cclib_type_min(sint));
+    sscanf(buffer, "%" cclib_type_pri(sint), &out);
+    assert(cclib_type_min(sint) == cclib_sint(out));
+  }
+}
+
+static void
+test_uint (void)
+{
+  cclib_uint_t		X = cclib_uint(1);
+  cclib_uint_t		Y = cclib_uint(2);
+  cclib_uint_t		max = CCLIB_MAX_UINT;
+  cclib_uint_t		min = CCLIB_MIN_UINT;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_UINT == max);
+  assert(CCLIB_MIN_UINT == min);
+  assert(CCLIB_SIZEOF_UINT == sizeof(cclib_uint_t));
+  assert(cclib_type_max(uint) == max);
+  assert(cclib_type_min(uint) == min);
+  assert(cclib_type_sizeof(uint) == sizeof(cclib_uint_t));
+
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_uint_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(uint), cclib_type_max(uint));
+    sscanf(buffer, "%" cclib_type_pri(uint), &out);
+    assert(cclib_type_max(uint) == cclib_uint(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_uint_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(uint), cclib_type_min(uint));
+    sscanf(buffer, "%" cclib_type_pri(uint), &out);
+    assert(cclib_type_min(uint) == cclib_uint(out));
+  }
+}
+
+
+/** --------------------------------------------------------------------
+ ** Long integer types.
+ ** ----------------------------------------------------------------- */
+
+static void
+test_slong (void)
+{
+  cclib_slong_t		X = cclib_slong(1);
+  cclib_slong_t		Y = cclib_slong(2);
+  cclib_slong_t		max = CCLIB_MAX_SLONG;
+  cclib_slong_t		min = CCLIB_MIN_SLONG;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_SLONG == max);
+  assert(CCLIB_MIN_SLONG == min);
+  assert(CCLIB_SIZEOF_SLONG == sizeof(cclib_slong_t));
+  assert(cclib_type_max(slong) == max);
+  assert(cclib_type_min(slong) == min);
+  assert(cclib_type_sizeof(slong) == sizeof(cclib_slong_t));
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_slong_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(slong), cclib_type_max(slong));
+    sscanf(buffer, "%" cclib_type_pri(slong), &out);
+    assert(cclib_type_max(slong) == cclib_slong(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_slong_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(slong), cclib_type_min(slong));
+    sscanf(buffer, "%" cclib_type_pri(slong), &out);
+    assert(cclib_type_min(slong) == cclib_slong(out));
+  }
+}
+
+static void
+test_ulong (void)
+{
+  cclib_ulong_t		X = cclib_ulong(1);
+  cclib_ulong_t		Y = cclib_ulong(2);
+  cclib_ulong_t		max = CCLIB_MAX_ULONG;
+  cclib_ulong_t		min = CCLIB_MIN_ULONG;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_ULONG == max);
+  assert(CCLIB_MIN_ULONG == min);
+  assert(CCLIB_SIZEOF_ULONG == sizeof(cclib_ulong_t));
+  assert(cclib_type_max(ulong) == max);
+  assert(cclib_type_min(ulong) == min);
+  assert(cclib_type_sizeof(ulong) == sizeof(cclib_ulong_t));
+
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_ulong_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(ulong), cclib_type_max(ulong));
+    sscanf(buffer, "%" cclib_type_pri(ulong), &out);
+    assert(cclib_type_max(ulong) == cclib_ulong(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_ulong_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(ulong), cclib_type_min(ulong));
+    sscanf(buffer, "%" cclib_type_pri(ulong), &out);
+    assert(cclib_type_min(ulong) == cclib_ulong(out));
+  }
+}
+
+
+/** --------------------------------------------------------------------
+ ** Long Long integer types.
+ ** ----------------------------------------------------------------- */
+
+static void
+test_sllong (void)
+{
+  cclib_sllong_t		X = cclib_sllong(1);
+  cclib_sllong_t		Y = cclib_sllong(2);
+  cclib_sllong_t		max = CCLIB_MAX_SLLONG;
+  cclib_sllong_t		min = CCLIB_MIN_SLLONG;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_SLLONG == max);
+  assert(CCLIB_MIN_SLLONG == min);
+  assert(CCLIB_SIZEOF_SLLONG == sizeof(cclib_sllong_t));
+  assert(cclib_type_max(sllong) == max);
+  assert(cclib_type_min(sllong) == min);
+  assert(cclib_type_sizeof(sllong) == sizeof(cclib_sllong_t));
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_sllong_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(sllong), cclib_type_max(sllong));
+    sscanf(buffer, "%" cclib_type_pri(sllong), &out);
+    assert(cclib_type_max(sllong) == cclib_sllong(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_sllong_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(sllong), cclib_type_min(sllong));
+    sscanf(buffer, "%" cclib_type_pri(sllong), &out);
+    assert(cclib_type_min(sllong) == cclib_sllong(out));
+  }
+}
+
+static void
+test_ullong (void)
+{
+  cclib_ullong_t		X = cclib_ullong(1);
+  cclib_ullong_t		Y = cclib_ullong(2);
+  cclib_ullong_t		max = CCLIB_MAX_ULLONG;
+  cclib_ullong_t		min = CCLIB_MIN_ULLONG;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_ULLONG == max);
+  assert(CCLIB_MIN_ULLONG == min);
+  assert(CCLIB_SIZEOF_ULLONG == sizeof(cclib_ullong_t));
+  assert(cclib_type_max(ullong) == max);
+  assert(cclib_type_min(ullong) == min);
+  assert(cclib_type_sizeof(ullong) == sizeof(cclib_ullong_t));
+
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_ullong_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(ullong), cclib_type_max(ullong));
+    sscanf(buffer, "%" cclib_type_pri(ullong), &out);
+    assert(cclib_type_max(ullong) == cclib_ullong(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_ullong_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(ullong), cclib_type_min(ullong));
+    sscanf(buffer, "%" cclib_type_pri(ullong), &out);
+    assert(cclib_type_min(ullong) == cclib_ullong(out));
+  }
+}
+
+
+/** --------------------------------------------------------------------
+ ** Maximum-width integer types.
+ ** ----------------------------------------------------------------- */
+
+static void
+test_sintmax (void)
+{
+  cclib_sintmax_t		X = cclib_sintmax(1);
+  cclib_sintmax_t		Y = cclib_sintmax(2);
+  cclib_sintmax_t		max = CCLIB_MAX_SINTMAX;
+  cclib_sintmax_t		min = CCLIB_MIN_SINTMAX;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_SINTMAX == max);
+  assert(CCLIB_MIN_SINTMAX == min);
+  assert(CCLIB_SIZEOF_SINTMAX == sizeof(cclib_sintmax_t));
+  assert(cclib_type_max(sintmax) == max);
+  assert(cclib_type_min(sintmax) == min);
+  assert(cclib_type_sizeof(sintmax) == sizeof(cclib_sintmax_t));
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_sintmax_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(sintmax), cclib_type_max(sintmax));
+    sscanf(buffer, "%" cclib_type_pri(sintmax), &out);
+    assert(cclib_type_max(sintmax) == cclib_sintmax(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_sintmax_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(sintmax), cclib_type_min(sintmax));
+    sscanf(buffer, "%" cclib_type_pri(sintmax), &out);
+    assert(cclib_type_min(sintmax) == cclib_sintmax(out));
+  }
+}
+
+static void
+test_uintmax (void)
+{
+  cclib_uintmax_t		X = cclib_uintmax(1);
+  cclib_uintmax_t		Y = cclib_uintmax(2);
+  cclib_uintmax_t		max = CCLIB_MAX_UINTMAX;
+  cclib_uintmax_t		min = CCLIB_MIN_UINTMAX;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_UINTMAX == max);
+  assert(CCLIB_MIN_UINTMAX == min);
+  assert(CCLIB_SIZEOF_UINTMAX == sizeof(cclib_uintmax_t));
+  assert(cclib_type_max(uintmax) == max);
+  assert(cclib_type_min(uintmax) == min);
+  assert(cclib_type_sizeof(uintmax) == sizeof(cclib_uintmax_t));
+
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_uintmax_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(uintmax), cclib_type_max(uintmax));
+    sscanf(buffer, "%" cclib_type_pri(uintmax), &out);
+    assert(cclib_type_max(uintmax) == cclib_uintmax(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_uintmax_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(uintmax), cclib_type_min(uintmax));
+    sscanf(buffer, "%" cclib_type_pri(uintmax), &out);
+    assert(cclib_type_min(uintmax) == cclib_uintmax(out));
+  }
+}
+
+
+/** --------------------------------------------------------------------
+ ** Pointer-width integer types.
+ ** ----------------------------------------------------------------- */
+
+static void
+test_sintptr (void)
+{
+  cclib_sintptr_t		X = cclib_sintptr(1);
+  cclib_sintptr_t		Y = cclib_sintptr(2);
+  cclib_sintptr_t		max = CCLIB_MAX_SINTPTR;
+  cclib_sintptr_t		min = CCLIB_MIN_SINTPTR;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_SINTPTR == max);
+  assert(CCLIB_MIN_SINTPTR == min);
+  assert(CCLIB_SIZEOF_SINTPTR == sizeof(cclib_sintptr_t));
+  assert(cclib_type_max(sintptr) == max);
+  assert(cclib_type_min(sintptr) == min);
+  assert(cclib_type_sizeof(sintptr) == sizeof(cclib_sintptr_t));
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_sintptr_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(sintptr), cclib_type_max(sintptr));
+    sscanf(buffer, "%" cclib_type_pri(sintptr), &out);
+    assert(cclib_type_max(sintptr) == cclib_sintptr(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_sintptr_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(sintptr), cclib_type_min(sintptr));
+    sscanf(buffer, "%" cclib_type_pri(sintptr), &out);
+    assert(cclib_type_min(sintptr) == cclib_sintptr(out));
+  }
+}
+
+static void
+test_uintptr (void)
+{
+  cclib_uintptr_t		X = cclib_uintptr(1);
+  cclib_uintptr_t		Y = cclib_uintptr(2);
+  cclib_uintptr_t		max = CCLIB_MAX_UINTPTR;
+  cclib_uintptr_t		min = CCLIB_MIN_UINTPTR;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_UINTPTR == max);
+  assert(CCLIB_MIN_UINTPTR == min);
+  assert(CCLIB_SIZEOF_UINTPTR == sizeof(cclib_uintptr_t));
+  assert(cclib_type_max(uintptr) == max);
+  assert(cclib_type_min(uintptr) == min);
+  assert(cclib_type_sizeof(uintptr) == sizeof(cclib_uintptr_t));
+
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_uintptr_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(uintptr), cclib_type_max(uintptr));
+    sscanf(buffer, "%" cclib_type_pri(uintptr), &out);
+    assert(cclib_type_max(uintptr) == cclib_uintptr(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_uintptr_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(uintptr), cclib_type_min(uintptr));
+    sscanf(buffer, "%" cclib_type_pri(uintptr), &out);
+    assert(cclib_type_min(uintptr) == cclib_uintptr(out));
+  }
+}
+
+
+/** --------------------------------------------------------------------
+ ** Pointer-difference-width integer types.
+ ** ----------------------------------------------------------------- */
+
+static void
+test_ptrdiff (void)
+{
+  cclib_ptrdiff_t		X = cclib_ptrdiff(1);
+  cclib_ptrdiff_t		Y = cclib_ptrdiff(2);
+  cclib_ptrdiff_t		max = CCLIB_MAX_PTRDIFF;
+  cclib_ptrdiff_t		min = CCLIB_MIN_PTRDIFF;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_PTRDIFF == max);
+  assert(CCLIB_MIN_PTRDIFF == min);
+  assert(CCLIB_SIZEOF_PTRDIFF == sizeof(cclib_ptrdiff_t));
+  assert(cclib_type_max(ptrdiff) == max);
+  assert(cclib_type_min(ptrdiff) == min);
+  assert(cclib_type_sizeof(ptrdiff) == sizeof(cclib_ptrdiff_t));
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_ptrdiff_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(ptrdiff), cclib_type_max(ptrdiff));
+    sscanf(buffer, "%" cclib_type_pri(ptrdiff), &out);
+    assert(cclib_type_max(ptrdiff) == cclib_ptrdiff(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_ptrdiff_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(ptrdiff), cclib_type_min(ptrdiff));
+    sscanf(buffer, "%" cclib_type_pri(ptrdiff), &out);
+    assert(cclib_type_min(ptrdiff) == cclib_ptrdiff(out));
+  }
+}
+
+
+/** --------------------------------------------------------------------
+ ** Offset-width integer types.
+ ** ----------------------------------------------------------------- */
+
+static void
+test_off (void)
+{
+  cclib_off_t		X = cclib_off(1);
+  cclib_off_t		Y = cclib_off(2);
+  cclib_off_t		max = CCLIB_MAX_OFF;
+  cclib_off_t		min = CCLIB_MIN_OFF;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_OFF == max);
+  assert(CCLIB_MIN_OFF == min);
+  assert(CCLIB_SIZEOF_OFF == sizeof(cclib_off_t));
+  assert(cclib_type_max(off) == max);
+  assert(cclib_type_min(off) == min);
+  assert(cclib_type_sizeof(off) == sizeof(cclib_off_t));
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_off_t		out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(off), cclib_type_max(off));
+    sscanf(buffer, "%" cclib_type_pri(off), &out);
+    assert(cclib_type_max(off) == cclib_off(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_off_t		out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(off), cclib_type_min(off));
+    sscanf(buffer, "%" cclib_type_pri(off), &out);
+    assert(cclib_type_min(off) == cclib_off(out));
+  }
+}
+
+
+/** --------------------------------------------------------------------
+ ** Wide-char integer and wide-char integer types.
+ ** ----------------------------------------------------------------- */
+
+static void
+test_wint (void)
+{
+  cclib_wint_t		X = cclib_wint(1);
+  cclib_wint_t		Y = cclib_wint(2);
+  cclib_wint_t		max = CCLIB_MAX_WINT;
+  cclib_wint_t		min = CCLIB_MIN_WINT;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_WINT == max);
+  assert(CCLIB_MIN_WINT == min);
+  assert(CCLIB_SIZEOF_WINT == sizeof(cclib_wint_t));
+  assert(cclib_type_max(wint) == max);
+  assert(cclib_type_min(wint) == min);
+  assert(cclib_type_sizeof(wint) == sizeof(cclib_wint_t));
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_wint_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(wint), cclib_type_max(wint));
+    sscanf(buffer, "%" cclib_type_pri(wint), &out);
+    assert(cclib_type_max(wint) == cclib_wint(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_wint_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(wint), cclib_type_min(wint));
+    sscanf(buffer, "%" cclib_type_pri(wint), &out);
+    assert(cclib_type_min(wint) == cclib_wint(out));
+  }
+}
+
+static void
+test_wchar (void)
+{
+  cclib_wchar_t		X = cclib_wchar(1);
+  cclib_wchar_t		Y = cclib_wchar(2);
+  cclib_wchar_t		max = CCLIB_MAX_WCHAR;
+  cclib_wchar_t		min = CCLIB_MIN_WCHAR;
+
+  assert(X != Y);
+  assert(CCLIB_MAX_WCHAR == max);
+  assert(CCLIB_MIN_WCHAR == min);
+  assert(CCLIB_SIZEOF_WCHAR == sizeof(cclib_wchar_t));
+  assert(cclib_type_max(wchar) == max);
+  assert(cclib_type_min(wchar) == min);
+  assert(cclib_type_sizeof(wchar) == sizeof(cclib_wchar_t));
+
+  /* Conversion to/from string, maximum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_wchar_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(wchar), cclib_type_max(wchar));
+    sscanf(buffer, "%" cclib_type_pri(wchar), &out);
+    assert(cclib_type_max(wchar) == cclib_wchar(out));
+  }
+
+  /* Conversion to/from string, minimum range value. */
+  {
+    cclib_char_t	buffer[1024];
+    cclib_wchar_t	out;
+
+    snprintf(buffer, 1024, "%" cclib_type_pri(wchar), cclib_type_min(wchar));
+    sscanf(buffer, "%" cclib_type_pri(wchar), &out);
+    assert(cclib_type_min(wchar) == cclib_wchar(out));
+  }
+}
+
+
+/** --------------------------------------------------------------------
  ** Let's go.
  ** ----------------------------------------------------------------- */
 
@@ -621,6 +1184,27 @@ main (void)
   test_char();
   test_schar();
   test_uchar();
+
+  test_sint();
+  test_uint();
+
+  test_slong();
+  test_ulong();
+
+  test_sllong();
+  test_ullong();
+
+  test_sintmax();
+  test_uintmax();
+
+  test_sintptr();
+  test_uintptr();
+
+  test_ptrdiff();
+  test_off();
+
+  test_wint();
+  test_wchar();
 
   exit(EXIT_SUCCESS);
 }
