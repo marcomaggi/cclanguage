@@ -59,7 +59,7 @@ test_sint8 (void)
   assert(CCLIB_SIZEOF_SINT8 == sizeof(cclib_sint8_t));
   assert(cclib_type_max(sint8) == max);
   assert(cclib_type_min(sint8) == min);
-  assert(cclib_type_sizeof(sint8) == sizeof(cclib_sint8_t));
+  assert(cclib_type_sizeof(sint8) == sizeof(cclib_type_t(sint8)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -96,7 +96,7 @@ test_uint8 (void)
   assert(CCLIB_SIZEOF_UINT8 == sizeof(cclib_uint8_t));
   assert(cclib_type_max(uint8) == max);
   assert(cclib_type_min(uint8) == min);
-  assert(cclib_type_sizeof(uint8) == sizeof(cclib_uint8_t));
+  assert(cclib_type_sizeof(uint8) == sizeof(cclib_type_t(uint8)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -139,7 +139,7 @@ test_sint16 (void)
   assert(CCLIB_SIZEOF_SINT16 == sizeof(cclib_sint16_t));
   assert(cclib_type_max(sint16) == max);
   assert(cclib_type_min(sint16) == min);
-  assert(cclib_type_sizeof(sint16) == sizeof(cclib_sint16_t));
+  assert(cclib_type_sizeof(sint16) == sizeof(cclib_type_t(sint16)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -176,7 +176,7 @@ test_uint16 (void)
   assert(CCLIB_SIZEOF_UINT16 == sizeof(cclib_uint16_t));
   assert(cclib_type_max(uint16) == max);
   assert(cclib_type_min(uint16) == min);
-  assert(cclib_type_sizeof(uint16) == sizeof(cclib_uint16_t));
+  assert(cclib_type_sizeof(uint16) == sizeof(cclib_type_t(uint16)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -219,7 +219,7 @@ test_sint32 (void)
   assert(CCLIB_SIZEOF_SINT32 == sizeof(cclib_sint32_t));
   assert(cclib_type_max(sint32) == max);
   assert(cclib_type_min(sint32) == min);
-  assert(cclib_type_sizeof(sint32) == sizeof(cclib_sint32_t));
+  assert(cclib_type_sizeof(sint32) == sizeof(cclib_type_t(sint32)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -256,7 +256,7 @@ test_uint32 (void)
   assert(CCLIB_SIZEOF_UINT32 == sizeof(cclib_uint32_t));
   assert(cclib_type_max(uint32) == max);
   assert(cclib_type_min(uint32) == min);
-  assert(cclib_type_sizeof(uint32) == sizeof(cclib_uint32_t));
+  assert(cclib_type_sizeof(uint32) == sizeof(cclib_type_t(uint32)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -299,7 +299,7 @@ test_sint64 (void)
   assert(CCLIB_SIZEOF_SINT64 == sizeof(cclib_sint64_t));
   assert(cclib_type_max(sint64) == max);
   assert(cclib_type_min(sint64) == min);
-  assert(cclib_type_sizeof(sint64) == sizeof(cclib_sint64_t));
+  assert(cclib_type_sizeof(sint64) == sizeof(cclib_type_t(sint64)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -336,7 +336,7 @@ test_uint64 (void)
   assert(CCLIB_SIZEOF_UINT64 == sizeof(cclib_uint64_t));
   assert(cclib_type_max(uint64) == max);
   assert(cclib_type_min(uint64) == min);
-  assert(cclib_type_sizeof(uint64) == sizeof(cclib_uint64_t));
+  assert(cclib_type_sizeof(uint64) == sizeof(cclib_type_t(uint64)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -379,7 +379,7 @@ test_byte (void)
   assert(CCLIB_SIZEOF_BYTE == sizeof(cclib_byte_t));
   assert(cclib_type_max(byte) == max);
   assert(cclib_type_min(byte) == min);
-  assert(cclib_type_sizeof(byte) == sizeof(cclib_byte_t));
+  assert(cclib_type_sizeof(byte) == sizeof(cclib_type_t(byte)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -416,7 +416,7 @@ test_octet (void)
   assert(CCLIB_SIZEOF_OCTET == sizeof(cclib_octet_t));
   assert(cclib_type_max(octet) == max);
   assert(cclib_type_min(octet) == min);
-  assert(cclib_type_sizeof(octet) == sizeof(cclib_octet_t));
+  assert(cclib_type_sizeof(octet) == sizeof(cclib_type_t(octet)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -454,7 +454,7 @@ test_word (void)
   assert(CCLIB_SIZEOF_WORD == sizeof(cclib_word_t));
   assert(cclib_type_max(word) == max);
   assert(cclib_type_min(word) == min);
-  assert(cclib_type_sizeof(word) == sizeof(cclib_word_t));
+  assert(cclib_type_sizeof(word) == sizeof(cclib_type_t(word)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -496,7 +496,7 @@ test_char (void)
   assert(CCLIB_SIZEOF_CHAR == sizeof(cclib_char_t));
   assert(cclib_type_max(char) == max);
   assert(cclib_type_min(char) == min);
-  assert(cclib_type_sizeof(char) == sizeof(cclib_char_t));
+  assert(cclib_type_sizeof(char) == sizeof(cclib_type_t(char)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -533,7 +533,7 @@ test_schar (void)
   assert(CCLIB_SIZEOF_SCHAR == sizeof(cclib_schar_t));
   assert(cclib_type_max(schar) == max);
   assert(cclib_type_min(schar) == min);
-  assert(cclib_type_sizeof(schar) == sizeof(cclib_schar_t));
+  assert(cclib_type_sizeof(schar) == sizeof(cclib_type_t(schar)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -570,7 +570,7 @@ test_uchar (void)
   assert(CCLIB_SIZEOF_UCHAR == sizeof(cclib_uchar_t));
   assert(cclib_type_max(uchar) == max);
   assert(cclib_type_min(uchar) == min);
-  assert(cclib_type_sizeof(uchar) == sizeof(cclib_uchar_t));
+  assert(cclib_type_sizeof(uchar) == sizeof(cclib_type_t(uchar)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -613,7 +613,7 @@ test_sint (void)
   assert(CCLIB_SIZEOF_SINT == sizeof(cclib_sint_t));
   assert(cclib_type_max(sint) == max);
   assert(cclib_type_min(sint) == min);
-  assert(cclib_type_sizeof(sint) == sizeof(cclib_sint_t));
+  assert(cclib_type_sizeof(sint) == sizeof(cclib_type_t(sint)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -650,7 +650,7 @@ test_uint (void)
   assert(CCLIB_SIZEOF_UINT == sizeof(cclib_uint_t));
   assert(cclib_type_max(uint) == max);
   assert(cclib_type_min(uint) == min);
-  assert(cclib_type_sizeof(uint) == sizeof(cclib_uint_t));
+  assert(cclib_type_sizeof(uint) == sizeof(cclib_type_t(uint)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -693,7 +693,7 @@ test_slong (void)
   assert(CCLIB_SIZEOF_SLONG == sizeof(cclib_slong_t));
   assert(cclib_type_max(slong) == max);
   assert(cclib_type_min(slong) == min);
-  assert(cclib_type_sizeof(slong) == sizeof(cclib_slong_t));
+  assert(cclib_type_sizeof(slong) == sizeof(cclib_type_t(slong)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -730,7 +730,7 @@ test_ulong (void)
   assert(CCLIB_SIZEOF_ULONG == sizeof(cclib_ulong_t));
   assert(cclib_type_max(ulong) == max);
   assert(cclib_type_min(ulong) == min);
-  assert(cclib_type_sizeof(ulong) == sizeof(cclib_ulong_t));
+  assert(cclib_type_sizeof(ulong) == sizeof(cclib_type_t(ulong)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -773,7 +773,7 @@ test_sllong (void)
   assert(CCLIB_SIZEOF_SLLONG == sizeof(cclib_sllong_t));
   assert(cclib_type_max(sllong) == max);
   assert(cclib_type_min(sllong) == min);
-  assert(cclib_type_sizeof(sllong) == sizeof(cclib_sllong_t));
+  assert(cclib_type_sizeof(sllong) == sizeof(cclib_type_t(sllong)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -810,7 +810,7 @@ test_ullong (void)
   assert(CCLIB_SIZEOF_ULLONG == sizeof(cclib_ullong_t));
   assert(cclib_type_max(ullong) == max);
   assert(cclib_type_min(ullong) == min);
-  assert(cclib_type_sizeof(ullong) == sizeof(cclib_ullong_t));
+  assert(cclib_type_sizeof(ullong) == sizeof(cclib_type_t(ullong)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -853,7 +853,7 @@ test_sintmax (void)
   assert(CCLIB_SIZEOF_SINTMAX == sizeof(cclib_sintmax_t));
   assert(cclib_type_max(sintmax) == max);
   assert(cclib_type_min(sintmax) == min);
-  assert(cclib_type_sizeof(sintmax) == sizeof(cclib_sintmax_t));
+  assert(cclib_type_sizeof(sintmax) == sizeof(cclib_type_t(sintmax)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -890,7 +890,7 @@ test_uintmax (void)
   assert(CCLIB_SIZEOF_UINTMAX == sizeof(cclib_uintmax_t));
   assert(cclib_type_max(uintmax) == max);
   assert(cclib_type_min(uintmax) == min);
-  assert(cclib_type_sizeof(uintmax) == sizeof(cclib_uintmax_t));
+  assert(cclib_type_sizeof(uintmax) == sizeof(cclib_type_t(uintmax)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -933,7 +933,7 @@ test_sintptr (void)
   assert(CCLIB_SIZEOF_SINTPTR == sizeof(cclib_sintptr_t));
   assert(cclib_type_max(sintptr) == max);
   assert(cclib_type_min(sintptr) == min);
-  assert(cclib_type_sizeof(sintptr) == sizeof(cclib_sintptr_t));
+  assert(cclib_type_sizeof(sintptr) == sizeof(cclib_type_t(sintptr)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -970,7 +970,7 @@ test_uintptr (void)
   assert(CCLIB_SIZEOF_UINTPTR == sizeof(cclib_uintptr_t));
   assert(cclib_type_max(uintptr) == max);
   assert(cclib_type_min(uintptr) == min);
-  assert(cclib_type_sizeof(uintptr) == sizeof(cclib_uintptr_t));
+  assert(cclib_type_sizeof(uintptr) == sizeof(cclib_type_t(uintptr)));
 
 
   /* Conversion to/from string, maximum range value. */
@@ -1013,7 +1013,7 @@ test_ptrdiff (void)
   assert(CCLIB_SIZEOF_PTRDIFF == sizeof(cclib_ptrdiff_t));
   assert(cclib_type_max(ptrdiff) == max);
   assert(cclib_type_min(ptrdiff) == min);
-  assert(cclib_type_sizeof(ptrdiff) == sizeof(cclib_ptrdiff_t));
+  assert(cclib_type_sizeof(ptrdiff) == sizeof(cclib_type_t(ptrdiff)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -1055,7 +1055,7 @@ test_off (void)
   assert(CCLIB_SIZEOF_OFF == sizeof(cclib_off_t));
   assert(cclib_type_max(off) == max);
   assert(cclib_type_min(off) == min);
-  assert(cclib_type_sizeof(off) == sizeof(cclib_off_t));
+  assert(cclib_type_sizeof(off) == sizeof(cclib_type_t(off)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -1097,7 +1097,7 @@ test_wint (void)
   assert(CCLIB_SIZEOF_WINT == sizeof(cclib_wint_t));
   assert(cclib_type_max(wint) == max);
   assert(cclib_type_min(wint) == min);
-  assert(cclib_type_sizeof(wint) == sizeof(cclib_wint_t));
+  assert(cclib_type_sizeof(wint) == sizeof(cclib_type_t(wint)));
 
   /* Conversion to/from string, maximum range value. */
   {
@@ -1134,7 +1134,7 @@ test_wchar (void)
   assert(CCLIB_SIZEOF_WCHAR == sizeof(cclib_wchar_t));
   assert(cclib_type_max(wchar) == max);
   assert(cclib_type_min(wchar) == min);
-  assert(cclib_type_sizeof(wchar) == sizeof(cclib_wchar_t));
+  assert(cclib_type_sizeof(wchar) == sizeof(cclib_type_t(wchar)));
 
   /* Conversion to/from string, maximum range value. */
   {
