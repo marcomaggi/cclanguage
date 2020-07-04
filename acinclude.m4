@@ -16,9 +16,7 @@ m4_include(meta/autoconf/ax-append-link-flags.m4)
 m4_include(meta/autoconf/ax-gcc-version.m4)
 m4_include(meta/autoconf/ax-gcc-func-attribute.m4)
 
-m4_include(meta/autoconf/mmux-lang-c11.m4)
-m4_include(meta/autoconf/mmux-c-headers-includes.m4)
-m4_include(meta/autoconf/mmux-c-constant-tests.m4)
+m4_include(meta/autoconf/mmux-c-platform.m4)
 
 m4_include(meta/autoconf/cclibraries.m4)
 
