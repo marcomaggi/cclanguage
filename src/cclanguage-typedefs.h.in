@@ -44,10 +44,14 @@ extern "C" {
 
 #define CCLIB_STRUCT_TYPEDEF(STRUCT)	typedef struct STRUCT STRUCT
 
-#define cclib_type_t(STEM)	cclib_ ## STEM ## _t
-#define cclib_type_max(STEM)	(CCLIB_MAX_ ## STEM)
-#define cclib_type_min(STEM)	(CCLIB_MIN_ ## STEM)
-#define cclib_type_sizeof(STEM)	(CCLIB_SIZEOF_ ## STEM)
+#define cclib_type_t(STEM)		cclib_ ## STEM ## _t
+#define cclib_type_max(STEM)		(CCLIB_MAX_ ## STEM)
+#define cclib_type_min(STEM)		(CCLIB_MIN_ ## STEM)
+#define cclib_type_sizeof(STEM)		(CCLIB_SIZEOF_ ## STEM)
+#define cclib_type_cast(STEM, EXPR)	((cclib_type_t(STEM))(EXPR))
+#define cclib_type_const(STEM, VALUE)	(cclib_type_cast(STEM)(cclib_ ## @var{STEM} ## _const(VALUE)))
+
+#define cclib_type_printf_cast(STEM, EXPR)	(cclib_ ## STEM ## _printf_cast(EXPR))
 
 /* No parentheses around this macro expansion!!! */
 #define cclib_type_pri(STEM)	CCLIB_PRI_ ## STEM
@@ -253,111 +257,142 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
  ** Compile-time constant declarators.
  ** ----------------------------------------------------------------- */
 
+#define cclib_sint8_const(CONST_VALUE)		(cclib_sint8(CONST_VALUE))
+#define cclib_uint8_const(CONST_VALUE)		(cclib_uint8(CONST_VALUE))
+#define cclib_sint16_const(CONST_VALUE)		(cclib_sint16(CONST_VALUE))
+#define cclib_uint16_const(CONST_VALUE)		(cclib_uint16(CONST_VALUE))
+
 #if   (CCLIB_SIZEOF_SINT32 == CCLIB_SIZEOF_SINT)
-#  define cclib_sint32_const(VAL)	cclib_sint32(VAL)
-#  define cclib_uint32_const(VAL)	cclib_uint32(VAL)
+#  define cclib_sint32_const(CONST_VALUE)	cclib_sint32(CONST_VALUE)
+#  define cclib_uint32_const(CONST_VALUE)	cclib_uint32(CONST_VALUE)
 #elif (CCLIB_SIZEOF_SINT32 == CCLIB_SIZEOF_SLONG)
-#  define cclib_sint32_const(VAL)	cclib_sint32(VAL ## L)
-#  define cclib_uint32_const(VAL)	cclib_uint32(VAL ## UL)
+#  define cclib_sint32_const(CONST_VALUE)	cclib_sint32(CONST_VALUE ## L)
+#  define cclib_uint32_const(CONST_VALUE)	cclib_uint32(CONST_VALUE ## UL)
 #else
-#  define cclib_sint32_const(VAL)	cclib_sint32(VAL ## LL)
-#  define cclib_uint32_const(VAL)	cclib_uint32(VAL ## ULL)
+#  define cclib_sint32_const(CONST_VALUE)	cclib_sint32(CONST_VALUE ## LL)
+#  define cclib_uint32_const(CONST_VALUE)	cclib_uint32(CONST_VALUE ## ULL)
 #endif
 
 #if   (CCLIB_SIZEOF_SINT64 == CCLIB_SIZEOF_SINT)
-#  define cclib_sint64_const(VAL)	cclib_sint64(VAL)
-#  define cclib_uint64_const(VAL)	cclib_uint64(VAL)
+#  define cclib_sint64_const(CONST_VALUE)	cclib_sint64(CONST_VALUE)
+#  define cclib_uint64_const(CONST_VALUE)	cclib_uint64(CONST_VALUE)
 #elif (CCLIB_SIZEOF_SINT64 == CCLIB_SIZEOF_SLONG)
-#  define cclib_sint64_const(VAL)	cclib_sint64(VAL ## L)
-#  define cclib_uint64_const(VAL)	cclib_uint64(VAL ## UL)
+#  define cclib_sint64_const(CONST_VALUE)	cclib_sint64(CONST_VALUE ## L)
+#  define cclib_uint64_const(CONST_VALUE)	cclib_uint64(CONST_VALUE ## UL)
 #else
-#  define cclib_sint64_const(VAL)	cclib_sint64(VAL ## LL)
-#  define cclib_uint64_const(VAL)	cclib_uint64(VAL ## ULL)
+#  define cclib_sint64_const(CONST_VALUE)	cclib_sint64(CONST_VALUE ## LL)
+#  define cclib_uint64_const(CONST_VALUE)	cclib_uint64(CONST_VALUE ## ULL)
 #endif
+
+#define cclib_byte_const(CONST_VALUE)		(cclib_byte(CONST_VALUE))
+#define cclib_octet_const(CONST_VALUE)		(cclib_octet(CONST_VALUE))
 
 #if   (CCLIB_SIZEOF_WORD == CCLIB_SIZEOF_SINT)
-#  define cclib_word_const(VAL)		cclib_word(VAL)
+#  define cclib_word_const(CONST_VALUE)		cclib_word(CONST_VALUE)
 #elif (CCLIB_SIZEOF_WORD == CCLIB_SIZEOF_SLONG)
-#  define cclib_word_const(VAL)		cclib_word(VAL ## L)
+#  define cclib_word_const(CONST_VALUE)		cclib_word(CONST_VALUE ## L)
 #else
-#  define cclib_word_const(VAL)		cclib_word(VAL ## LL)
+#  define cclib_word_const(CONST_VALUE)		cclib_word(CONST_VALUE ## LL)
 #endif
 
+#define cclib_char_const(CONST_VALUE)		(cclib_char(CONST_VALUE))
+#define cclib_schar_const(CONST_VALUE)		(cclib_schar(CONST_VALUE))
+#define cclib_uchar_const(CONST_VALUE)		(cclib_uchar(CONST_VALUE))
+#define cclib_sshrt_const(CONST_VALUE)		(cclib_sshrt(CONST_VALUE))
+#define cclib_ushrt_const(CONST_VALUE)		(cclib_ushrt(CONST_VALUE))
+#define cclib_sint_const(CONST_VALUE)		(cclib_sint(CONST_VALUE))
+#define cclib_uint_const(CONST_VALUE)		(cclib_uint(CONST_VALUE))
+
 #if   (CCLIB_SIZEOF_SLONG == CCLIB_SIZEOF_SINT)
-#  define cclib_slong_const(VAL)	cclib_slong(VAL)
-#  define cclib_ulong_const(VAL)	cclib_ulong(VAL)
+#  define cclib_slong_const(CONST_VALUE)	cclib_slong(CONST_VALUE)
+#  define cclib_ulong_const(CONST_VALUE)	cclib_ulong(CONST_VALUE)
 #elif (CCLIB_SIZEOF_SLONG == CCLIB_SIZEOF_SLONG)
-#  define cclib_slong_const(VAL)	cclib_slong(VAL ## L)
-#  define cclib_ulong_const(VAL)	cclib_ulong(VAL ## UL)
+#  define cclib_slong_const(CONST_VALUE)	cclib_slong(CONST_VALUE ## L)
+#  define cclib_ulong_const(CONST_VALUE)	cclib_ulong(CONST_VALUE ## UL)
 #else
-#  define cclib_slong_const(VAL)	cclib_slong(VAL ## LL)
-#  define cclib_ulong_const(VAL)	cclib_ulong(VAL ## ULL)
+#  define cclib_slong_const(CONST_VALUE)	cclib_slong(CONST_VALUE ## LL)
+#  define cclib_ulong_const(CONST_VALUE)	cclib_ulong(CONST_VALUE ## ULL)
 #endif
 
 #if   (CCLIB_SIZEOF_SLLONG == CCLIB_SIZEOF_SINT)
-#  define cclib_sllong_const(VAL)	cclib_sllong(VAL)
-#  define cclib_ullong_const(VAL)	cclib_ullong(VAL)
+#  define cclib_sllong_const(CONST_VALUE)	cclib_sllong(CONST_VALUE)
+#  define cclib_ullong_const(CONST_VALUE)	cclib_ullong(CONST_VALUE)
 #elif (CCLIB_SIZEOF_SLLONG == CCLIB_SIZEOF_SLONG)
-#  define cclib_sllong_const(VAL)	cclib_sllong(VAL ## L)
-#  define cclib_ullong_const(VAL)	cclib_ullong(VAL ## UL)
+#  define cclib_sllong_const(CONST_VALUE)	cclib_sllong(CONST_VALUE ## L)
+#  define cclib_ullong_const(CONST_VALUE)	cclib_ullong(CONST_VALUE ## UL)
 #else
-#  define cclib_sllong_const(VAL)	cclib_sllong(VAL ## LL)
-#  define cclib_ullong_const(VAL)	cclib_ullong(VAL ## ULL)
+#  define cclib_sllong_const(CONST_VALUE)	cclib_sllong(CONST_VALUE ## LL)
+#  define cclib_ullong_const(CONST_VALUE)	cclib_ullong(CONST_VALUE ## ULL)
 #endif
 
 #if   (CCLIB_SIZEOF_SINTPTR == CCLIB_SIZEOF_SINT)
-#  define cclib_sintptr_const(VAL)	cclib_sintptr(VAL)
-#  define cclib_uintptr_const(VAL)	cclib_uintptr(VAL)
+#  define cclib_sintptr_const(CONST_VALUE)	cclib_sintptr(CONST_VALUE)
+#  define cclib_uintptr_const(CONST_VALUE)	cclib_uintptr(CONST_VALUE)
 #elif (CCLIB_SIZEOF_SINTPTR == CCLIB_SIZEOF_SLONG)
-#  define cclib_sintptr_const(VAL)	cclib_sintptr(VAL ## L)
-#  define cclib_uintptr_const(VAL)	cclib_uintptr(VAL ## UL)
+#  define cclib_sintptr_const(CONST_VALUE)	cclib_sintptr(CONST_VALUE ## L)
+#  define cclib_uintptr_const(CONST_VALUE)	cclib_uintptr(CONST_VALUE ## UL)
 #else
-#  define cclib_sintptr_const(VAL)	cclib_sintptr(VAL ## LL)
-#  define cclib_uintptr_const(VAL)	cclib_uintptr(VAL ## ULL)
+#  define cclib_sintptr_const(CONST_VALUE)	cclib_sintptr(CONST_VALUE ## LL)
+#  define cclib_uintptr_const(CONST_VALUE)	cclib_uintptr(CONST_VALUE ## ULL)
 #endif
 
 #if   (CCLIB_SIZEOF_SINTMAX == CCLIB_SIZEOF_SINT)
-#  define cclib_sintmax_const(VAL)	cclib_sintmax(VAL)
-#  define cclib_uintmax_const(VAL)	cclib_uintmax(VAL)
+#  define cclib_sintmax_const(CONST_VALUE)	cclib_sintmax(CONST_VALUE)
+#  define cclib_uintmax_const(CONST_VALUE)	cclib_uintmax(CONST_VALUE)
 #elif (CCLIB_SIZEOF_SINTMAX == CCLIB_SIZEOF_SLONG)
-#  define cclib_sintmax_const(VAL)	cclib_sintmax(VAL ## L)
-#  define cclib_uintmax_const(VAL)	cclib_uintmax(VAL ## UL)
+#  define cclib_sintmax_const(CONST_VALUE)	cclib_sintmax(CONST_VALUE ## L)
+#  define cclib_uintmax_const(CONST_VALUE)	cclib_uintmax(CONST_VALUE ## UL)
 #else
-#  define cclib_sintmax_const(VAL)	cclib_sintmax(VAL ## LL)
-#  define cclib_uintmax_const(VAL)	cclib_uintmax(VAL ## ULL)
+#  define cclib_sintmax_const(CONST_VALUE)	cclib_sintmax(CONST_VALUE ## LL)
+#  define cclib_uintmax_const(CONST_VALUE)	cclib_uintmax(CONST_VALUE ## ULL)
 #endif
 
 #if   (CCLIB_SIZEOF_PTRDIFF == CCLIB_SIZEOF_SINT)
-#  define cclib_ptrdiff_const(VAL)	cclib_ptrdiff(VAL)
+#  define cclib_ptrdiff_const(CONST_VALUE)	cclib_ptrdiff(CONST_VALUE)
 #elif (CCLIB_SIZEOF_PTRDIFF == CCLIB_SIZEOF_SLONG)
-#  define cclib_ptrdiff_const(VAL)	cclib_ptrdiff(VAL ## L)
+#  define cclib_ptrdiff_const(CONST_VALUE)	cclib_ptrdiff(CONST_VALUE ## L)
 #else
-#  define cclib_ptrdiff_const(VAL)	cclib_ptrdiff(VAL ## LL)
+#  define cclib_ptrdiff_const(CONST_VALUE)	cclib_ptrdiff(CONST_VALUE ## LL)
+#endif
+
+#if   (CCLIB_SIZEOF_SSIZE == CCLIB_SIZEOF_SINT)
+#  define cclib_ssize_const(CONST_VALUE)	cclib_ssize(CONST_VALUE)
+#  define cclib_usize_const(CONST_VALUE)	cclib_usize(CONST_VALUE)
+#elif (CCLIB_SIZEOF_SSIZE == CCLIB_SIZEOF_SLONG)
+#  define cclib_ssize_const(CONST_VALUE)	cclib_ssize(CONST_VALUE ## L)
+#  define cclib_usize_const(CONST_VALUE)	cclib_usize(CONST_VALUE ## UL)
+#else
+#  define cclib_ssize_const(CONST_VALUE)	cclib_ssize(CONST_VALUE ## LL)
+#  define cclib_usize_const(CONST_VALUE)	cclib_usize(CONST_VALUE ## ULL)
 #endif
 
 #if   (CCLIB_SIZEOF_OFF == CCLIB_SIZEOF_SINT)
-#  define cclib_off_const(VAL)		cclib_off(VAL)
+#  define cclib_off_const(CONST_VALUE)		cclib_off(CONST_VALUE)
 #elif (CCLIB_SIZEOF_OFF == CCLIB_SIZEOF_SLONG)
-#  define cclib_off_const(VAL)		cclib_off(VAL ## L)
+#  define cclib_off_const(CONST_VALUE)		cclib_off(CONST_VALUE ## L)
 #else
-#  define cclib_off_const(VAL)		cclib_off(VAL ## LL)
+#  define cclib_off_const(CONST_VALUE)		cclib_off(CONST_VALUE ## LL)
 #endif
 
 #if   (CCLIB_SIZEOF_WINT == CCLIB_SIZEOF_SINT)
-#  define cclib_wint_const(VAL)		cclib_wint(VAL)
+#  define cclib_wint_const(CONST_VALUE)		cclib_wint(CONST_VALUE)
 #elif (CCLIB_SIZEOF_WINT == CCLIB_SIZEOF_SLONG)
-#  define cclib_wint_const(VAL)		cclib_wint(VAL ## L)
+#  define cclib_wint_const(CONST_VALUE)		cclib_wint(CONST_VALUE ## L)
 #else
-#  define cclib_wint_const(VAL)		cclib_wint(VAL ## LL)
+#  define cclib_wint_const(CONST_VALUE)		cclib_wint(CONST_VALUE ## LL)
 #endif
 
 #if   (CCLIB_SIZEOF_WCHAR == CCLIB_SIZEOF_SINT)
-#  define cclib_wchar_const(VAL)	cclib_wchar(VAL)
+#  define cclib_wchar_const(CONST_VALUE)	cclib_wchar(CONST_VALUE)
 #elif (CCLIB_SIZEOF_WCHAR == CCLIB_SIZEOF_SLONG)
-#  define cclib_wchar_const(VAL)	cclib_wchar(VAL ## L)
+#  define cclib_wchar_const(CONST_VALUE)	cclib_wchar(CONST_VALUE ## L)
 #else
-#  define cclib_wchar_const(VAL)	cclib_wchar(VAL ## LL)
+#  define cclib_wchar_const(CONST_VALUE)	cclib_wchar(CONST_VALUE ## LL)
 #endif
+
+#define cclib_float_const(CONST_VALUE)		(cclib_float(CONST_VALUE ## F))
+#define cclib_double_const(CONST_VALUE)		(cclib_double(CONST_VALUE))
+#define cclib_ldouble_const(CONST_VALUE)	(cclib_ldouble(CONST_VALUE ## L))
 
 
 /** --------------------------------------------------------------------
@@ -542,8 +577,8 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 
 /* ------------------------------------------------------------------ */
 
-#define CCLIB_MIN_FLOAT		cclib_float(@MMUX_VALUEOF_FLT_MIN@)
-#define CCLIB_MAX_FLOAT		cclib_float(@MMUX_VALUEOF_FLT_MAX@)
+#define CCLIB_MIN_FLOAT		cclib_float(@MMUX_VALUEOF_FLT_MIN@F)
+#define CCLIB_MAX_FLOAT		cclib_float(@MMUX_VALUEOF_FLT_MAX@F)
 #define CCLIB_MIN_float		CCLIB_MIN_FLOAT
 #define CCLIB_MAX_float		CCLIB_MAX_FLOAT
 
@@ -552,14 +587,14 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_MIN_double	CCLIB_MIN_DOUBLE
 #define CCLIB_MAX_double	CCLIB_MAX_DOUBLE
 
-#define CCLIB_MIN_LDOUBLE	cclib_ldouble(@MMUX_VALUEOF_LDBL_MIN@)
-#define CCLIB_MAX_LDOUBLE	cclib_ldouble(@MMUX_VALUEOF_LDBL_MAX@)
+#define CCLIB_MIN_LDOUBLE	cclib_ldouble(@MMUX_VALUEOF_LDBL_MIN@L)
+#define CCLIB_MAX_LDOUBLE	cclib_ldouble(@MMUX_VALUEOF_LDBL_MAX@L)
 #define CCLIB_MIN_ldouble	CCLIB_MIN_LDOUBLE
 #define CCLIB_MAX_ldouble	CCLIB_MAX_LDOUBLE
 
 
 /** --------------------------------------------------------------------
- ** C language types sizes.
+ ** Printf/scanf format specifiers.
  ** ----------------------------------------------------------------- */
 
 #define CCLIB_PRI_SINT8			"@MMUX_VALUEOF_PRI_SINT8@"
@@ -601,7 +636,7 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_PRI_WINT			"@MMUX_VALUEOF_PRI_WINT@"
 
 #define CCLIB_PRI_FLOAT			"A"
-#define CCLIB_PRI_DOUBLE		"A"
+#define CCLIB_PRI_DOUBLE		"lA"
 #define CCLIB_PRI_LDOUBLE		"LA"
 
 /* ------------------------------------------------------------------ */
@@ -647,6 +682,53 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define CCLIB_PRI_float			CCLIB_PRI_FLOAT
 #define CCLIB_PRI_double		CCLIB_PRI_DOUBLE
 #define CCLIB_PRI_ldouble		CCLIB_PRI_LDOUBLE
+
+
+/** --------------------------------------------------------------------
+ ** Type conversion for printf arguments.
+ ** ----------------------------------------------------------------- */
+
+#define cclib_sint8_printf_cast(EXPR)		(cclib_sint(EXPR))
+#define cclib_uint8_printf_cast(EXPR)		(cclib_uint(EXPR))
+#define cclib_sint16_printf_cast(EXPR)		(cclib_sint(EXPR))
+#define cclib_uint16_printf_cast(EXPR)		(cclib_uint(EXPR))
+#define cclib_sint32_printf_cast(EXPR)		(EXPR)
+#define cclib_uint32_printf_cast(EXPR)		(EXPR)
+#define cclib_sint64_printf_cast(EXPR)		(EXPR)
+#define cclib_uint64_printf_cast(EXPR)		(EXPR)
+
+#define cclib_byte_printf_cast(EXPR)		(cclib_sint(EXPR))
+#define cclib_octet_printf_cast(EXPR)		(cclib_uint(EXPR))
+#define cclib_word_printf_cast(EXPR)		(EXPR)
+
+#define cclib_char_printf_cast(EXPR)		(cclib_sint(EXPR))
+#define cclib_schar_printf_cast(EXPR)		(cclib_sint(EXPR))
+#define cclib_uchar_printf_cast(EXPR)		(cclib_uint(EXPR))
+#define cclib_sshrt_printf_cast(EXPR)		(cclib_sint(EXPR))
+#define cclib_ushrt_printf_cast(EXPR)		(cclib_uint(EXPR))
+#define cclib_sint_printf_cast(EXPR)		(EXPR)
+#define cclib_uint_printf_cast(EXPR)		(EXPR)
+#define cclib_slong_printf_cast(EXPR)		(EXPR)
+#define cclib_ulong_printf_cast(EXPR)		(EXPR)
+#define cclib_sllong_printf_cast(EXPR)		(EXPR)
+#define cclib_ullong_printf_cast(EXPR)		(EXPR)
+
+#define cclib_sintmax_printf_cast(EXPR)		(EXPR)
+#define cclib_uintmax_printf_cast(EXPR)		(EXPR)
+#define cclib_sintptr_printf_cast(EXPR)		(EXPR)
+#define cclib_uintptr_printf_cast(EXPR)		(EXPR)
+#define cclib_ptrdiff_printf_cast(EXPR)		(EXPR)
+
+#define cclib_ssize_printf_cast(EXPR)		(EXPR)
+#define cclib_usize_printf_cast(EXPR)		(EXPR)
+#define cclib_off_printf_cast(EXPR)		(EXPR)
+
+#define cclib_wchar_printf_cast(EXPR)		(EXPR)
+#define cclib_wint_printf_cast(EXPR)		(EXPR)
+
+#define cclib_float_printf_cast(EXPR)		(cclib_double(EXPR))
+#define cclib_double_printf_cast(EXPR)		(EXPR)
+#define cclib_ldouble_printf_cast(EXPR)		(EXPR)
 
 
 /** --------------------------------------------------------------------
