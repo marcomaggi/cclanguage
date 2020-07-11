@@ -42,19 +42,18 @@ extern "C" {
  ** Helper macros.
  ** ----------------------------------------------------------------- */
 
-#define CCLIB_STRUCT_TYPEDEF(STRUCT)	typedef struct STRUCT STRUCT
+#define CCLIB_STRUCT_TYPEDEF(STRUCT)		typedef struct STRUCT STRUCT
 
-#define cclib_type_t(STEM)		cclib_ ## STEM ## _t
-#define cclib_type_max(STEM)		(CCLIB_MAX_ ## STEM)
-#define cclib_type_min(STEM)		(CCLIB_MIN_ ## STEM)
-#define cclib_type_sizeof(STEM)		(CCLIB_SIZEOF_ ## STEM)
-#define cclib_type_cast(STEM, EXPR)	((cclib_type_t(STEM))(EXPR))
-#define cclib_type_const(STEM, VALUE)	(cclib_type_cast(STEM)(cclib_ ## @var{STEM} ## _const(VALUE)))
-
-#define cclib_type_printf_cast(STEM, EXPR)	(cclib_ ## STEM ## _printf_cast(EXPR))
+#define cclib_type_t(STEM)			cclib_ ## STEM ## _t
+#define cclib_type_max(STEM)			(cclib_max_ ## STEM())
+#define cclib_type_min(STEM)			(cclib_min_ ## STEM())
+#define cclib_type_sizeof(STEM)			(cclib_sizeof_ ## STEM())
+#define cclib_type_cast(STEM, EXPR)		((cclib_type_t(STEM))(EXPR))
+#define cclib_type_const(STEM, VALUE)		(cclib_type_cast(STEM)(cclib_ ## @var{STEM} ## _const(VALUE)))
 
 /* No parentheses around this macro expansion!!! */
-#define cclib_type_pri(STEM)	CCLIB_PRI_ ## STEM
+#define cclib_type_pri(STEM)			cclib_pri_ ## STEM()
+#define cclib_type_printf_cast(STEM, EXPR)	(cclib_ ## STEM ## _printf_cast(EXPR))
 
 
 /** --------------------------------------------------------------------
@@ -71,6 +70,8 @@ typedef cclib_resource_data_t *		cclib_resource_pointer_t;
 /** --------------------------------------------------------------------
  ** C language types and type aliases.
  ** ----------------------------------------------------------------- */
+
+typedef void				cclib_void_t;
 
 typedef int8_t				cclib_sint8_t;
 typedef uint8_t				cclib_uint8_t;
@@ -166,91 +167,47 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
  ** C language types sizes.
  ** ----------------------------------------------------------------- */
 
-#define CCLIB_SIZEOF_SINT8		@MMUX_SIZEOF_SINT8@
-#define CCLIB_SIZEOF_UINT8		@MMUX_SIZEOF_UINT8@
-#define CCLIB_SIZEOF_SINT16		@MMUX_SIZEOF_SINT16@
-#define CCLIB_SIZEOF_UINT16		@MMUX_SIZEOF_UINT16@
-#define CCLIB_SIZEOF_SINT32		@MMUX_SIZEOF_SINT32@
-#define CCLIB_SIZEOF_UINT32		@MMUX_SIZEOF_UINT32@
-#define CCLIB_SIZEOF_SINT64		@MMUX_SIZEOF_SINT64@
-#define CCLIB_SIZEOF_UINT64		@MMUX_SIZEOF_UINT64@
+#define cclib_sizeof_sint8()		@MMUX_SIZEOF_SINT8@
+#define cclib_sizeof_uint8()		@MMUX_SIZEOF_UINT8@
+#define cclib_sizeof_sint16()		@MMUX_SIZEOF_SINT16@
+#define cclib_sizeof_uint16()		@MMUX_SIZEOF_UINT16@
+#define cclib_sizeof_sint32()		@MMUX_SIZEOF_SINT32@
+#define cclib_sizeof_uint32()		@MMUX_SIZEOF_UINT32@
+#define cclib_sizeof_sint64()		@MMUX_SIZEOF_SINT64@
+#define cclib_sizeof_uint64()		@MMUX_SIZEOF_UINT64@
 
-#define CCLIB_SIZEOF_BYTE		CCLIB_SIZEOF_SINT8
-#define CCLIB_SIZEOF_OCTET		CCLIB_SIZEOF_UINT8
-#define CCLIB_SIZEOF_WORD		@MMUX_SIZEOF_WORD@
+#define cclib_sizeof_byte()		cclib_sizeof_sint8()
+#define cclib_sizeof_octet()		cclib_sizeof_uint8()
+#define cclib_sizeof_word()		@MMUX_SIZEOF_WORD@
 
-#define CCLIB_SIZEOF_CHAR		@MMUX_SIZEOF_CHAR@
-#define CCLIB_SIZEOF_SCHAR		@MMUX_SIZEOF_SCHAR@
-#define CCLIB_SIZEOF_UCHAR		@MMUX_SIZEOF_UCHAR@
-#define CCLIB_SIZEOF_SSHRT		@MMUX_SIZEOF_SSHRT@
-#define CCLIB_SIZEOF_USHRT		@MMUX_SIZEOF_USHRT@
-#define CCLIB_SIZEOF_SINT		@MMUX_SIZEOF_SINT@
-#define CCLIB_SIZEOF_UINT		@MMUX_SIZEOF_UINT@
-#define CCLIB_SIZEOF_SLONG		@MMUX_SIZEOF_SLONG@
-#define CCLIB_SIZEOF_ULONG		@MMUX_SIZEOF_ULONG@
-#define CCLIB_SIZEOF_SLLONG		@MMUX_SIZEOF_SLLONG@
-#define CCLIB_SIZEOF_ULLONG		@MMUX_SIZEOF_ULLONG@
+#define cclib_sizeof_char()		@MMUX_SIZEOF_CHAR@
+#define cclib_sizeof_schar()		@MMUX_SIZEOF_SCHAR@
+#define cclib_sizeof_uchar()		@MMUX_SIZEOF_UCHAR@
+#define cclib_sizeof_sshrt()		@MMUX_SIZEOF_SSHRT@
+#define cclib_sizeof_ushrt()		@MMUX_SIZEOF_USHRT@
+#define cclib_sizeof_sint()		@MMUX_SIZEOF_SINT@
+#define cclib_sizeof_uint()		@MMUX_SIZEOF_UINT@
+#define cclib_sizeof_slong()		@MMUX_SIZEOF_SLONG@
+#define cclib_sizeof_ulong()		@MMUX_SIZEOF_ULONG@
+#define cclib_sizeof_sllong()		@MMUX_SIZEOF_SLLONG@
+#define cclib_sizeof_ullong()		@MMUX_SIZEOF_ULLONG@
 
-#define CCLIB_SIZEOF_SINTMAX		@MMUX_SIZEOF_SINTMAX@
-#define CCLIB_SIZEOF_UINTMAX		@MMUX_SIZEOF_UINTMAX@
-#define CCLIB_SIZEOF_SINTPTR		@MMUX_SIZEOF_SINTPTR@
-#define CCLIB_SIZEOF_UINTPTR		@MMUX_SIZEOF_UINTPTR@
-#define CCLIB_SIZEOF_PTRDIFF		@MMUX_SIZEOF_PTRDIFF@
+#define cclib_sizeof_sintmax()		@MMUX_SIZEOF_SINTMAX@
+#define cclib_sizeof_uintmax()		@MMUX_SIZEOF_UINTMAX@
+#define cclib_sizeof_sintptr()		@MMUX_SIZEOF_SINTPTR@
+#define cclib_sizeof_uintptr()		@MMUX_SIZEOF_UINTPTR@
+#define cclib_sizeof_ptrdiff()		@MMUX_SIZEOF_PTRDIFF@
 
-#define CCLIB_SIZEOF_SSIZE		@MMUX_SIZEOF_SSIZE@
-#define CCLIB_SIZEOF_USIZE		@MMUX_SIZEOF_USIZE@
-#define CCLIB_SIZEOF_OFF		@MMUX_SIZEOF_OFF@
+#define cclib_sizeof_ssize()		@MMUX_SIZEOF_SSIZE@
+#define cclib_sizeof_usize()		@MMUX_SIZEOF_USIZE@
+#define cclib_sizeof_off()		@MMUX_SIZEOF_OFF@
 
-#define CCLIB_SIZEOF_WCHAR		@MMUX_SIZEOF_WCHAR@
-#define CCLIB_SIZEOF_WINT		@MMUX_SIZEOF_WINT@
+#define cclib_sizeof_wchar()		@MMUX_SIZEOF_WCHAR@
+#define cclib_sizeof_wint()		@MMUX_SIZEOF_WINT@
 
-#define CCLIB_SIZEOF_FLOAT		@MMUX_SIZEOF_FLOAT@
-#define CCLIB_SIZEOF_DOUBLE		@MMUX_SIZEOF_DOUBLE@
-#define CCLIB_SIZEOF_LDOUBLE		@MMUX_SIZEOF_LDOUBLE@
-
-/* ------------------------------------------------------------------ */
-
-#define CCLIB_SIZEOF_sint8		CCLIB_SIZEOF_SINT8
-#define CCLIB_SIZEOF_uint8		CCLIB_SIZEOF_UINT8
-#define CCLIB_SIZEOF_sint16		CCLIB_SIZEOF_SINT16
-#define CCLIB_SIZEOF_uint16		CCLIB_SIZEOF_UINT16
-#define CCLIB_SIZEOF_sint32		CCLIB_SIZEOF_SINT32
-#define CCLIB_SIZEOF_uint32		CCLIB_SIZEOF_UINT32
-#define CCLIB_SIZEOF_sint64		CCLIB_SIZEOF_SINT64
-#define CCLIB_SIZEOF_uint64		CCLIB_SIZEOF_UINT64
-
-#define CCLIB_SIZEOF_byte		CCLIB_SIZEOF_SINT8
-#define CCLIB_SIZEOF_octet		CCLIB_SIZEOF_UINT8
-#define CCLIB_SIZEOF_word		CCLIB_SIZEOF_WORD
-
-#define CCLIB_SIZEOF_char		CCLIB_SIZEOF_CHAR
-#define CCLIB_SIZEOF_schar		CCLIB_SIZEOF_SCHAR
-#define CCLIB_SIZEOF_uchar		CCLIB_SIZEOF_UCHAR
-#define CCLIB_SIZEOF_sshrt		CCLIB_SIZEOF_SSHRT
-#define CCLIB_SIZEOF_ushrt		CCLIB_SIZEOF_USHRT
-#define CCLIB_SIZEOF_sint		CCLIB_SIZEOF_SINT
-#define CCLIB_SIZEOF_uint		CCLIB_SIZEOF_UINT
-#define CCLIB_SIZEOF_slong		CCLIB_SIZEOF_SLONG
-#define CCLIB_SIZEOF_ulong		CCLIB_SIZEOF_ULONG
-#define CCLIB_SIZEOF_sllong		CCLIB_SIZEOF_SLLONG
-#define CCLIB_SIZEOF_ullong		CCLIB_SIZEOF_ULLONG
-
-#define CCLIB_SIZEOF_sintmax		CCLIB_SIZEOF_SINTMAX
-#define CCLIB_SIZEOF_uintmax		CCLIB_SIZEOF_UINTMAX
-#define CCLIB_SIZEOF_sintptr		CCLIB_SIZEOF_SINTPTR
-#define CCLIB_SIZEOF_uintptr		CCLIB_SIZEOF_UINTPTR
-#define CCLIB_SIZEOF_ptrdiff		CCLIB_SIZEOF_PTRDIFF
-
-#define CCLIB_SIZEOF_ssize		CCLIB_SIZEOF_SSIZE
-#define CCLIB_SIZEOF_usize		CCLIB_SIZEOF_USIZE
-#define CCLIB_SIZEOF_off		CCLIB_SIZEOF_OFF
-
-#define CCLIB_SIZEOF_wchar		CCLIB_SIZEOF_WCHAR
-#define CCLIB_SIZEOF_wint		CCLIB_SIZEOF_WINT
-
-#define CCLIB_SIZEOF_float		CCLIB_SIZEOF_FLOAT
-#define CCLIB_SIZEOF_double		CCLIB_SIZEOF_DOUBLE
-#define CCLIB_SIZEOF_ldouble		CCLIB_SIZEOF_LDOUBLE
+#define cclib_sizeof_float()		@MMUX_SIZEOF_FLOAT@
+#define cclib_sizeof_double()		@MMUX_SIZEOF_DOUBLE@
+#define cclib_sizeof_ldouble()		@MMUX_SIZEOF_LDOUBLE@
 
 
 /** --------------------------------------------------------------------
@@ -262,10 +219,10 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define cclib_sint16_const(CONST_VALUE)		(cclib_sint16(CONST_VALUE))
 #define cclib_uint16_const(CONST_VALUE)		(cclib_uint16(CONST_VALUE))
 
-#if   (CCLIB_SIZEOF_SINT32 == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_sint32() == cclib_sizeof_sint())
 #  define cclib_sint32_const(CONST_VALUE)	cclib_sint32(CONST_VALUE)
 #  define cclib_uint32_const(CONST_VALUE)	cclib_uint32(CONST_VALUE)
-#elif (CCLIB_SIZEOF_SINT32 == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_sint32() == cclib_sizeof_slong())
 #  define cclib_sint32_const(CONST_VALUE)	cclib_sint32(CONST_VALUE ## L)
 #  define cclib_uint32_const(CONST_VALUE)	cclib_uint32(CONST_VALUE ## UL)
 #else
@@ -273,10 +230,10 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #  define cclib_uint32_const(CONST_VALUE)	cclib_uint32(CONST_VALUE ## ULL)
 #endif
 
-#if   (CCLIB_SIZEOF_SINT64 == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_sint64() == cclib_sizeof_sint())
 #  define cclib_sint64_const(CONST_VALUE)	cclib_sint64(CONST_VALUE)
 #  define cclib_uint64_const(CONST_VALUE)	cclib_uint64(CONST_VALUE)
-#elif (CCLIB_SIZEOF_SINT64 == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_sint64() == cclib_sizeof_slong())
 #  define cclib_sint64_const(CONST_VALUE)	cclib_sint64(CONST_VALUE ## L)
 #  define cclib_uint64_const(CONST_VALUE)	cclib_uint64(CONST_VALUE ## UL)
 #else
@@ -287,9 +244,9 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define cclib_byte_const(CONST_VALUE)		(cclib_byte(CONST_VALUE))
 #define cclib_octet_const(CONST_VALUE)		(cclib_octet(CONST_VALUE))
 
-#if   (CCLIB_SIZEOF_WORD == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_word() == cclib_sizeof_sint())
 #  define cclib_word_const(CONST_VALUE)		cclib_word(CONST_VALUE)
-#elif (CCLIB_SIZEOF_WORD == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_word() == cclib_sizeof_slong())
 #  define cclib_word_const(CONST_VALUE)		cclib_word(CONST_VALUE ## L)
 #else
 #  define cclib_word_const(CONST_VALUE)		cclib_word(CONST_VALUE ## LL)
@@ -303,10 +260,10 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #define cclib_sint_const(CONST_VALUE)		(cclib_sint(CONST_VALUE))
 #define cclib_uint_const(CONST_VALUE)		(cclib_uint(CONST_VALUE))
 
-#if   (CCLIB_SIZEOF_SLONG == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_slong() == cclib_sizeof_sint())
 #  define cclib_slong_const(CONST_VALUE)	cclib_slong(CONST_VALUE)
 #  define cclib_ulong_const(CONST_VALUE)	cclib_ulong(CONST_VALUE)
-#elif (CCLIB_SIZEOF_SLONG == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_slong() == cclib_sizeof_slong())
 #  define cclib_slong_const(CONST_VALUE)	cclib_slong(CONST_VALUE ## L)
 #  define cclib_ulong_const(CONST_VALUE)	cclib_ulong(CONST_VALUE ## UL)
 #else
@@ -314,10 +271,10 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #  define cclib_ulong_const(CONST_VALUE)	cclib_ulong(CONST_VALUE ## ULL)
 #endif
 
-#if   (CCLIB_SIZEOF_SLLONG == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_sllong() == cclib_sizeof_sint())
 #  define cclib_sllong_const(CONST_VALUE)	cclib_sllong(CONST_VALUE)
 #  define cclib_ullong_const(CONST_VALUE)	cclib_ullong(CONST_VALUE)
-#elif (CCLIB_SIZEOF_SLLONG == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_sllong() == cclib_sizeof_slong())
 #  define cclib_sllong_const(CONST_VALUE)	cclib_sllong(CONST_VALUE ## L)
 #  define cclib_ullong_const(CONST_VALUE)	cclib_ullong(CONST_VALUE ## UL)
 #else
@@ -325,10 +282,10 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #  define cclib_ullong_const(CONST_VALUE)	cclib_ullong(CONST_VALUE ## ULL)
 #endif
 
-#if   (CCLIB_SIZEOF_SINTPTR == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_sintptr() == cclib_sizeof_sint())
 #  define cclib_sintptr_const(CONST_VALUE)	cclib_sintptr(CONST_VALUE)
 #  define cclib_uintptr_const(CONST_VALUE)	cclib_uintptr(CONST_VALUE)
-#elif (CCLIB_SIZEOF_SINTPTR == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_sintptr() == cclib_sizeof_slong())
 #  define cclib_sintptr_const(CONST_VALUE)	cclib_sintptr(CONST_VALUE ## L)
 #  define cclib_uintptr_const(CONST_VALUE)	cclib_uintptr(CONST_VALUE ## UL)
 #else
@@ -336,10 +293,10 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #  define cclib_uintptr_const(CONST_VALUE)	cclib_uintptr(CONST_VALUE ## ULL)
 #endif
 
-#if   (CCLIB_SIZEOF_SINTMAX == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_sintmax() == cclib_sizeof_sint())
 #  define cclib_sintmax_const(CONST_VALUE)	cclib_sintmax(CONST_VALUE)
 #  define cclib_uintmax_const(CONST_VALUE)	cclib_uintmax(CONST_VALUE)
-#elif (CCLIB_SIZEOF_SINTMAX == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_sintmax() == cclib_sizeof_slong())
 #  define cclib_sintmax_const(CONST_VALUE)	cclib_sintmax(CONST_VALUE ## L)
 #  define cclib_uintmax_const(CONST_VALUE)	cclib_uintmax(CONST_VALUE ## UL)
 #else
@@ -347,18 +304,18 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #  define cclib_uintmax_const(CONST_VALUE)	cclib_uintmax(CONST_VALUE ## ULL)
 #endif
 
-#if   (CCLIB_SIZEOF_PTRDIFF == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_ptrdiff() == cclib_sizeof_sint())
 #  define cclib_ptrdiff_const(CONST_VALUE)	cclib_ptrdiff(CONST_VALUE)
-#elif (CCLIB_SIZEOF_PTRDIFF == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_ptrdiff() == cclib_sizeof_slong())
 #  define cclib_ptrdiff_const(CONST_VALUE)	cclib_ptrdiff(CONST_VALUE ## L)
 #else
 #  define cclib_ptrdiff_const(CONST_VALUE)	cclib_ptrdiff(CONST_VALUE ## LL)
 #endif
 
-#if   (CCLIB_SIZEOF_SSIZE == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_ssize() == cclib_sizeof_sint())
 #  define cclib_ssize_const(CONST_VALUE)	cclib_ssize(CONST_VALUE)
 #  define cclib_usize_const(CONST_VALUE)	cclib_usize(CONST_VALUE)
-#elif (CCLIB_SIZEOF_SSIZE == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_ssize() == cclib_sizeof_slong())
 #  define cclib_ssize_const(CONST_VALUE)	cclib_ssize(CONST_VALUE ## L)
 #  define cclib_usize_const(CONST_VALUE)	cclib_usize(CONST_VALUE ## UL)
 #else
@@ -366,25 +323,25 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
 #  define cclib_usize_const(CONST_VALUE)	cclib_usize(CONST_VALUE ## ULL)
 #endif
 
-#if   (CCLIB_SIZEOF_OFF == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_off() == cclib_sizeof_sint())
 #  define cclib_off_const(CONST_VALUE)		cclib_off(CONST_VALUE)
-#elif (CCLIB_SIZEOF_OFF == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_off() == cclib_sizeof_slong())
 #  define cclib_off_const(CONST_VALUE)		cclib_off(CONST_VALUE ## L)
 #else
 #  define cclib_off_const(CONST_VALUE)		cclib_off(CONST_VALUE ## LL)
 #endif
 
-#if   (CCLIB_SIZEOF_WINT == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_wint() == cclib_sizeof_sint())
 #  define cclib_wint_const(CONST_VALUE)		cclib_wint(CONST_VALUE)
-#elif (CCLIB_SIZEOF_WINT == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_wint() == cclib_sizeof_slong())
 #  define cclib_wint_const(CONST_VALUE)		cclib_wint(CONST_VALUE ## L)
 #else
 #  define cclib_wint_const(CONST_VALUE)		cclib_wint(CONST_VALUE ## LL)
 #endif
 
-#if   (CCLIB_SIZEOF_WCHAR == CCLIB_SIZEOF_SINT)
+#if   (cclib_sizeof_wchar() == cclib_sizeof_sint())
 #  define cclib_wchar_const(CONST_VALUE)	cclib_wchar(CONST_VALUE)
-#elif (CCLIB_SIZEOF_WCHAR == CCLIB_SIZEOF_SLONG)
+#elif (cclib_sizeof_wchar() == cclib_sizeof_slong())
 #  define cclib_wchar_const(CONST_VALUE)	cclib_wchar(CONST_VALUE ## L)
 #else
 #  define cclib_wchar_const(CONST_VALUE)	cclib_wchar(CONST_VALUE ## LL)
@@ -399,35 +356,23 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
  ** C language types limits.
  ** ----------------------------------------------------------------- */
 
-#define CCLIB_MIN_SINT8		cclib_sint8(@MMUX_VALUEOF_SINT8_MIN@)
-#define CCLIB_MAX_SINT8		cclib_sint8(@MMUX_VALUEOF_SINT8_MAX@)
-#define CCLIB_MIN_sint8		CCLIB_MIN_SINT8
-#define CCLIB_MAX_sint8		CCLIB_MAX_SINT8
+#define cclib_min_sint8()	cclib_sint8(@MMUX_VALUEOF_SINT8_MIN@)
+#define cclib_max_sint8()	cclib_sint8(@MMUX_VALUEOF_SINT8_MAX@)
 
-#define CCLIB_MIN_UINT8		cclib_uint8(@MMUX_VALUEOF_UINT8_MIN@)
-#define CCLIB_MAX_UINT8		cclib_uint8(@MMUX_VALUEOF_UINT8_MAX@)
-#define CCLIB_MIN_uint8		CCLIB_MIN_UINT8
-#define CCLIB_MAX_uint8		CCLIB_MAX_UINT8
+#define cclib_min_uint8()	cclib_uint8(@MMUX_VALUEOF_UINT8_MIN@)
+#define cclib_max_uint8()	cclib_uint8(@MMUX_VALUEOF_UINT8_MAX@)
 
-#define CCLIB_MIN_SINT16	cclib_sint16(@MMUX_VALUEOF_SINT16_MIN@)
-#define CCLIB_MAX_SINT16	cclib_sint16(@MMUX_VALUEOF_SINT16_MAX@)
-#define CCLIB_MIN_sint16	CCLIB_MIN_SINT16
-#define CCLIB_MAX_sint16	CCLIB_MAX_SINT16
+#define cclib_min_sint16()	cclib_sint16(@MMUX_VALUEOF_SINT16_MIN@)
+#define cclib_max_sint16()	cclib_sint16(@MMUX_VALUEOF_SINT16_MAX@)
 
-#define CCLIB_MIN_UINT16	cclib_uint16(@MMUX_VALUEOF_UINT16_MIN@)
-#define CCLIB_MAX_UINT16	cclib_uint16(@MMUX_VALUEOF_UINT16_MAX@)
-#define CCLIB_MIN_uint16	CCLIB_MIN_UINT16
-#define CCLIB_MAX_uint16	CCLIB_MAX_UINT16
+#define cclib_min_uint16()	cclib_uint16(@MMUX_VALUEOF_UINT16_MIN@)
+#define cclib_max_uint16()	cclib_uint16(@MMUX_VALUEOF_UINT16_MAX@)
 
-#define CCLIB_MIN_SINT32	cclib_sint32_const(@MMUX_VALUEOF_SINT32_MIN@)
-#define CCLIB_MAX_SINT32	cclib_sint32_const(@MMUX_VALUEOF_SINT32_MAX@)
-#define CCLIB_MIN_sint32	CCLIB_MIN_SINT32
-#define CCLIB_MAX_sint32	CCLIB_MAX_SINT32
+#define cclib_min_sint32()	cclib_sint32_const(@MMUX_VALUEOF_SINT32_MIN@)
+#define cclib_max_sint32()	cclib_sint32_const(@MMUX_VALUEOF_SINT32_MAX@)
 
-#define CCLIB_MIN_UINT32	cclib_uint32_const(@MMUX_VALUEOF_UINT32_MIN@)
-#define CCLIB_MAX_UINT32	cclib_uint32_const(@MMUX_VALUEOF_UINT32_MAX@)
-#define CCLIB_MIN_uint32	CCLIB_MIN_UINT32
-#define CCLIB_MAX_uint32	CCLIB_MAX_UINT32
+#define cclib_min_uint32()	cclib_uint32_const(@MMUX_VALUEOF_UINT32_MIN@)
+#define cclib_max_uint32()	cclib_uint32_const(@MMUX_VALUEOF_UINT32_MAX@)
 
 /* NOTE If we define:
  *
@@ -437,251 +382,149 @@ typedef @MMUX_VALUEOF_WCHAR_ALIAS@	cclib_wchar_t;
  * it.  But 9223372036854775808L is too big to fit into a sint64: so an error will be
  * raised.  This is why we must define it as it is.  (Marco Maggi; Jul  3, 2020)
  */
-#define CCLIB_MIN_SINT64	(-cclib_sint64_const(@MMUX_VALUEOF_SINT64_MAX@) - cclib_sint64_const(1))
-#define CCLIB_MAX_SINT64	cclib_sint64_const(@MMUX_VALUEOF_SINT64_MAX@)
-#define CCLIB_MIN_sint64	CCLIB_MIN_SINT64
-#define CCLIB_MAX_sint64	CCLIB_MAX_SINT64
+#define cclib_min_sint64()	(-cclib_sint64_const(@MMUX_VALUEOF_SINT64_MAX@) - cclib_sint64_const(1))
+#define cclib_max_sint64()	cclib_sint64_const(@MMUX_VALUEOF_SINT64_MAX@)
 
-#define CCLIB_MIN_UINT64	cclib_uint64_const(@MMUX_VALUEOF_UINT64_MIN@)
-#define CCLIB_MAX_UINT64	cclib_uint64_const(@MMUX_VALUEOF_UINT64_MAX@)
-#define CCLIB_MIN_uint64	CCLIB_MIN_UINT64
-#define CCLIB_MAX_uint64	CCLIB_MAX_UINT64
+#define cclib_min_uint64()	cclib_uint64_const(@MMUX_VALUEOF_UINT64_MIN@)
+#define cclib_max_uint64()	cclib_uint64_const(@MMUX_VALUEOF_UINT64_MAX@)
 
 /* ------------------------------------------------------------------ */
 
-#define CCLIB_MIN_BYTE		CCLIB_MIN_SINT8
-#define CCLIB_MAX_BYTE		CCLIB_MAX_SINT8
-#define CCLIB_MIN_byte		CCLIB_MIN_sint8
-#define CCLIB_MAX_byte		CCLIB_MAX_sint8
+#define cclib_min_byte()	cclib_min_sint8()
+#define cclib_max_byte()	cclib_max_sint8()
 
-#define CCLIB_MIN_OCTET		CCLIB_MIN_UINT8
-#define CCLIB_MAX_OCTET		CCLIB_MAX_UINT8
-#define CCLIB_MIN_octet		CCLIB_MIN_uint8
-#define CCLIB_MAX_octet		CCLIB_MAX_uint8
+#define cclib_min_octet()	cclib_min_uint8()
+#define cclib_max_octet()	cclib_max_uint8()
 
-#define CCLIB_MIN_WORD		(-cclib_word_const(@MMUX_VALUEOF_WORD_MAX@) - cclib_word_const(1))
-#define CCLIB_MAX_WORD		cclib_word_const(@MMUX_VALUEOF_WORD_MAX@)
-#define CCLIB_MIN_word		CCLIB_MIN_WORD
-#define CCLIB_MAX_word		CCLIB_MAX_WORD
+#define cclib_min_word()	(-cclib_word_const(@MMUX_VALUEOF_WORD_MAX@) - cclib_word_const(1))
+#define cclib_max_word()	cclib_word_const(@MMUX_VALUEOF_WORD_MAX@)
 
 /* ------------------------------------------------------------------ */
 
-#define CCLIB_MIN_CHAR		cclib_char(@MMUX_VALUEOF_CHAR_MIN@)
-#define CCLIB_MAX_CHAR		cclib_char(@MMUX_VALUEOF_CHAR_MAX@)
-#define CCLIB_MIN_char		CCLIB_MIN_CHAR
-#define CCLIB_MAX_char		CCLIB_MAX_CHAR
+#define cclib_min_char()	cclib_char(@MMUX_VALUEOF_CHAR_MIN@)
+#define cclib_max_char()	cclib_char(@MMUX_VALUEOF_CHAR_MAX@)
 
-#define CCLIB_MIN_SCHAR		cclib_schar(@MMUX_VALUEOF_SCHAR_MIN@)
-#define CCLIB_MAX_SCHAR		cclib_schar(@MMUX_VALUEOF_SCHAR_MAX@)
-#define CCLIB_MIN_schar		CCLIB_MIN_SCHAR
-#define CCLIB_MAX_schar		CCLIB_MAX_SCHAR
+#define cclib_min_schar()	cclib_schar(@MMUX_VALUEOF_SCHAR_MIN@)
+#define cclib_max_schar()	cclib_schar(@MMUX_VALUEOF_SCHAR_MAX@)
 
-#define CCLIB_MIN_UCHAR		cclib_uchar(0)
-#define CCLIB_MAX_UCHAR		cclib_uchar(@MMUX_VALUEOF_UCHAR_MAX@)
-#define CCLIB_MIN_uchar		CCLIB_MIN_UCHAR
-#define CCLIB_MAX_uchar		CCLIB_MAX_UCHAR
+#define cclib_min_uchar()	cclib_uchar(0)
+#define cclib_max_uchar()	cclib_uchar(@MMUX_VALUEOF_UCHAR_MAX@)
 
-#define CCLIB_MIN_SSHRT		cclib_sshrt(@MMUX_VALUEOF_SHRT_MIN@)
-#define CCLIB_MAX_SSHRT		cclib_sshrt(@MMUX_VALUEOF_SHRT_MAX@)
-#define CCLIB_MIN_sshrt		CCLIB_MIN_SSHRT
-#define CCLIB_MAX_sshrt		CCLIB_MAX_SSHRT
+#define cclib_min_sshrt()	cclib_sshrt(@MMUX_VALUEOF_SHRT_MIN@)
+#define cclib_max_sshrt()	cclib_sshrt(@MMUX_VALUEOF_SHRT_MAX@)
 
-#define CCLIB_MIN_USHRT		cclib_ushrt(0)
-#define CCLIB_MAX_USHRT		cclib_ushrt(@MMUX_VALUEOF_USHRT_MAX@)
-#define CCLIB_MIN_ushrt		CCLIB_MIN_USHRT
-#define CCLIB_MAX_ushrt		CCLIB_MAX_USHRT
+#define cclib_min_ushrt()	cclib_ushrt(0)
+#define cclib_max_ushrt()	cclib_ushrt(@MMUX_VALUEOF_USHRT_MAX@)
 
-#define CCLIB_MIN_SINT		cclib_sint(@MMUX_VALUEOF_INT_MIN@)
-#define CCLIB_MAX_SINT		cclib_sint(@MMUX_VALUEOF_INT_MAX@)
-#define CCLIB_MIN_sint		CCLIB_MIN_SINT
-#define CCLIB_MAX_sint		CCLIB_MAX_SINT
+#define cclib_min_sint()	cclib_sint(@MMUX_VALUEOF_INT_MIN@)
+#define cclib_max_sint()	cclib_sint(@MMUX_VALUEOF_INT_MAX@)
 
-#define CCLIB_MIN_UINT		cclib_uint(0)
-#define CCLIB_MAX_UINT		cclib_uint(@MMUX_VALUEOF_UINT_MAX@)
-#define CCLIB_MIN_uint		CCLIB_MIN_UINT
-#define CCLIB_MAX_uint		CCLIB_MAX_UINT
+#define cclib_min_uint()	cclib_uint(0)
+#define cclib_max_uint()	cclib_uint(@MMUX_VALUEOF_UINT_MAX@)
 
-#define CCLIB_MIN_SLONG		(-cclib_slong_const(@MMUX_VALUEOF_LONG_MAX@) - cclib_slong_const(1))
-#define CCLIB_MAX_SLONG		cclib_slong(@MMUX_VALUEOF_LONG_MAX@L)
-#define CCLIB_MIN_slong		CCLIB_MIN_SLONG
-#define CCLIB_MAX_slong		CCLIB_MAX_SLONG
+#define cclib_min_slong()	(-cclib_slong_const(@MMUX_VALUEOF_LONG_MAX@) - cclib_slong_const(1))
+#define cclib_max_slong()	cclib_slong(@MMUX_VALUEOF_LONG_MAX@L)
 
-#define CCLIB_MIN_ULONG		cclib_ulong(0UL)
-#define CCLIB_MAX_ULONG		cclib_ulong(@MMUX_VALUEOF_ULONG_MAX@UL)
-#define CCLIB_MIN_ulong		CCLIB_MIN_ULONG
-#define CCLIB_MAX_ulong		CCLIB_MAX_ULONG
+#define cclib_min_ulong()	cclib_ulong(0UL)
+#define cclib_max_ulong()	cclib_ulong(@MMUX_VALUEOF_ULONG_MAX@UL)
 
-#define CCLIB_MIN_SLLONG	(-cclib_sllong_const(@MMUX_VALUEOF_LLONG_MAX@) - cclib_sllong_const(1))
-#define CCLIB_MAX_SLLONG	cclib_sllong(@MMUX_VALUEOF_LLONG_MAX@LL)
-#define CCLIB_MIN_sllong	CCLIB_MIN_SLLONG
-#define CCLIB_MAX_sllong	CCLIB_MAX_SLLONG
+#define cclib_min_sllong()	(-cclib_sllong_const(@MMUX_VALUEOF_LLONG_MAX@) - cclib_sllong_const(1))
+#define cclib_max_sllong()	cclib_sllong(@MMUX_VALUEOF_LLONG_MAX@LL)
 
-#define CCLIB_MIN_ULLONG	cclib_ullong(0ULL)
-#define CCLIB_MAX_ULLONG	cclib_ullong(@MMUX_VALUEOF_ULLONG_MAX@ULL)
-#define CCLIB_MIN_ullong	CCLIB_MIN_ULLONG
-#define CCLIB_MAX_ullong	CCLIB_MAX_ULLONG
+#define cclib_min_ullong()	cclib_ullong(0ULL)
+#define cclib_max_ullong()	cclib_ullong(@MMUX_VALUEOF_ULLONG_MAX@ULL)
 
 /* ------------------------------------------------------------------ */
 
-#define CCLIB_MIN_SINTMAX	(-cclib_sintmax_const(@MMUX_VALUEOF_SINTMAX_MAX@) - cclib_sintmax_const(1))
-#define CCLIB_MAX_SINTMAX	cclib_sintmax_const(@MMUX_VALUEOF_SINTMAX_MAX@)
-#define CCLIB_MIN_sintmax	CCLIB_MIN_SINTMAX
-#define CCLIB_MAX_sintmax	CCLIB_MAX_SINTMAX
+#define cclib_min_sintmax()	(-cclib_sintmax_const(@MMUX_VALUEOF_SINTMAX_MAX@) - cclib_sintmax_const(1))
+#define cclib_max_sintmax()	cclib_sintmax_const(@MMUX_VALUEOF_SINTMAX_MAX@)
 
-#define CCLIB_MIN_UINTMAX	cclib_uintmax_const(0)
-#define CCLIB_MAX_UINTMAX	cclib_uintmax_const(@MMUX_VALUEOF_UINTMAX_MAX@)
-#define CCLIB_MIN_uintmax	CCLIB_MIN_UINTMAX
-#define CCLIB_MAX_uintmax	CCLIB_MAX_UINTMAX
+#define cclib_min_uintmax()	cclib_uintmax_const(0)
+#define cclib_max_uintmax()	cclib_uintmax_const(@MMUX_VALUEOF_UINTMAX_MAX@)
 
-#define CCLIB_MIN_SINTPTR	(-cclib_sintptr_const(@MMUX_VALUEOF_SINTPTR_MAX@) - cclib_sintptr_const(1))
-#define CCLIB_MAX_SINTPTR	cclib_sintptr_const(@MMUX_VALUEOF_SINTPTR_MAX@)
-#define CCLIB_MIN_sintptr	CCLIB_MIN_SINTPTR
-#define CCLIB_MAX_sintptr	CCLIB_MAX_SINTPTR
+#define cclib_min_sintptr()	(-cclib_sintptr_const(@MMUX_VALUEOF_SINTPTR_MAX@) - cclib_sintptr_const(1))
+#define cclib_max_sintptr()	cclib_sintptr_const(@MMUX_VALUEOF_SINTPTR_MAX@)
 
-#define CCLIB_MIN_UINTPTR	cclib_uintptr_const(0)
-#define CCLIB_MAX_UINTPTR	cclib_uintptr_const(@MMUX_VALUEOF_UINTPTR_MAX@)
-#define CCLIB_MIN_uintptr	CCLIB_MIN_UINTPTR
-#define CCLIB_MAX_uintptr	CCLIB_MAX_UINTPTR
+#define cclib_min_uintptr()	cclib_uintptr_const(0)
+#define cclib_max_uintptr()	cclib_uintptr_const(@MMUX_VALUEOF_UINTPTR_MAX@)
 
-#define CCLIB_MIN_PTRDIFF	(-cclib_ptrdiff_const(@MMUX_VALUEOF_PTRDIFF_MAX@) - cclib_ptrdiff_const(1))
-#define CCLIB_MAX_PTRDIFF	cclib_ptrdiff_const(@MMUX_VALUEOF_PTRDIFF_MAX@)
-#define CCLIB_MIN_ptrdiff	CCLIB_MIN_PTRDIFF
-#define CCLIB_MAX_ptrdiff	CCLIB_MAX_PTRDIFF
+#define cclib_min_ptrdiff()	(-cclib_ptrdiff_const(@MMUX_VALUEOF_PTRDIFF_MAX@) - cclib_ptrdiff_const(1))
+#define cclib_max_ptrdiff()	cclib_ptrdiff_const(@MMUX_VALUEOF_PTRDIFF_MAX@)
 
-#define CCLIB_MIN_SSIZE		(-cclib_ssize_const(@MMUX_VALUEOF_SSIZE_MAX@) - cclib_ssize_const(1))
-#define CCLIB_MAX_SSIZE		cclib_ssize_const(@MMUX_VALUEOF_SSIZE_MAX@)
-#define CCLIB_MIN_ssize		CCLIB_MIN_SSIZE
-#define CCLIB_MAX_ssize		CCLIB_MAX_SSIZE
+#define cclib_min_ssize()	(-cclib_ssize_const(@MMUX_VALUEOF_SSIZE_MAX@) - cclib_ssize_const(1))
+#define cclib_max_ssize()	cclib_ssize_const(@MMUX_VALUEOF_SSIZE_MAX@)
 
-#define CCLIB_MIN_USIZE		cclib_usize_const(0)
-#define CCLIB_MAX_USIZE		cclib_usize_const(@MMUX_VALUEOF_USIZE_MAX@)
-#define CCLIB_MIN_usize		CCLIB_MIN_USIZE
-#define CCLIB_MAX_usize		CCLIB_MAX_USIZE
+#define cclib_min_usize()	cclib_usize_const(0)
+#define cclib_max_usize()	cclib_usize_const(@MMUX_VALUEOF_USIZE_MAX@)
 
-#define CCLIB_MIN_OFF		(-cclib_off_const(@MMUX_VALUEOF_OFF_MAX@) - cclib_off_const(1))
-#define CCLIB_MAX_OFF		cclib_off_const(@MMUX_VALUEOF_OFF_MAX@)
-#define CCLIB_MIN_off		CCLIB_MIN_OFF
-#define CCLIB_MAX_off		CCLIB_MAX_OFF
+#define cclib_min_off()		(-cclib_off_const(@MMUX_VALUEOF_OFF_MAX@) - cclib_off_const(1))
+#define cclib_max_off()		cclib_off_const(@MMUX_VALUEOF_OFF_MAX@)
 
 /* ------------------------------------------------------------------ */
 
-#define CCLIB_MIN_WINT		cclib_wint_const(@MMUX_VALUEOF_WINT_MIN@)
-#define CCLIB_MAX_WINT		cclib_wint_const(@MMUX_VALUEOF_WINT_MAX@)
-#define CCLIB_MIN_wint		CCLIB_MIN_WINT
-#define CCLIB_MAX_wint		CCLIB_MAX_WINT
+#define cclib_min_wint()	cclib_wint_const(@MMUX_VALUEOF_WINT_MIN@)
+#define cclib_max_wint()	cclib_wint_const(@MMUX_VALUEOF_WINT_MAX@)
 
-#define CCLIB_MIN_WCHAR		cclib_wchar_const(@MMUX_VALUEOF_WCHAR_MIN@)
-#define CCLIB_MAX_WCHAR		cclib_wchar_const(@MMUX_VALUEOF_WCHAR_MAX@)
-#define CCLIB_MIN_wchar		CCLIB_MIN_WCHAR
-#define CCLIB_MAX_wchar		CCLIB_MAX_WCHAR
+#define cclib_min_wchar()	cclib_wchar_const(@MMUX_VALUEOF_WCHAR_MIN@)
+#define cclib_max_wchar()	cclib_wchar_const(@MMUX_VALUEOF_WCHAR_MAX@)
 
 /* ------------------------------------------------------------------ */
 
-#define CCLIB_MIN_FLOAT		cclib_float(@MMUX_VALUEOF_FLT_MIN@F)
-#define CCLIB_MAX_FLOAT		cclib_float(@MMUX_VALUEOF_FLT_MAX@F)
-#define CCLIB_MIN_float		CCLIB_MIN_FLOAT
-#define CCLIB_MAX_float		CCLIB_MAX_FLOAT
+#define cclib_min_float()	cclib_float(@MMUX_VALUEOF_FLT_MIN@F)
+#define cclib_max_float()	cclib_float(@MMUX_VALUEOF_FLT_MAX@F)
 
-#define CCLIB_MIN_DOUBLE	cclib_double(@MMUX_VALUEOF_DBL_MIN@)
-#define CCLIB_MAX_DOUBLE	cclib_double(@MMUX_VALUEOF_DBL_MAX@)
-#define CCLIB_MIN_double	CCLIB_MIN_DOUBLE
-#define CCLIB_MAX_double	CCLIB_MAX_DOUBLE
+#define cclib_min_double()	cclib_double(@MMUX_VALUEOF_DBL_MIN@)
+#define cclib_max_double()	cclib_double(@MMUX_VALUEOF_DBL_MAX@)
 
-#define CCLIB_MIN_LDOUBLE	cclib_ldouble(@MMUX_VALUEOF_LDBL_MIN@L)
-#define CCLIB_MAX_LDOUBLE	cclib_ldouble(@MMUX_VALUEOF_LDBL_MAX@L)
-#define CCLIB_MIN_ldouble	CCLIB_MIN_LDOUBLE
-#define CCLIB_MAX_ldouble	CCLIB_MAX_LDOUBLE
+#define cclib_min_ldouble()	cclib_ldouble(@MMUX_VALUEOF_LDBL_MIN@L)
+#define cclib_max_ldouble()	cclib_ldouble(@MMUX_VALUEOF_LDBL_MAX@L)
 
 
 /** --------------------------------------------------------------------
  ** Printf/scanf format specifiers.
  ** ----------------------------------------------------------------- */
 
-#define CCLIB_PRI_SINT8			"@MMUX_VALUEOF_PRI_SINT8@"
-#define CCLIB_PRI_UINT8			"@MMUX_VALUEOF_PRI_UINT8@"
-#define CCLIB_PRI_SINT16		"@MMUX_VALUEOF_PRI_SINT16@"
-#define CCLIB_PRI_UINT16		"@MMUX_VALUEOF_PRI_UINT16@"
-#define CCLIB_PRI_SINT32		"@MMUX_VALUEOF_PRI_SINT32@"
-#define CCLIB_PRI_UINT32		"@MMUX_VALUEOF_PRI_UINT32@"
-#define CCLIB_PRI_SINT64		"@MMUX_VALUEOF_PRI_SINT64@"
-#define CCLIB_PRI_UINT64		"@MMUX_VALUEOF_PRI_UINT64@"
+#define cclib_pri_sint8()	"@MMUX_VALUEOF_PRI_SINT8@"
+#define cclib_pri_uint8()	"@MMUX_VALUEOF_PRI_UINT8@"
+#define cclib_pri_sint16()	"@MMUX_VALUEOF_PRI_SINT16@"
+#define cclib_pri_uint16()	"@MMUX_VALUEOF_PRI_UINT16@"
+#define cclib_pri_sint32()	"@MMUX_VALUEOF_PRI_SINT32@"
+#define cclib_pri_uint32()	"@MMUX_VALUEOF_PRI_UINT32@"
+#define cclib_pri_sint64()	"@MMUX_VALUEOF_PRI_SINT64@"
+#define cclib_pri_uint64()	"@MMUX_VALUEOF_PRI_UINT64@"
 
-#define CCLIB_PRI_BYTE			CCLIB_PRI_SINT8
-#define CCLIB_PRI_OCTET			CCLIB_PRI_UINT8
-#define CCLIB_PRI_WORD			"@MMUX_VALUEOF_PRI_WORD@"
+#define cclib_pri_byte()	cclib_pri_sint8()
+#define cclib_pri_octet()	cclib_pri_uint8()
+#define cclib_pri_word()	"@MMUX_VALUEOF_PRI_WORD@"
 
-#define CCLIB_PRI_CHAR			"@MMUX_VALUEOF_PRI_CHAR@"
-#define CCLIB_PRI_SCHAR			"@MMUX_VALUEOF_PRI_SCHAR@"
-#define CCLIB_PRI_UCHAR			"@MMUX_VALUEOF_PRI_UCHAR@"
-#define CCLIB_PRI_SSHRT			"@MMUX_VALUEOF_PRI_SSHRT@"
-#define CCLIB_PRI_USHRT			"@MMUX_VALUEOF_PRI_USHRT@"
-#define CCLIB_PRI_SINT			"@MMUX_VALUEOF_PRI_SINT@"
-#define CCLIB_PRI_UINT			"@MMUX_VALUEOF_PRI_UINT@"
-#define CCLIB_PRI_SLONG			"@MMUX_VALUEOF_PRI_SLONG@"
-#define CCLIB_PRI_ULONG			"@MMUX_VALUEOF_PRI_ULONG@"
-#define CCLIB_PRI_SLLONG		"@MMUX_VALUEOF_PRI_SLLONG@"
-#define CCLIB_PRI_ULLONG		"@MMUX_VALUEOF_PRI_ULLONG@"
+#define cclib_pri_char()	"@MMUX_VALUEOF_PRI_CHAR@"
+#define cclib_pri_schar()	"@MMUX_VALUEOF_PRI_SCHAR@"
+#define cclib_pri_uchar()	"@MMUX_VALUEOF_PRI_UCHAR@"
+#define cclib_pri_sshrt()	"@MMUX_VALUEOF_PRI_SSHRT@"
+#define cclib_pri_ushrt()	"@MMUX_VALUEOF_PRI_USHRT@"
+#define cclib_pri_sint()	"@MMUX_VALUEOF_PRI_SINT@"
+#define cclib_pri_uint()	"@MMUX_VALUEOF_PRI_UINT@"
+#define cclib_pri_slong()	"@MMUX_VALUEOF_PRI_SLONG@"
+#define cclib_pri_ulong()	"@MMUX_VALUEOF_PRI_ULONG@"
+#define cclib_pri_sllong()	"@MMUX_VALUEOF_PRI_SLLONG@"
+#define cclib_pri_ullong()	"@MMUX_VALUEOF_PRI_ULLONG@"
 
-#define CCLIB_PRI_SINTMAX		"@MMUX_VALUEOF_PRI_SINTMAX@"
-#define CCLIB_PRI_UINTMAX		"@MMUX_VALUEOF_PRI_UINTMAX@"
-#define CCLIB_PRI_SINTPTR		"@MMUX_VALUEOF_PRI_SINTPTR@"
-#define CCLIB_PRI_UINTPTR		"@MMUX_VALUEOF_PRI_UINTPTR@"
-#define CCLIB_PRI_PTRDIFF		"@MMUX_VALUEOF_PRI_PTRDIFF@"
+#define cclib_pri_sintmax()	"@MMUX_VALUEOF_PRI_SINTMAX@"
+#define cclib_pri_uintmax()	"@MMUX_VALUEOF_PRI_UINTMAX@"
+#define cclib_pri_sintptr()	"@MMUX_VALUEOF_PRI_SINTPTR@"
+#define cclib_pri_uintptr()	"@MMUX_VALUEOF_PRI_UINTPTR@"
+#define cclib_pri_ptrdiff()	"@MMUX_VALUEOF_PRI_PTRDIFF@"
 
-#define CCLIB_PRI_SSIZE			"@MMUX_VALUEOF_PRI_SSIZE@"
-#define CCLIB_PRI_USIZE			"@MMUX_VALUEOF_PRI_USIZE@"
-#define CCLIB_PRI_OFF			"@MMUX_VALUEOF_PRI_OFF@"
+#define cclib_pri_ssize()	"@MMUX_VALUEOF_PRI_SSIZE@"
+#define cclib_pri_usize()	"@MMUX_VALUEOF_PRI_USIZE@"
+#define cclib_pri_off()		"@MMUX_VALUEOF_PRI_OFF@"
 
-#define CCLIB_PRI_WCHAR			"@MMUX_VALUEOF_PRI_WCHAR@"
-#define CCLIB_PRI_WINT			"@MMUX_VALUEOF_PRI_WINT@"
+#define cclib_pri_wchar()	"@MMUX_VALUEOF_PRI_WCHAR@"
+#define cclib_pri_wint()	"@MMUX_VALUEOF_PRI_WINT@"
 
-#define CCLIB_PRI_FLOAT			"A"
-#define CCLIB_PRI_DOUBLE		"lA"
-#define CCLIB_PRI_LDOUBLE		"LA"
-
-/* ------------------------------------------------------------------ */
-
-#define CCLIB_PRI_sint8			CCLIB_PRI_SINT8
-#define CCLIB_PRI_uint8			CCLIB_PRI_UINT8
-#define CCLIB_PRI_sint16		CCLIB_PRI_SINT16
-#define CCLIB_PRI_uint16		CCLIB_PRI_UINT16
-#define CCLIB_PRI_sint32		CCLIB_PRI_SINT32
-#define CCLIB_PRI_uint32		CCLIB_PRI_UINT32
-#define CCLIB_PRI_sint64		CCLIB_PRI_SINT64
-#define CCLIB_PRI_uint64		CCLIB_PRI_UINT64
-
-#define CCLIB_PRI_byte			CCLIB_PRI_SINT8
-#define CCLIB_PRI_octet			CCLIB_PRI_UINT8
-#define CCLIB_PRI_word			CCLIB_PRI_WORD
-
-#define CCLIB_PRI_char			CCLIB_PRI_CHAR
-#define CCLIB_PRI_schar			CCLIB_PRI_SCHAR
-#define CCLIB_PRI_uchar			CCLIB_PRI_UCHAR
-#define CCLIB_PRI_sshrt			CCLIB_PRI_SSHRT
-#define CCLIB_PRI_ushrt			CCLIB_PRI_USHRT
-#define CCLIB_PRI_sint			CCLIB_PRI_SINT
-#define CCLIB_PRI_uint			CCLIB_PRI_UINT
-#define CCLIB_PRI_slong			CCLIB_PRI_SLONG
-#define CCLIB_PRI_ulong			CCLIB_PRI_ULONG
-#define CCLIB_PRI_sllong		CCLIB_PRI_SLLONG
-#define CCLIB_PRI_ullong		CCLIB_PRI_ULLONG
-
-#define CCLIB_PRI_sintmax		CCLIB_PRI_SINTMAX
-#define CCLIB_PRI_uintmax		CCLIB_PRI_UINTMAX
-#define CCLIB_PRI_sintptr		CCLIB_PRI_SINTPTR
-#define CCLIB_PRI_uintptr		CCLIB_PRI_UINTPTR
-#define CCLIB_PRI_ptrdiff		CCLIB_PRI_PTRDIFF
-
-#define CCLIB_PRI_ssize			CCLIB_PRI_SSIZE
-#define CCLIB_PRI_usize			CCLIB_PRI_USIZE
-#define CCLIB_PRI_off			CCLIB_PRI_OFF
-
-#define CCLIB_PRI_wchar			CCLIB_PRI_WCHAR
-#define CCLIB_PRI_wint			CCLIB_PRI_WINT
-
-#define CCLIB_PRI_float			CCLIB_PRI_FLOAT
-#define CCLIB_PRI_double		CCLIB_PRI_DOUBLE
-#define CCLIB_PRI_ldouble		CCLIB_PRI_LDOUBLE
+#define cclib_pri_float()	"A"
+#define cclib_pri_double()	"lA"
+#define cclib_pri_ldouble()	"LA"
 
 
 /** --------------------------------------------------------------------

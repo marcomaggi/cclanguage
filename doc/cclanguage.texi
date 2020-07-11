@@ -539,17 +539,16 @@ All the definitions documented in this section are defined in the header file
 * typedefs aliases float::      Type alias with stem @samp{float}.
 * typedefs aliases double::     Type alias with stem @samp{double}.
 * typedefs aliases ldouble::    Type alias with stem @samp{ldouble}.
+* typedefs aliases void::       Type alias with stem @samp{void}.
 @end menu
 
 @c ------------------------------------------------------------------------
 
 @macro TypedefAliasLimits{STEM, stem}
-@deffn {Preprocessor Macro} CCLIB_MIN_\STEM\
-@deffnx {Preprocessor Macro} CCLIB_MAX_\STEM\
-@deffnx {Preprocessor Macro} CCLIB_MIN_\stem\
-@deffnx {Preprocessor Macro} CCLIB_MAX_\stem\
+@deftypefn {Preprocessor Macro} cclib_\stem\_t cclib_min_\stem\ (void)
+@deftypefnx {Preprocessor Macro} cclib_\stem\_t cclib_max_\stem\ (void)
 Constant limits for the type @objtype{cclib_\stem\_t}.
-@end deffn
+@end deftypefn
 
 
 @end macro
@@ -557,10 +556,9 @@ Constant limits for the type @objtype{cclib_\stem\_t}.
 @c ------------------------------------------------------------------------
 
 @macro TypedefAliasSizeof{STEM, stem}
-@deffn {Preprocessor Macro} CCLIB_SIZEOF_\STEM\
-@deffnx {Preprocessor Macro} CCLIB_SIZEOF_\stem\
+@deftypefn {Preprocessor Macro} int cclib_sizeof_\stem\ (void)
 The size in bytes of the type @objtype{cclib_\stem\_t}.
-@end deffn
+@end deftypefn
 
 
 @end macro
@@ -568,7 +566,7 @@ The size in bytes of the type @objtype{cclib_\stem\_t}.
 @c ------------------------------------------------------------------------
 
 @macro TypedefAliasCast{stem}
-@deftypefn {Preprocessor Macro} cclib_sint8_t cclib_\stem\ (@var{EXPR})
+@deftypefn {Preprocessor Macro} cclib_\stem\_t cclib_\stem\ (@var{EXPR})
 Cast the result of @var{EXPR} to @objtype{cclib_\stem\_t}.
 @end deftypefn
 
@@ -578,11 +576,20 @@ Cast the result of @var{EXPR} to @objtype{cclib_\stem\_t}.
 @c ------------------------------------------------------------------------
 
 @macro TypedefAliasPri{STEM, stem}
-@deffn {Preprocessor Macro} CCLIB_PRI_\STEM\
-@deffnx {Preprocessor Macro} CCLIB_PRI_\stem\
+@deftypefn {Preprocessor Macro} {char const *} cclib_pri_\stem\ (void)
 The @cfunc{printf} format specifier of the type @objtype{cclib_\stem\_t}: a string without the
 leading @samp{%} symbol.
-@end deffn
+@end deftypefn
+
+
+@end macro
+
+@macro TypedefAliasPrintfCast{stem}
+@deftypefn {Preprocessor Macro} cclib_XX_t cclib_\stem\_printf_cast (cclib_\stem\_t @var{EXPR})
+If needed convert @var{VALUE} to another type before being printed with functions like
+@cfunc{printf}; this macro does that with the result of the expression @var{EXPR}.  The resulting
+type @objtype{cclib_XX_t} is the one that matches the result of @cfunc{cclib_pri_\stem\}.
+@end deftypefn
 
 
 @end macro
@@ -617,66 +624,44 @@ cclib_ ## STEM ## _t
 @end defmac
 
 
-@defmac cclib_type_max (@var{STEM})
-Expand into the preprocessor symbol representing the maximum value in a type range.  The expansion
-body is:
+@deftypefn {Preprocessor Macro} {cclib_@var{STEM}_t} cclib_type_max (@var{STEM})
+Expand into the value of type @objtype{cclib_@var{STEM}_t} representing the maximum value in a type
+range.  The expansion body is:
 
 @example
-(CCLIB_MAX_ ## @var{STEM})
+(cclib_max_ ## @var{STEM}())
 @end example
-@end defmac
+@end deftypefn
 
 
-@defmac cclib_type_min (@var{STEM})
-Expand into the preprocessor symbol representing the minimum value in a type range.  The expansion
-body is:
+@deftypefn {Preprocessor Macro} {cclib_@var{STEM}_t} cclib_type_min (@var{STEM})
+Expand into the value of type @objtype{cclib_@var{STEM}_t} representing the minimum value in a type
+range.  The expansion body is:
 
 @example
-(CCLIB_MIN_ ## @var{STEM})
+(cclib_min_ ## @var{STEM}())
 @end example
-@end defmac
+@end deftypefn
 
 
-@defmac cclib_type_sizeof (@var{STEM})
-Expand into the preprocessor symbol representing the size of a type in bytes.  The expansion body
+@deftypefn {Preprocessor Macro} {int} cclib_type_sizeof (@var{STEM})
+Expand into a constant integer value representing the size of a type in bytes.  The expansion body
 is:
 
 @example
-(CCLIB_SIZEOF_ ## @var{STEM})
+(cclib_sizeof_ ## @var{STEM}())
 @end example
-@end defmac
+@end deftypefn
 
 
-@defmac cclib_type_pri (@var{STEM})
-Expand into the preprocessor symbol representing the @cfunc{printf} format specifier for @var{STEM}.
-The expansion body is:
+@deftypefn {Preprocessor Macro} {char const *} cclib_type_pri (@var{STEM})
+Expand into a statically allocated, @asciiz{} string representing the @cfunc{printf} format
+specifier for @var{STEM}, without the leading @samp{%} character.  The expansion body is:
 
 @example
-(CCLIB_PRI_ ## @var{STEM})
+(cclib_pri_ ## @var{STEM}())
 @end example
-@end defmac
-
-
-@defmac cclib_type_cast (@var{STEM}, @var{EXPR})
-Cast the result of @var{EXPR} to @var{STEM}'s type.  The expansion is:
-
-@example
-((cclib_type_t(@var{STEM})(@var{EXPR}))
-@end example
-@end defmac
-
-
-@defmac cclib_type_const (@var{STEM}, @var{CONST_VALUE})
-Expand to an expression evaluating @var{CONST_VALUE} as a constant, hard--coded, value of type
-@var{STEM}.  The expansion is:
-
-@example
-(cclib_type_cast(STEM)(cclib_ ## @var{STEM} ## _const(@var{CONST_VALUE})))
-@end example
-
-For example, if the type is an integer and value has size different from an @objtype{int}: this
-macro appends to @var{CONST_VALUE} the appropriate suffix @code{L} or @code{LL}.
-@end defmac
+@end deftypefn
 
 
 @defmac cclib_type_printf_cast (@var{STEM}, @var{EXPR})
@@ -698,6 +683,27 @@ snprintf(buffer, 1024, "%" cclib_type_pri(float),
 @end example
 @end defmac
 
+@deftypefn {Preprocessor Macro} {cclib_@var{STEM}_t} cclib_type_cast (@var{STEM}, @var{EXPR})
+Cast the result of @var{EXPR} to @var{STEM}'s type.  The expansion is:
+
+@example
+((cclib_type_t(@var{STEM})(@var{EXPR}))
+@end example
+@end deftypefn
+
+
+@deftypefn {Preprocessor Macro} {cclib_@var{STEM}_t} cclib_type_const (@var{STEM}, @var{CONST_VALUE})
+Expand to an expression evaluating @var{CONST_VALUE} as a constant, hard--coded, value of type
+@objtype{cclib_@var{STEM}_t}.  The expansion is:
+
+@example
+(cclib_type_cast(STEM)(cclib_ ## @var{STEM} ## _const(@var{CONST_VALUE})))
+@end example
+
+For example, if the type is an integer and @var{CONST_VALUE} has size different from an
+@objtype{int}: this macro appends to @var{CONST_VALUE} the appropriate suffix @code{L} or @code{LL}.
+@end deftypefn
+
 @c page
 @node typedefs aliases sint8
 @subsection Type alias with stem @samp{sint8}
@@ -712,6 +718,7 @@ An alias for @objtype{int8_t}.
 @TypedefAliasSizeof{SINT8, sint8}
 @TypedefAliasCast{sint8}
 @TypedefAliasPri{SINT8, sint8}
+@TypedefAliasPrintfCast{sint8}
 @TypedefAliasConst{sint8}
 
 @c page
@@ -728,6 +735,7 @@ An alias for @objtype{uint8_t}.
 @TypedefAliasSizeof{UINT8, uint8}
 @TypedefAliasCast{uint8}
 @TypedefAliasPri{UINT8, uint8}
+@TypedefAliasPrintfCast{uint8}
 @TypedefAliasConst{uint8}
 
 @c page
@@ -744,6 +752,7 @@ An alias for @objtype{int16_t}.
 @TypedefAliasSizeof{SINT16, sint16}
 @TypedefAliasCast{sint16}
 @TypedefAliasPri{SINT16, sint16}
+@TypedefAliasPrintfCast{sint16}
 @TypedefAliasConst{sint16}
 
 @c page
@@ -760,6 +769,7 @@ An alias for @objtype{uint16_t}.
 @TypedefAliasSizeof{UINT16, uint16}
 @TypedefAliasCast{uint16}
 @TypedefAliasPri{UINT16, uint16}
+@TypedefAliasPrintfCast{uint16}
 @TypedefAliasConst{uint16}
 
 @c page
@@ -776,6 +786,7 @@ An alias for @objtype{int32_t}.
 @TypedefAliasSizeof{SINT32, sint32}
 @TypedefAliasCast{sint32}
 @TypedefAliasPri{SINT32, sint32}
+@TypedefAliasPrintfCast{sint32}
 @TypedefAliasConst{sint32}
 
 @c page
@@ -792,6 +803,7 @@ An alias for @objtype{uint32_t}.
 @TypedefAliasSizeof{UINT32, uint32}
 @TypedefAliasCast{uint32}
 @TypedefAliasPri{UINT32, uint32}
+@TypedefAliasPrintfCast{uint32}
 @TypedefAliasConst{uint32}
 
 @c page
@@ -808,6 +820,7 @@ An alias for @objtype{int64_t}.
 @TypedefAliasSizeof{SINT64, sint64}
 @TypedefAliasCast{sint64}
 @TypedefAliasPri{SINT64, sint64}
+@TypedefAliasPrintfCast{sint64}
 @TypedefAliasConst{sint64}
 
 @c page
@@ -824,6 +837,7 @@ An alias for @objtype{uint64_t}.
 @TypedefAliasSizeof{UINT64, uint64}
 @TypedefAliasCast{uint64}
 @TypedefAliasPri{UINT64, uint64}
+@TypedefAliasPrintfCast{uint64}
 @TypedefAliasConst{uint64}
 
 @c page
@@ -840,6 +854,7 @@ An alias for @objtype{cclib_sint8_t}.
 @TypedefAliasSizeof{BYTE, byte}
 @TypedefAliasCast{byte}
 @TypedefAliasPri{BYTE, byte}
+@TypedefAliasPrintfCast{byte}
 @TypedefAliasConst{byte}
 
 @c page
@@ -856,6 +871,7 @@ An alias for @objtype{cclib_uint8_t}.
 @TypedefAliasSizeof{OCTET, octet}
 @TypedefAliasCast{octet}
 @TypedefAliasPri{OCTET, octet}
+@TypedefAliasPrintfCast{octet}
 @TypedefAliasConst{octet}
 
 @c page
@@ -873,6 +889,7 @@ meant to be the integer capable of storing a machine word.
 @TypedefAliasSizeof{WORD, word}
 @TypedefAliasCast{word}
 @TypedefAliasPri{WORD, word}
+@TypedefAliasPrintfCast{word}
 @TypedefAliasConst{word}
 
 @c page
@@ -889,6 +906,7 @@ An alias for @objtype{char}.
 @TypedefAliasSizeof{CHAR, char}
 @TypedefAliasCast{char}
 @TypedefAliasPri{CHAR, char}
+@TypedefAliasPrintfCast{char}
 @TypedefAliasConst{char}
 
 @c page
@@ -905,6 +923,7 @@ An alias for @objtype{signed char}.
 @TypedefAliasSizeof{SCHAR, schar}
 @TypedefAliasCast{schar}
 @TypedefAliasPri{SCHAR, schar}
+@TypedefAliasPrintfCast{schar}
 @TypedefAliasConst{schar}
 
 @c page
@@ -921,6 +940,7 @@ An alias for @objtype{unsigned char}.
 @TypedefAliasSizeof{UCHAR, uchar}
 @TypedefAliasCast{uchar}
 @TypedefAliasPri{UCHAR, uchar}
+@TypedefAliasPrintfCast{uchar}
 @TypedefAliasConst{uchar}
 
 @c page
@@ -937,6 +957,7 @@ An alias for @objtype{signed short int}.
 @TypedefAliasSizeof{SSHRT, sshrt}
 @TypedefAliasCast{sshrt}
 @TypedefAliasPri{SSHRT, sshrt}
+@TypedefAliasPrintfCast{sshrt}
 @TypedefAliasConst{sshrt}
 
 @c page
@@ -953,6 +974,7 @@ An alias for @objtype{unsigned short int}.
 @TypedefAliasSizeof{USHRT, ushrt}
 @TypedefAliasCast{ushrt}
 @TypedefAliasPri{USHRT, ushrt}
+@TypedefAliasPrintfCast{ushrt}
 @TypedefAliasConst{ushrt}
 
 @c page
@@ -969,6 +991,7 @@ An alias for @objtype{signed int}.
 @TypedefAliasSizeof{SINT, sint}
 @TypedefAliasCast{sint}
 @TypedefAliasPri{SINT, sint}
+@TypedefAliasPrintfCast{sint}
 @TypedefAliasConst{sint}
 
 @c page
@@ -985,6 +1008,7 @@ An alias for @objtype{unsigned int}.
 @TypedefAliasSizeof{UINT, uint}
 @TypedefAliasCast{uint}
 @TypedefAliasPri{UINT, uint}
+@TypedefAliasPrintfCast{uint}
 @TypedefAliasConst{uint}
 
 @c page
@@ -1001,6 +1025,7 @@ An alias for @objtype{signed long}.
 @TypedefAliasSizeof{SLONG, slong}
 @TypedefAliasCast{slong}
 @TypedefAliasPri{SLONG, slong}
+@TypedefAliasPrintfCast{slong}
 @TypedefAliasConst{slong}
 
 @c page
@@ -1017,6 +1042,7 @@ An alias for @objtype{unsigned long}.
 @TypedefAliasSizeof{ULONG, ulong}
 @TypedefAliasCast{ulong}
 @TypedefAliasPri{ULONG, ulong}
+@TypedefAliasPrintfCast{ulong}
 @TypedefAliasConst{ulong}
 
 @c page
@@ -1033,6 +1059,7 @@ An alias for @objtype{signed long long}.
 @TypedefAliasSizeof{SLLONG, sllong}
 @TypedefAliasCast{sllong}
 @TypedefAliasPri{SLLONG, sllong}
+@TypedefAliasPrintfCast{sllong}
 @TypedefAliasConst{sllong}
 
 @c page
@@ -1049,6 +1076,7 @@ An alias for @objtype{unsigned long long}.
 @TypedefAliasSizeof{ULLONG, ullong}
 @TypedefAliasCast{ullong}
 @TypedefAliasPri{ULLONG, ullong}
+@TypedefAliasPrintfCast{ullong}
 @TypedefAliasConst{ullong}
 
 @c page
@@ -1065,6 +1093,7 @@ An alias for the @objtype{intXX_t} type that matches in size the standard @objty
 @TypedefAliasSizeof{SINTMAX, sintmax}
 @TypedefAliasCast{sintmax}
 @TypedefAliasPri{SINTMAX, sintmax}
+@TypedefAliasPrintfCast{sintmax}
 @TypedefAliasConst{sintmax}
 
 @c page
@@ -1081,6 +1110,7 @@ An alias for the @objtype{uintXX_t} type that matches in size the standard @objt
 @TypedefAliasSizeof{UINTMAX, uintmax}
 @TypedefAliasCast{uintmax}
 @TypedefAliasPri{UINTMAX, uintmax}
+@TypedefAliasPrintfCast{uintmax}
 @TypedefAliasConst{uintmax}
 
 @c page
@@ -1097,6 +1127,7 @@ An alias for the @objtype{intXX_t} type that matches in size the standard @objty
 @TypedefAliasSizeof{SINTPTR, sintptr}
 @TypedefAliasCast{sintptr}
 @TypedefAliasPri{SINTPTR, sintptr}
+@TypedefAliasPrintfCast{sintptr}
 @TypedefAliasConst{sintptr}
 
 @c page
@@ -1113,6 +1144,7 @@ An alias for the @objtype{uintXX_t} type that matches in size the standard @objt
 @TypedefAliasSizeof{UINTPTR, uintptr}
 @TypedefAliasCast{uintptr}
 @TypedefAliasPri{UINTPTR, uintptr}
+@TypedefAliasPrintfCast{uintptr}
 @TypedefAliasConst{uintptr}
 
 @c page
@@ -1129,6 +1161,7 @@ An alias for the @objtype{intXX_t} type that matches in size the standard @objty
 @TypedefAliasSizeof{PTRDIFF, ptrdiff}
 @TypedefAliasCast{ptrdiff}
 @TypedefAliasPri{PTRDIFF, ptrdiff}
+@TypedefAliasPrintfCast{ptrdiff}
 @TypedefAliasConst{ptrdiff}
 
 @c page
@@ -1145,6 +1178,7 @@ An alias for the @objtype{intXX_t} type that matches in size the standard @objty
 @TypedefAliasSizeof{SSIZE, ssize}
 @TypedefAliasCast{ssize}
 @TypedefAliasPri{SSIZE, ssize}
+@TypedefAliasPrintfCast{ssize}
 @TypedefAliasConst{ssize}
 
 @c page
@@ -1161,6 +1195,7 @@ An alias for the @objtype{uintXX_t} type that matches in size the standard @objt
 @TypedefAliasSizeof{USIZE, usize}
 @TypedefAliasCast{usize}
 @TypedefAliasPri{USIZE, usize}
+@TypedefAliasPrintfCast{usize}
 @TypedefAliasConst{usize}
 
 @c page
@@ -1177,6 +1212,7 @@ An alias for the @objtype{intXX_t} type that matches in size the standard @objty
 @TypedefAliasSizeof{OFF, off}
 @TypedefAliasCast{off}
 @TypedefAliasPri{OFF, off}
+@TypedefAliasPrintfCast{off}
 @TypedefAliasConst{off}
 
 @c page
@@ -1193,6 +1229,7 @@ An alias for the @objtype{intXX_t} type that matches in size the standard @objty
 @TypedefAliasSizeof{WCHAR, wchar}
 @TypedefAliasCast{wchar}
 @TypedefAliasPri{WCHAR, wchar}
+@TypedefAliasPrintfCast{wchar}
 @TypedefAliasConst{wchar}
 
 @c page
@@ -1209,6 +1246,7 @@ An alias for the @objtype{intXX_t} type that matches in size the standard @objty
 @TypedefAliasSizeof{WINT, wint}
 @TypedefAliasCast{wint}
 @TypedefAliasPri{WINT, wint}
+@TypedefAliasPrintfCast{wint}
 @TypedefAliasConst{wint}
 
 @c page
@@ -1225,6 +1263,7 @@ An alias for @objtype{float}.
 @TypedefAliasSizeof{FLOAT, float}
 @TypedefAliasCast{float}
 @TypedefAliasPri{FLOAT, float}
+@TypedefAliasPrintfCast{float}
 @TypedefAliasConst{float}
 
 @c page
@@ -1241,6 +1280,7 @@ An alias for @objtype{double}.
 @TypedefAliasSizeof{DOUBLE, double}
 @TypedefAliasCast{double}
 @TypedefAliasPri{DOUBLE, double}
+@TypedefAliasPrintfCast{double}
 @TypedefAliasConst{double}
 
 @c page
@@ -1257,7 +1297,17 @@ An alias for @objtype{long double}.
 @TypedefAliasSizeof{LDOUBLE, ldouble}
 @TypedefAliasCast{ldouble}
 @TypedefAliasPri{LDOUBLE, ldouble}
+@TypedefAliasPrintfCast{ldouble}
 @TypedefAliasConst{ldouble}
+
+@c page
+@node typedefs aliases void
+@subsection Type alias with stem @samp{void}
+
+
+@deftp {Typedef} cclib_void_t
+An alias for @objtype{void}.
+@end deftp
 
 @c page
 @node typedefs macros
@@ -1719,9 +1769,9 @@ types}.
 If we need more meta--informations for a struct-with-descr, like a data structure name or revision
 information: we can implement methods that return such values.
 
-There is no better way to learn how to use this @api{} than to peruse the distributed and installed
-examples, they are the files with stem @code{struct-by-ptr-with-descr} and
-@code{struct-by-val-with-descr}.
+There is no better way to learn how to use this @api{} than to peruse the examples distributed in
+the companion package CCLibraries Examples: they are the files with stem
+@code{struct-by-ptr-with-descr} and @code{struct-by-val-with-descr}.
 
 Some macros in the following @api{} are variadic and accept from zero up to three @var{VARIANT}
 arguments; @ref{variadic, Variadic preprocessor macros}.
