@@ -42,8 +42,6 @@ extern "C" {
  ** Helper macros.
  ** ----------------------------------------------------------------- */
 
-#define CCLIB_STRUCT_TYPEDEF(STRUCT)		typedef struct STRUCT STRUCT
-
 #define cclib_type_t(STEM)			cclib_ ## STEM ## _t
 #define cclib_type_max(STEM)			(cclib_max_ ## STEM())
 #define cclib_type_min(STEM)			(cclib_min_ ## STEM())

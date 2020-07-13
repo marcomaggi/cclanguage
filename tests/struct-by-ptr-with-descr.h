@@ -56,7 +56,7 @@ extern "C" {
 
 #undef  MY_DEFINE_PARM
 #define MY_DEFINE_PARM(NAME)				    \
-  CCLIB_STRUCT_TYPEDEF(my_ ## NAME ## _t);		    \
+  cclib_struct_typedef(my_ ## NAME ## _t);		    \
 							    \
   struct my_ ## NAME ## _t {				    \
     double	val;					    \
@@ -107,9 +107,9 @@ cclib_make(my_angle_t, pol) (my_real_part_t real_part, my_imag_part_t imag_part)
  ** Type definitions: data struct "my_complex_t".
  ** ----------------------------------------------------------------- */
 
-CCLIB_DEFINE_STRUCT_WITH_DESCRIPTOR(my_complex_t);
+cclib_define_struct_with_descriptor(my_complex_t);
 
-CCLIB_STRUCT_TYPEDEF(my_complex_t);
+cclib_struct_typedef(my_complex_t);
 
 struct my_complex_t {
   cclib_struct_descriptor(my_complex_t);

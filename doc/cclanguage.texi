@@ -489,8 +489,6 @@ The C11 language facilities for type definitions are defined in the header file
 
 @menu
 * typedefs aliases::            Aliases of @posix{} standard types.
-* typedefs macros::             Preprocessor macros related to
-                                type definitions.
 * typedefs opaque::             Opaque data structures handling.
 @end menu
 
@@ -1310,19 +1308,6 @@ An alias for @objtype{void}.
 @end deftp
 
 @c page
-@node typedefs macros
-@section Preprocessor macros related to type definitions
-
-
-@deffn {Preprocessor Macro} CCLIB_STRUCT_TYPEDEF (@var{STRUCT})
-Preprocessor macro that expands into a data structure typedef:
-
-@example
-typedef struct @var{STRUCT}      @var{STRUCT}
-@end example
-@end deffn
-
-@c page
 @node typedefs opaque
 @section Opaque data structures handling
 
@@ -1479,6 +1464,8 @@ The C11 language facilities for data structure type definitions are defined in t
 @file{cclanguage-structs.h}; this header is included by @file{cclanguage.h}.
 
 @menu
+* structs macros::              Preprocessor macros related data
+                                structures definitions.
 * structs common::              Well known functions for @struct{} types.
 * structs values::              Data structures as values.
 * structs methods::             Method tables.
@@ -1486,6 +1473,19 @@ The C11 language facilities for data structure type definitions are defined in t
 * structs operations::          Common data structure operations.
 * structs traits::              Trait data structures.
 @end menu
+
+@c page
+@node structs macros
+@section Preprocessor macros related data structures definitions
+
+
+@deffn {Preprocessor Macro} cclib_struct_typedef (@var{STRUCT})
+Preprocessor macro that expands into a data structure type definition:
+
+@example
+typedef struct @var{STRUCT}      @var{STRUCT}
+@end example
+@end deffn
 
 @c page
 @node structs common
@@ -1516,7 +1516,7 @@ stack or embedded into enclosing @struct{} instances.  They allocate and release
 asynchronous resources and initialise the @struct{} fields.
 
 @example
-CCLIB_STRUCT_TYPEDEF(my_vector_t);
+cclib_struct_typedef(my_vector_t);
 
 struct my_vector_t @{
   cclib_usize_t   len;
@@ -1619,7 +1619,7 @@ Functions with these names are constructors and destructors for @struct{} instan
 They allocate and release all the asynchronous resources and initialise the @struct{} fields.
 
 @example
-CCLIB_STRUCT_TYPEDEF(my_array_t);
+cclib_struct_typedef(my_array_t);
 
 struct my_array_t @{
   cclib_usize_t   len;
@@ -1777,13 +1777,13 @@ Some macros in the following @api{} are variadic and accept from zero up to thre
 arguments; @ref{variadic, Variadic preprocessor macros}.
 
 
-@defmac CCLIB_DEFINE_STRUCT_WITH_DESCRIPTOR (@var{STRUCT})
+@defmac cclib_define_struct_with_descriptor (@var{STRUCT})
 Given a data structure name @var{STRUCT}, which is meant to be a struct-with-descr: expand into
 a preamble of declarations and definitions required to define a struct-with-descr.  This macro
 should be used before declaring the data structure itself.  Usage example:
 
 @example
-CCLIB_DEFINE_STRUCT_WITH_DESCRIPTOR(my_complex_t);
+cclib_define_struct_with_descriptor(my_complex_t);
 
 struct my_complex_t @{
   cclib_struct_descriptor(my_complex_t);

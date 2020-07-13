@@ -87,6 +87,7 @@ check_PROGRAMS			=			\
 	tests/test-struct-by-ptr-with-descr		\
 	tests/test-struct-by-val-no-descr		\
 	tests/test-struct-by-val-with-descr		\
+	tests/test-descriptors-tree			\
 							\
 	tests/test-destructor-trait			\
 	tests/test-variadic-macros			\
@@ -167,6 +168,12 @@ tests_test_variadic_macros_LDADD		= $(cclanguage_tests_ldadd)
 tests_test_virtual_methods_SOURCES		= tests/test-virtual-methods.c
 tests_test_virtual_methods_CPPFLAGS		= $(cclanguage_tests_cppflags)
 tests_test_virtual_methods_LDADD		= $(cclanguage_tests_ldadd)
+
+## --------------------------------------------------------------------
+
+tests_test_descriptors_tree_SOURCES		= tests/test-descriptors-tree.c
+tests_test_descriptors_tree_CPPFLAGS		= $(cclanguage_tests_cppflags)
+tests_test_descriptors_tree_LDADD		= $(cclanguage_tests_ldadd)
 
 ## --------------------------------------------------------------------
 

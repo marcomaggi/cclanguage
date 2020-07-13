@@ -45,7 +45,7 @@
  ** Thing struct type definitions.
  ** ----------------------------------------------------------------- */
 
-CCLIB_STRUCT_TYPEDEF(cclib_methods_table_t(my_thing_t));
+cclib_struct_typedef(cclib_methods_table_t(my_thing_t));
 
 typedef int cclib_method_t(my_thing_t, alpha) (int a);
 typedef int cclib_method_t(my_thing_t, beta)  (int b);
@@ -97,7 +97,7 @@ static cclib_methods_table_t(my_thing_t) const cclib_methods_table(my_thing_t) =
  ** Stuff struct type definitions.
  ** ----------------------------------------------------------------- */
 
-CCLIB_STRUCT_TYPEDEF(cclib_methods_table_t(my_stuff_t));
+cclib_struct_typedef(cclib_methods_table_t(my_stuff_t));
 
 typedef int cclib_method_t(my_stuff_t, delta) (int d);
 typedef int cclib_method_t(my_stuff_t, gamma) (int g);

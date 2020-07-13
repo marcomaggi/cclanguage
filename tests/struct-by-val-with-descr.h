@@ -56,7 +56,7 @@ extern "C" {
 
 #undef  MY_DEFINE_PARM
 #define MY_DEFINE_PARM(NAME)				    \
-  CCLIB_STRUCT_TYPEDEF(my_ ## NAME ## _t);		    \
+  cclib_struct_typedef(my_ ## NAME ## _t);		    \
 							    \
   struct my_ ## NAME ## _t {				    \
     double	val;					    \
@@ -93,8 +93,8 @@ cclib_make(my_y_t, pol) (my_rho_t rho, my_theta_t theta)
  ** Type definitions: data struct "my_coords_t".
  ** ----------------------------------------------------------------- */
 
-CCLIB_DEFINE_STRUCT_WITH_DESCRIPTOR(my_coords_t);
-CCLIB_STRUCT_TYPEDEF(my_coords_t);
+cclib_define_struct_with_descriptor(my_coords_t);
+cclib_struct_typedef(my_coords_t);
 
 struct my_coords_t {
   cclib_struct_descriptor(my_coords_t);
