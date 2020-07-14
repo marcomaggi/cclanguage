@@ -46,26 +46,27 @@
  ** Descriptors.
  ** ----------------------------------------------------------------- */
 
-#define my_descriptor_t_1(STRUCT)			STRUCT ## __my_descriptor_t
-#define my_descriptor_t_2(STRUCT, VAR)			STRUCT ## __my_descriptor_t__ ## VAR
-#define my_descriptor_t_3(STRUCT, VAR1, VAR2)		STRUCT ## __my_descriptor_t__ ## VAR1 ## _ ## VAR2
-#define my_descriptor_t_4(STRUCT, VAR1, VAR2, VAR3)	STRUCT ## __my_descriptor_t__ ## VAR1 ## _ ## VAR2 ## __ ## VAR3
-#define my_descriptor_t(...)				CCLIB_VNAME(my_descriptor_t, __VA_ARGS__)
+#define cclib_descriptor_type_1(STRUCT)			STRUCT ## __cclib_descriptor_type
+#define cclib_descriptor_type_2(STRUCT, VAR)		STRUCT ## __cclib_descriptor_type__ ## VAR
+#define cclib_descriptor_type_3(STRUCT, VAR1, VAR2)	STRUCT ## __cclib_descriptor_type__ ## VAR1 ## _ ## VAR2
+#define cclib_descriptor_type_4(STRUCT, VAR1, VAR2, VAR3) STRUCT ## __cclib_descriptor_type__ ## VAR1 ## _ ## VAR2 ## __ ## VAR3
+#define cclib_descriptor_type(...)			CCLIB_VNAME(cclib_descriptor_type, __VA_ARGS__)
+#define cclib_descriptor_t(...)				CCLIB_VNAME(cclib_descriptor_type, __VA_ARGS__)
 
-#define my_descriptor_1(STRUCT)				STRUCT ## __my_descriptor
-#define my_descriptor_2(STRUCT, VAR)			STRUCT ## __my_descriptor__ ## VAR
-#define my_descriptor_3(STRUCT, VAR1, VAR2)		STRUCT ## __my_descriptor__ ## VAR1 ## _ ## VAR2
-#define my_descriptor_4(STRUCT, VAR1, VAR2, VAR3)	STRUCT ## __my_descriptor__ ## VAR1 ## _ ## VAR2 ## __ ## VAR3
-#define my_descriptor(...)				CCLIB_VNAME(my_descriptor, __VA_ARGS__)
+#define cclib_descriptor_1(STRUCT)			STRUCT ## __cclib_descriptor
+#define cclib_descriptor_2(STRUCT, VAR)			STRUCT ## __cclib_descriptor__ ## VAR
+#define cclib_descriptor_3(STRUCT, VAR1, VAR2)		STRUCT ## __cclib_descriptor__ ## VAR1 ## _ ## VAR2
+#define cclib_descriptor_4(STRUCT, VAR1, VAR2, VAR3)	STRUCT ## __cclib_descriptor__ ## VAR1 ## _ ## VAR2 ## __ ## VAR3
+#define cclib_descriptor(...)				CCLIB_VNAME(cclib_descriptor, __VA_ARGS__)
 
-cclib_struct_typedef(my_descriptor_t(my_things));
+cclib_struct_typedef(cclib_descriptor_t(my_things));
 
-struct my_descriptor_t(my_things) {
-  my_descriptor_t(my_things) const *parent;
+struct cclib_descriptor_t(my_things) {
+  cclib_descriptor_t(my_things) const *parent;
   char const	*name;
 };
 
-typedef my_descriptor_t(my_things) const * cclib_method_t(my_things, descriptor) (cclib_resource_data_t const * self);
+typedef cclib_descriptor_t(my_things) const * cclib_method_t(my_things, descriptor) (cclib_resource_data_t const * self);
 
 
 /** --------------------------------------------------------------------
@@ -101,15 +102,15 @@ static cclib_methods_table_t(my_alpha_t) cclib_methods_table(my_alpha_t) = {
 
 cclib_methods_table_t(my_alpha_t) const * const cclib_methods_table_ptr(my_alpha_t) = &cclib_methods_table(my_alpha_t);
 
-static my_descriptor_t(my_things) const my_descriptor(my_alpha_t) = {
+static cclib_descriptor_t(my_things) const cclib_descriptor(my_alpha_t) = {
   .parent	= NULL,
   .name		= "my_alpha_t"
 };
 
-my_descriptor_t(my_things) const *
+cclib_descriptor_t(my_things) const *
 cclib_method(my_alpha_t, descriptor) (cclib_resource_data_t const * self CCLIB_UNUSED)
 {
-  return &(my_descriptor(my_alpha_t));
+  return &(cclib_descriptor(my_alpha_t));
 }
 
 int
@@ -215,15 +216,15 @@ static cclib_methods_table_t(my_beta_t) cclib_methods_table(my_beta_t) = {
 
 cclib_methods_table_t(my_beta_t) const * const cclib_methods_table_ptr(my_beta_t) = &cclib_methods_table(my_beta_t);
 
-static my_descriptor_t(my_things) const my_descriptor(my_beta_t) = {
-  .parent	= &my_descriptor(my_alpha_t),
+static cclib_descriptor_t(my_things) const cclib_descriptor(my_beta_t) = {
+  .parent	= &cclib_descriptor(my_alpha_t),
   .name		= "my_beta_t"
 };
 
-my_descriptor_t(my_things) const *
+cclib_descriptor_t(my_things) const *
 cclib_method(my_beta_t, descriptor) (cclib_resource_data_t const * self CCLIB_UNUSED)
 {
-  return &(my_descriptor(my_beta_t));
+  return &(cclib_descriptor(my_beta_t));
 }
 
 int
@@ -331,15 +332,15 @@ static cclib_methods_table_t(my_gamma_t) cclib_methods_table(my_gamma_t) = {
 
 cclib_methods_table_t(my_gamma_t) const * const cclib_methods_table_ptr(my_gamma_t) = &cclib_methods_table(my_gamma_t);
 
-static my_descriptor_t(my_things) const my_descriptor(my_gamma_t) = {
-  .parent	= &my_descriptor(my_beta_t),
+static cclib_descriptor_t(my_things) const cclib_descriptor(my_gamma_t) = {
+  .parent	= &cclib_descriptor(my_beta_t),
   .name		= "my_gamma_t"
 };
 
-my_descriptor_t(my_things) const *
+cclib_descriptor_t(my_things) const *
 cclib_method(my_gamma_t, descriptor) (cclib_resource_data_t const * self CCLIB_UNUSED)
 {
-  return &(my_descriptor(my_gamma_t));
+  return &(cclib_descriptor(my_gamma_t));
 }
 
 int
@@ -426,7 +427,7 @@ tests_my_alpha_t_stack_allocation (void)
 
   cclib_init(my_alpha_t)(S, a_val);
   {
-    my_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
 
     assert(a_val == cclib_call(get_a, S));
     assert(0    == strcmp("my_alpha_t", D->name));
@@ -443,7 +444,7 @@ tests_my_alpha_t_dynamic_allocation (void)
 
   S = cclib_new(my_alpha_t)(a_val);
   {
-    my_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
 
     assert(a_val == cclib_call(get_a, S));
     assert(0 == strcmp("my_alpha_t", D->name));
@@ -466,12 +467,12 @@ tests_my_beta_t_stack_allocation (void)
 
   cclib_init(my_beta_t)(S, a_val, b_val);
   {
-    my_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
 
     assert(a_val == cclib_call(get_a, S));
     assert(b_val == cclib_call(get_b, S));
     assert(0 == strcmp("my_beta_t", D->name));
-    assert(&my_descriptor(my_alpha_t) == D->parent);
+    assert(&cclib_descriptor(my_alpha_t) == D->parent);
   }
   cclib_final(my_beta_t)(S);
 }
@@ -485,12 +486,12 @@ tests_my_beta_t_dynamic_allocation (void)
 
   S = cclib_new(my_beta_t)(a_val, b_val);
   {
-    my_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
 
     assert(a_val == cclib_call(get_a, S));
     assert(b_val == cclib_call(get_b, S));
     assert(0 == strcmp("my_beta_t", D->name));
-    assert(&my_descriptor(my_alpha_t) == D->parent);
+    assert(&cclib_descriptor(my_alpha_t) == D->parent);
   }
   cclib_delete(my_beta_t)(S);
 }
@@ -510,13 +511,13 @@ tests_my_gamma_t_stack_allocation (void)
 
   cclib_init(my_gamma_t)(S, a_val, b_val, c_val);
   {
-    my_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
 
     assert(a_val == cclib_call(get_a, S));
     assert(b_val == cclib_call(get_b, S));
     assert(c_val == cclib_call(get_c, S));
     assert(0 == strcmp("my_gamma_t", cclib_call(descriptor, S)->name));
-    assert(&my_descriptor(my_beta_t) == D->parent);
+    assert(&cclib_descriptor(my_beta_t) == D->parent);
   }
   cclib_final(my_gamma_t)(S);
 }
@@ -531,13 +532,13 @@ tests_my_gamma_t_dynamic_allocation (void)
 
   S = cclib_new(my_gamma_t)(a_val, b_val, c_val);
   {
-    my_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
 
     assert(a_val == cclib_call(get_a, S));
     assert(b_val == cclib_call(get_b, S));
     assert(c_val == cclib_call(get_c, S));
     assert(0 == strcmp("my_gamma_t", cclib_call(descriptor, S)->name));
-    assert(&my_descriptor(my_beta_t) == D->parent);
+    assert(&cclib_descriptor(my_beta_t) == D->parent);
   }
   cclib_delete(my_gamma_t)(S);
 }

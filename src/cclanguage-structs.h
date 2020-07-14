@@ -142,10 +142,10 @@ extern "C" {
 
 /* Given a struct type name STRUCT  and an optional variant specification VAR: expand
    into the name of the struct's methods table type. */
-#define cclib_methods_table_type_1(STRUCT)			STRUCT ## __cclib_methods_table_t
-#define cclib_methods_table_type_2(STRUCT, VAR)			STRUCT ## __cclib_methods_table_t__ ## VAR
-#define cclib_methods_table_type_3(STRUCT, VAR1, VAR2)		STRUCT ## __cclib_methods_table_t__ ## VAR1 ## _ ## VAR2
-#define cclib_methods_table_type_4(STRUCT, VAR1, VAR2, VAR3)	STRUCT ## __cclib_methods_table_t__ ## VAR1 ## _ ## VAR2 ## __ ## VAR3
+#define cclib_methods_table_type_1(STRUCT)			STRUCT ## __cclib_methods_table_type
+#define cclib_methods_table_type_2(STRUCT, VAR)			STRUCT ## __cclib_methods_table_type__ ## VAR
+#define cclib_methods_table_type_3(STRUCT, VAR1, VAR2)		STRUCT ## __cclib_methods_table_type__ ## VAR1 ## _ ## VAR2
+#define cclib_methods_table_type_4(STRUCT, VAR1, VAR2, VAR3)	STRUCT ## __cclib_methods_table_type__ ## VAR1 ## _ ## VAR2 ## __ ## VAR3
 #define cclib_methods_table_type(...)				CCLIB_VNAME(cclib_methods_table_type, __VA_ARGS__)
 #define cclib_methods_table_t(...)				CCLIB_VNAME(cclib_methods_table_type, __VA_ARGS__)
 
@@ -168,10 +168,10 @@ extern "C" {
 /* Given the  struct type name  STRUCT, the method  name METHOD, an  optional variant
    specification  VAR: expand  into  the type  name  of that  variant  of the  method
    function for the struct type. */
-#define cclib_method_type_2(STRUCT, METHOD)			STRUCT ## __cclib_method_t__ ## METHOD
-#define cclib_method_type_3(STRUCT, METHOD, VAR)		STRUCT ## __cclib_method_t__ ## METHOD ## __ ## VAR
-#define cclib_method_type_4(STRUCT, METHOD, VAR1, VAR2)		STRUCT ## __cclib_method_t__ ## METHOD ## __ ## VAR1 ## _ ## VAR2
-#define cclib_method_type_5(STRUCT, METHOD, VAR1, VAR2, VAR3)	STRUCT ## __cclib_method_t__ ## METHOD ## __ ## VAR1 ## _ ## VAR2 ## _ ## VAR3
+#define cclib_method_type_2(STRUCT, METHOD)			STRUCT ## __cclib_method_type__ ## METHOD
+#define cclib_method_type_3(STRUCT, METHOD, VAR)		STRUCT ## __cclib_method_type__ ## METHOD ## __ ## VAR
+#define cclib_method_type_4(STRUCT, METHOD, VAR1, VAR2)		STRUCT ## __cclib_method_type__ ## METHOD ## __ ## VAR1 ## _ ## VAR2
+#define cclib_method_type_5(STRUCT, METHOD, VAR1, VAR2, VAR3)	STRUCT ## __cclib_method_type__ ## METHOD ## __ ## VAR1 ## _ ## VAR2 ## _ ## VAR3
 #define cclib_method_type(...)					CCLIB_VNAME(cclib_method_type, __VA_ARGS__)
 #define cclib_method_t(...)					CCLIB_VNAME(cclib_method_type, __VA_ARGS__)
 
@@ -190,8 +190,8 @@ extern "C" {
 
 /* Given a data  structure name STRUCT, which  is meant to be a  "struct with descr":
    expand into the type name of its descriptor field. */
-#define cclib_struct_descriptor_type(STRUCT)			cclib_struct_descriptor_ ## STRUCT ## _descr_t
-#define cclib_struct_descriptor_t(STRUCT)			cclib_struct_descriptor_ ## STRUCT ## _descr_t
+#define cclib_struct_descriptor_type(STRUCT)			STRUCT ## __cclib_struct_descriptor_type
+#define cclib_struct_descriptor_t(STRUCT)			STRUCT ## __cclib_struct_descriptor_type
 
 #undef  cclib_define_struct_with_descriptor
 #define cclib_define_struct_with_descriptor(STRUCT)					\
