@@ -1679,11 +1679,11 @@ structure instances as we desire.
 
 @example
 static cclib_methods_table_type(my_vector_t) const cclib_methods_table(my_vector_t, embedded) = @{
-  .destroy      = cclib_method(my_vector_t, destroy, embedded)
+  .destroy      = cclib_method_implementation(my_vector_t, destroy, embedded)
 @};
 
 static cclib_methods_table_type(my_vector_t) const cclib_methods_table(my_vector_t, standalone) = @{
-  .destroy      = cclib_method(my_vector_t, destroy, standalone)
+  .destroy      = cclib_method_implementation(my_vector_t, destroy, standalone)
 @};
 @end example
 @end defmac
@@ -1712,25 +1712,25 @@ and the prototypes of two implementations:
 @example
 typedef void cclib_method_type(my_vector_t, destroy) (my_vector_t * self);
 
-static cclib_method_type(my_vector_t, destroy) cclib_method(my_vector_t, destroy, embedded);
-static cclib_method_type(my_vector_t, destroy) cclib_method(my_vector_t, destroy, standalone);
+static cclib_method_type(my_vector_t, destroy) cclib_method_implementation(my_vector_t, destroy, embedded);
+static cclib_method_type(my_vector_t, destroy) cclib_method_implementation(my_vector_t, destroy, standalone);
 @end example
 @end defmac
 
 
-@defmac cclib_method (@var{STRUCT}, @var{METHOD}, @var{VARIANT}, @dots{})
+@defmac cclib_method_implementation (@var{STRUCT}, @var{METHOD}, @var{VARIANT}, @dots{})
 Given a data structure name @var{STRUCT}, a method name @var{METHOD}, and an optional variant
 specification: expand into the name of that variant of method's implementation function.
 
 @example
 void
-cclib_method(my_vector_t, destroy, embedded) (my_vector_t * self)
+cclib_method_implementation(my_vector_t, destroy, embedded) (my_vector_t * self)
 @{
   cclib_final(my_vector_t)(self);
 @}
 
 void
-cclib_method(my_vector_t, destroy, standalone) (my_vector_t * self)
+cclib_method_implementation(my_vector_t, destroy, standalone) (my_vector_t * self)
 @{
   cclib_delete(my_vector_t)(self);
 @}

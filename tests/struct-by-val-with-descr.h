@@ -93,11 +93,11 @@ cclib_make(my_y_t, pol) (my_rho_t rho, my_theta_t theta)
  ** Type definitions: data struct "my_coords_t".
  ** ----------------------------------------------------------------- */
 
-cclib_define_struct_with_descriptor(my_coords_t);
+cclib_define_struct_with_methods(my_coords_t);
 cclib_struct_typedef(my_coords_t);
 
 struct my_coords_t {
-  cclib_struct_descriptor(my_coords_t);
+  cclib_struct_with_methods_field(my_coords_t);
   /* We implement the coordinates storage with  dynamic memory allocation to show how
      to handle asynchronous resources. */
   my_x_t	*X;

@@ -50,7 +50,7 @@ test_1_1 (void)
   my_coords_t	A = cclib_make(my_coords_t, rec)(cclib_make(my_x_t)(1.0),
 						 cclib_make(my_y_t)(2.0));
 
-  cclib_vcall(print, A, stderr);
+  cclib_vcall_method(print, A, stderr);
   cclib_unmake(my_coords_t)(A);
 }
 
@@ -60,7 +60,7 @@ test_1_2 (void)
 {
   my_coords_t	A = cclib_make(my_coords_t, rec)(cclib_make(my_x_t)(1.0), cclib_make(my_y_t)(2.0));
 
-  cclib_vcall(print, A, stderr);
+  cclib_vcall_method(print, A, stderr);
   cclib_final(my_coords_t)(&A);
 }
 
@@ -71,8 +71,8 @@ test_1_3 (void)
   my_coords_t	A = cclib_make(my_coords_t, rec)(cclib_make(my_x_t)(1.0),
 						 cclib_make(my_y_t)(2.0));
 
-  cclib_vcall(print, A, stderr);
-  cclib_vcall(destroy, A);
+  cclib_vcall_method(print, A, stderr);
+  cclib_vcall_method(destroy, A);
 }
 
 

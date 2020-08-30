@@ -57,7 +57,7 @@ test_1_1_1 (void)
 				cclib_make(my_real_part_t)(1.0),
 				cclib_make(my_imag_part_t)(2.0));
 
-  cclib_call(print, A, stderr);
+  cclib_call_method(print, A, stderr);
   cclib_final(my_complex_t)(A);
 }
 
@@ -72,8 +72,8 @@ test_1_1_2 (void)
 				cclib_make(my_real_part_t)(1.0),
 				cclib_make(my_imag_part_t)(2.0));
 
-  cclib_call(print, A, stderr);
-  cclib_call(destroy, A);
+  cclib_call_method(print, A, stderr);
+  cclib_call_method(destroy, A);
 }
 
 void
@@ -83,7 +83,7 @@ test_1_2_1 (void)
 {
   my_complex_t const *A = cclib_new(my_complex_t, rec)(cclib_make(my_real_part_t)(1.0),
 						       cclib_make(my_imag_part_t)(2.0));
-  cclib_call(print, A, stderr);
+  cclib_call_method(print, A, stderr);
   cclib_delete(my_complex_t)(A);
 }
 
@@ -95,8 +95,8 @@ test_1_2_2 (void)
   my_complex_t const *A = cclib_new(my_complex_t, rec)(cclib_make(my_real_part_t)(1.0),
 						       cclib_make(my_imag_part_t)(2.0));
 
-  cclib_call(print, A, stderr);
-  cclib_call(destroy, A);
+  cclib_call_method(print, A, stderr);
+  cclib_call_method(destroy, A);
 }
 
 

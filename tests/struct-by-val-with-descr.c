@@ -44,13 +44,13 @@
  ** ----------------------------------------------------------------- */
 
 /* A prototype for every method. */
-static cclib_method_type(my_coords_t, destroy)	cclib_method(my_coords_t, destroy);
-static cclib_method_type(my_coords_t, print)	cclib_method(my_coords_t, print);
+static cclib_method_type(my_coords_t, destroy)	cclib_method_implementation(my_coords_t, destroy);
+static cclib_method_type(my_coords_t, print)	cclib_method_implementation(my_coords_t, print);
 
 /* The methods table. */
 static cclib_methods_table_type(my_coords_t) const cclib_methods_table(my_coords_t) = {
-  .destroy	= cclib_method(my_coords_t, destroy),
-  .print	= cclib_method(my_coords_t, print)
+  .destroy	= cclib_method_implementation(my_coords_t, destroy),
+  .print	= cclib_method_implementation(my_coords_t, print)
 };
 
 
@@ -67,7 +67,7 @@ cclib_make(my_coords_t, rec) (my_x_t X, my_y_t Y)
     .Y = malloc(sizeof(my_y_t))
   };
 
-  cclib_struct_descriptor_set_methods_table_pointer(&S, &cclib_methods_table(my_coords_t));
+  cclib_struct_with_methods_field_set_methods_table_pointer(&S, &cclib_methods_table(my_coords_t));
   *(S.X) = X;
   *(S.Y) = Y;
   return S;
@@ -101,13 +101,13 @@ cclib_final(my_coords_t) (my_coords_t * SP)
  ** ----------------------------------------------------------------- */
 
 void
-cclib_method(my_coords_t, destroy) (my_coords_t self)
+cclib_method_implementation(my_coords_t, destroy) (my_coords_t self)
 {
   cclib_unmake(my_coords_t)(self);
 }
 
 void
-cclib_method(my_coords_t, print) (my_coords_t self, FILE * stream)
+cclib_method_implementation(my_coords_t, print) (my_coords_t self, FILE * stream)
 {
   fprintf(stream, "my_coords_t: %s: X=%f, Y=%f\n", __func__, self.X->val, self.Y->val);
 }

@@ -107,12 +107,10 @@ cclib_make(my_angle_t, pol) (my_real_part_t real_part, my_imag_part_t imag_part)
  ** Type definitions: data struct "my_complex_t".
  ** ----------------------------------------------------------------- */
 
-cclib_define_struct_with_descriptor(my_complex_t);
-
-cclib_struct_typedef(my_complex_t);
+cclib_define_struct_with_methods(my_complex_t);
 
 struct my_complex_t {
-  cclib_struct_descriptor(my_complex_t);
+  cclib_struct_with_methods_field(my_complex_t);
   my_real_part_t	re;
   my_imag_part_t	im;
 };

@@ -46,12 +46,12 @@
  ** ----------------------------------------------------------------- */
 
 /* A prototype for every method in the destructor trait implementation. */
-static cclib_method_type(my_destructor_T, destroy)	cclib_method(my_destructor_T, destroy, my_coords_t);
+static cclib_method_type(my_destructor_T, destroy)	cclib_method_implementation(my_destructor_T, destroy, my_coords_t);
 
 /* The table  of methods  for the  destructor trait as  implemented by  the structure
    "my_coords_t". */
 static cclib_methods_table_type(my_destructor_T) const cclib_methods_table(my_destructor_T, my_coords_t) = {
-  .destroy = cclib_method(my_destructor_T, destroy, my_coords_t),
+  .destroy = cclib_method_implementation(my_destructor_T, destroy, my_coords_t),
 };
 
 my_destructor_T
@@ -62,7 +62,7 @@ cclib_make(my_destructor_T, my_coords_t) (my_coords_t const * self)
 }
 
 void
-cclib_method(my_destructor_T, destroy, my_coords_t) (my_destructor_T impl)
+cclib_method_implementation(my_destructor_T, destroy, my_coords_t) (my_destructor_T impl)
 /* Implementation  of  the  method  "destroy()" of  the  trait  "my_destructor_T"  as
    implemented by the data type "my_coords_t". */
 {
@@ -70,7 +70,7 @@ cclib_method(my_destructor_T, destroy, my_coords_t) (my_destructor_T impl)
   {
     my_coords_t const	* self = cclib_trait_resource_pointer(impl);
 
-    cclib_vcall(destroy, *self);
+    cclib_vcall_method(destroy, *self);
   }
   fprintf(stderr, "%s: method destroy done\n", __func__);
 }
@@ -81,12 +81,12 @@ cclib_method(my_destructor_T, destroy, my_coords_t) (my_destructor_T impl)
  ** ----------------------------------------------------------------- */
 
 /* A prototype for every method in the destructor trait implementation. */
-static cclib_method_type(my_destructor_T, destroy)	cclib_method(my_destructor_T, destroy, my_complex_t);
+static cclib_method_type(my_destructor_T, destroy)	cclib_method_implementation(my_destructor_T, destroy, my_complex_t);
 
 /* The table  of methods  for the  destructor trait as  implemented by  the structure
    "my_complex_t". */
 static cclib_methods_table_type(my_destructor_T) const cclib_methods_table(my_destructor_T, my_complex_t) = {
-  .destroy = cclib_method(my_destructor_T, destroy, my_complex_t),
+  .destroy = cclib_method_implementation(my_destructor_T, destroy, my_complex_t),
 };
 
 my_destructor_T
@@ -97,7 +97,7 @@ cclib_make(my_destructor_T, my_complex_t) (my_complex_t const * self)
 }
 
 void
-cclib_method(my_destructor_T, destroy, my_complex_t) (my_destructor_T impl)
+cclib_method_implementation(my_destructor_T, destroy, my_complex_t) (my_destructor_T impl)
 /* Implementation  of  the  method  "destroy()" of  the  trait  "my_destructor_T"  as
    implemented by the data type "my_complex_t". */
 {
@@ -105,7 +105,7 @@ cclib_method(my_destructor_T, destroy, my_complex_t) (my_destructor_T impl)
   {
     my_complex_t const	* self = cclib_trait_resource_pointer(impl);
 
-    cclib_call(destroy, self);
+    cclib_call_method(destroy, self);
   }
   fprintf(stderr, "%s: method destroy done\n", __func__);
 }
@@ -122,7 +122,7 @@ test_1_1 (void)
   my_coords_t	A = cclib_make(my_coords_t, rec)(cclib_make(my_x_t)(1.0),
 						 cclib_make(my_y_t)(2.0));
 
-  cclib_vcall(print, A, stderr);
+  cclib_vcall_method(print, A, stderr);
   cclib_unmake(my_coords_t)(A);
 }
 
@@ -132,7 +132,7 @@ test_1_2 (void)
 {
   my_coords_t	A = cclib_make(my_coords_t, rec)(cclib_make(my_x_t)(1.0), cclib_make(my_y_t)(2.0));
 
-  cclib_vcall(print, A, stderr);
+  cclib_vcall_method(print, A, stderr);
   cclib_final(my_coords_t)(&A);
 }
 
@@ -142,8 +142,8 @@ test_1_3 (void)
 {
   my_coords_t	A  = cclib_make(my_coords_t, rec)(cclib_make(my_x_t)(1.0), cclib_make(my_y_t)(2.0));
 
-  cclib_vcall(print, A, stderr);
-  cclib_vcall(destroy, A);
+  cclib_vcall_method(print, A, stderr);
+  cclib_vcall_method(destroy, A);
 }
 
 void
@@ -154,8 +154,8 @@ test_1_4 (void)
   my_coords_t		A  = cclib_make(my_coords_t, rec)(cclib_make(my_x_t)(1.0), cclib_make(my_y_t)(2.0));
   my_destructor_T	AD = cclib_make(my_destructor_T, my_coords_t)(&A);
 
-  cclib_vcall(print, A, stderr);
-  cclib_vcall(destroy, AD);
+  cclib_vcall_method(print, A, stderr);
+  cclib_vcall_method(destroy, AD);
 }
 
 
@@ -170,7 +170,7 @@ test_2_1 (void)
 {
   my_complex_t const *	A = cclib_new(my_complex_t, rec)(cclib_make(my_real_part_t)(1.0), cclib_make(my_imag_part_t)(2.0));
 
-  cclib_call(print, A, stderr);
+  cclib_call_method(print, A, stderr);
   cclib_delete(my_complex_t)(A);
 }
 
@@ -183,7 +183,7 @@ test_2_2 (void)
 
   cclib_init(my_complex_t, rec)(A, cclib_make(my_real_part_t)(1.0), cclib_make(my_imag_part_t)(2.0));
 
-  cclib_call(print, A, stderr);
+  cclib_call_method(print, A, stderr);
   cclib_final(my_complex_t)(A);
 }
 
@@ -194,8 +194,8 @@ test_2_3 (void)
 {
   my_complex_t const *	A = cclib_new(my_complex_t, rec)(cclib_make(my_real_part_t)(1.0), cclib_make(my_imag_part_t)(2.0));
 
-  cclib_call(print, A, stderr);
-  cclib_call(destroy, A);
+  cclib_call_method(print, A, stderr);
+  cclib_call_method(destroy, A);
 }
 
 void
@@ -207,8 +207,8 @@ test_2_4 (void)
 
   cclib_init(my_complex_t, rec)(A, cclib_make(my_real_part_t)(1.0), cclib_make(my_imag_part_t)(2.0));
 
-  cclib_call(print, A, stderr);
-  cclib_call(destroy, A);
+  cclib_call_method(print, A, stderr);
+  cclib_call_method(destroy, A);
 }
 
 void
@@ -219,8 +219,8 @@ test_2_5 (void)
   my_complex_t const *	A  = cclib_new(my_complex_t, rec)(cclib_make(my_real_part_t)(1.0), cclib_make(my_imag_part_t)(2.0));
   my_destructor_T	AD = cclib_make(my_destructor_T, my_complex_t)(A);
 
-  cclib_call(print, A, stderr);
-  cclib_vcall(destroy, AD);
+  cclib_call_method(print, A, stderr);
+  cclib_vcall_method(destroy, AD);
 }
 
 void
@@ -234,8 +234,8 @@ test_2_6 (void)
   cclib_init(my_complex_t, rec)(A, cclib_make(my_real_part_t)(1.0), cclib_make(my_imag_part_t)(2.0));
   AD = cclib_make(my_destructor_T, my_complex_t)(A);
 
-  cclib_call(print, A, stderr);
-  cclib_vcall(destroy, AD);
+  cclib_call_method(print, A, stderr);
+  cclib_vcall_method(destroy, AD);
 }
 
 

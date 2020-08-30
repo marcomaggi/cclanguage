@@ -73,10 +73,10 @@ typedef cclib_descriptor_t(my_things) const * cclib_method_t(my_things, descript
  ** Alpha struct type definitions and methods.
  ** ----------------------------------------------------------------- */
 
-cclib_define_struct_with_descriptor(my_alpha_t);
+cclib_define_struct_with_methods(my_alpha_t);
 
 struct my_alpha_t {
-  cclib_struct_descriptor(my_alpha_t);
+  cclib_struct_with_methods_field(my_alpha_t);
   int	a;
 };
 
@@ -92,12 +92,12 @@ struct cclib_methods_table_t(my_alpha_t) {
 
 /* ------------------------------------------------------------------ */
 
-static cclib_method_t(my_things, descriptor)	cclib_method(my_alpha_t, descriptor);
-static cclib_method_t(my_alpha_t, get_a)	cclib_method(my_alpha_t, get_a);
+static cclib_method_t(my_things, descriptor)	cclib_method_implementation(my_alpha_t, descriptor);
+static cclib_method_t(my_alpha_t, get_a)	cclib_method_implementation(my_alpha_t, get_a);
 
 static cclib_methods_table_t(my_alpha_t) cclib_methods_table(my_alpha_t) = {
-  .descriptor	= cclib_method(my_alpha_t, descriptor),
-  .get_a	= cclib_method(my_alpha_t, get_a),
+  .descriptor	= cclib_method_implementation(my_alpha_t, descriptor),
+  .get_a	= cclib_method_implementation(my_alpha_t, get_a),
 };
 
 cclib_methods_table_t(my_alpha_t) const * const cclib_methods_table_ptr(my_alpha_t) = &cclib_methods_table(my_alpha_t);
@@ -108,13 +108,13 @@ static cclib_descriptor_t(my_things) const cclib_descriptor(my_alpha_t) = {
 };
 
 cclib_descriptor_t(my_things) const *
-cclib_method(my_alpha_t, descriptor) (cclib_resource_data_t const * self CCLIB_UNUSED)
+cclib_method_implementation(my_alpha_t, descriptor) (cclib_resource_data_t const * self CCLIB_UNUSED)
 {
   return &(cclib_descriptor(my_alpha_t));
 }
 
 int
-cclib_method(my_alpha_t, get_a) (cclib_resource_data_t const * _self)
+cclib_method_implementation(my_alpha_t, get_a) (cclib_resource_data_t const * _self)
 {
   CCLIB_PC(my_alpha_t const, self, _self);
   return self->a;
@@ -139,7 +139,7 @@ cclib_decl void cclib_delete(my_alpha_t) (my_alpha_t const * self)
 void
 cclib_init(my_alpha_t) (my_alpha_t * self, int a)
 {
-  cclib_struct_descriptor_set_methods_table_pointer(self, cclib_methods_table_ptr(my_alpha_t));
+  cclib_struct_with_methods_field_set_methods_table_pointer(self, cclib_methods_table_ptr(my_alpha_t));
   self->a	= a;
 }
 
@@ -187,11 +187,11 @@ cclib_delete(my_alpha_t) (my_alpha_t const * self)
  ** Beta struct type definitions and methods.
  ** ----------------------------------------------------------------- */
 
-cclib_define_struct_with_descriptor(my_beta_t);
+cclib_define_struct_with_methods(my_beta_t);
 
 struct my_beta_t {
   my_alpha_t	alpha;
-  cclib_struct_descriptor(my_beta_t);
+  cclib_struct_with_methods_field(my_beta_t);
   int		b;
 };
 
@@ -207,11 +207,11 @@ struct cclib_methods_table_t(my_beta_t) {
 
 /* ------------------------------------------------------------------ */
 
-static cclib_method_t(my_things, descriptor)	cclib_method(my_beta_t, descriptor);
-static cclib_method_t(my_beta_t, get_b)		cclib_method(my_beta_t, get_b);
+static cclib_method_t(my_things, descriptor)	cclib_method_implementation(my_beta_t, descriptor);
+static cclib_method_t(my_beta_t, get_b)		cclib_method_implementation(my_beta_t, get_b);
 
 static cclib_methods_table_t(my_beta_t) cclib_methods_table(my_beta_t) = {
-  .get_b	= cclib_method(my_beta_t, get_b),
+  .get_b	= cclib_method_implementation(my_beta_t, get_b),
 };
 
 cclib_methods_table_t(my_beta_t) const * const cclib_methods_table_ptr(my_beta_t) = &cclib_methods_table(my_beta_t);
@@ -222,13 +222,13 @@ static cclib_descriptor_t(my_things) const cclib_descriptor(my_beta_t) = {
 };
 
 cclib_descriptor_t(my_things) const *
-cclib_method(my_beta_t, descriptor) (cclib_resource_data_t const * self CCLIB_UNUSED)
+cclib_method_implementation(my_beta_t, descriptor) (cclib_resource_data_t const * self CCLIB_UNUSED)
 {
   return &(cclib_descriptor(my_beta_t));
 }
 
 int
-cclib_method(my_beta_t, get_b) (cclib_resource_data_t const * _self)
+cclib_method_implementation(my_beta_t, get_b) (cclib_resource_data_t const * _self)
 {
   CCLIB_PC(my_beta_t const, self, _self);
   return self->b;
@@ -254,7 +254,7 @@ void
 cclib_init(my_beta_t) (my_beta_t * self, int a, int b)
 {
   cclib_init(my_alpha_t)(&(self->alpha), a);
-  cclib_struct_descriptor_set_methods_table_pointer(self, cclib_methods_table_ptr(my_beta_t));
+  cclib_struct_with_methods_field_set_methods_table_pointer(self, cclib_methods_table_ptr(my_beta_t));
   self->b	= b;
 }
 
@@ -303,11 +303,11 @@ cclib_delete(my_beta_t) (my_beta_t const * self)
  ** Gamma struct type definitions and methods.
  ** ----------------------------------------------------------------- */
 
-cclib_define_struct_with_descriptor(my_gamma_t);
+cclib_define_struct_with_methods(my_gamma_t);
 
 struct my_gamma_t {
   my_beta_t	beta;
-  cclib_struct_descriptor(my_gamma_t);
+  cclib_struct_with_methods_field(my_gamma_t);
   int		c;
 };
 
@@ -323,11 +323,11 @@ struct cclib_methods_table_t(my_gamma_t) {
 
 /* ------------------------------------------------------------------ */
 
-static cclib_method_t(my_things, descriptor)	cclib_method(my_gamma_t, descriptor);
-static cclib_method_t(my_gamma_t, get_c)	cclib_method(my_gamma_t, get_c);
+static cclib_method_t(my_things, descriptor)	cclib_method_implementation(my_gamma_t, descriptor);
+static cclib_method_t(my_gamma_t, get_c)	cclib_method_implementation(my_gamma_t, get_c);
 
 static cclib_methods_table_t(my_gamma_t) cclib_methods_table(my_gamma_t) = {
-  .get_c	= cclib_method(my_gamma_t, get_c),
+  .get_c	= cclib_method_implementation(my_gamma_t, get_c),
 };
 
 cclib_methods_table_t(my_gamma_t) const * const cclib_methods_table_ptr(my_gamma_t) = &cclib_methods_table(my_gamma_t);
@@ -338,13 +338,13 @@ static cclib_descriptor_t(my_things) const cclib_descriptor(my_gamma_t) = {
 };
 
 cclib_descriptor_t(my_things) const *
-cclib_method(my_gamma_t, descriptor) (cclib_resource_data_t const * self CCLIB_UNUSED)
+cclib_method_implementation(my_gamma_t, descriptor) (cclib_resource_data_t const * self CCLIB_UNUSED)
 {
   return &(cclib_descriptor(my_gamma_t));
 }
 
 int
-cclib_method(my_gamma_t, get_c) (cclib_resource_data_t const * _self)
+cclib_method_implementation(my_gamma_t, get_c) (cclib_resource_data_t const * _self)
 {
   CCLIB_PC(my_gamma_t const, self, _self);
   return self->c;
@@ -370,7 +370,7 @@ void
 cclib_init(my_gamma_t) (my_gamma_t * self, int a, int b, int c)
 {
   cclib_init(my_beta_t)(&(self->beta), a, b);
-  cclib_struct_descriptor_set_methods_table_pointer(self, cclib_methods_table_ptr(my_gamma_t));
+  cclib_struct_with_methods_field_set_methods_table_pointer(self, cclib_methods_table_ptr(my_gamma_t));
   self->c	= c;
 }
 
@@ -427,9 +427,9 @@ tests_my_alpha_t_stack_allocation (void)
 
   cclib_init(my_alpha_t)(S, a_val);
   {
-    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call_method(descriptor, S);
 
-    assert(a_val == cclib_call(get_a, S));
+    assert(a_val == cclib_call_method(get_a, S));
     assert(0    == strcmp("my_alpha_t", D->name));
     assert(NULL == D->parent);
   }
@@ -444,9 +444,9 @@ tests_my_alpha_t_dynamic_allocation (void)
 
   S = cclib_new(my_alpha_t)(a_val);
   {
-    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call_method(descriptor, S);
 
-    assert(a_val == cclib_call(get_a, S));
+    assert(a_val == cclib_call_method(get_a, S));
     assert(0 == strcmp("my_alpha_t", D->name));
     assert(NULL == D->parent);
   }
@@ -467,10 +467,10 @@ tests_my_beta_t_stack_allocation (void)
 
   cclib_init(my_beta_t)(S, a_val, b_val);
   {
-    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call_method(descriptor, S);
 
-    assert(a_val == cclib_call(get_a, S));
-    assert(b_val == cclib_call(get_b, S));
+    assert(a_val == cclib_call_method(get_a, S));
+    assert(b_val == cclib_call_method(get_b, S));
     assert(0 == strcmp("my_beta_t", D->name));
     assert(&cclib_descriptor(my_alpha_t) == D->parent);
   }
@@ -486,10 +486,10 @@ tests_my_beta_t_dynamic_allocation (void)
 
   S = cclib_new(my_beta_t)(a_val, b_val);
   {
-    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call_method(descriptor, S);
 
-    assert(a_val == cclib_call(get_a, S));
-    assert(b_val == cclib_call(get_b, S));
+    assert(a_val == cclib_call_method(get_a, S));
+    assert(b_val == cclib_call_method(get_b, S));
     assert(0 == strcmp("my_beta_t", D->name));
     assert(&cclib_descriptor(my_alpha_t) == D->parent);
   }
@@ -511,12 +511,12 @@ tests_my_gamma_t_stack_allocation (void)
 
   cclib_init(my_gamma_t)(S, a_val, b_val, c_val);
   {
-    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call_method(descriptor, S);
 
-    assert(a_val == cclib_call(get_a, S));
-    assert(b_val == cclib_call(get_b, S));
-    assert(c_val == cclib_call(get_c, S));
-    assert(0 == strcmp("my_gamma_t", cclib_call(descriptor, S)->name));
+    assert(a_val == cclib_call_method(get_a, S));
+    assert(b_val == cclib_call_method(get_b, S));
+    assert(c_val == cclib_call_method(get_c, S));
+    assert(0 == strcmp("my_gamma_t", cclib_call_method(descriptor, S)->name));
     assert(&cclib_descriptor(my_beta_t) == D->parent);
   }
   cclib_final(my_gamma_t)(S);
@@ -532,12 +532,12 @@ tests_my_gamma_t_dynamic_allocation (void)
 
   S = cclib_new(my_gamma_t)(a_val, b_val, c_val);
   {
-    cclib_descriptor_t(my_things) const	* const D = cclib_call(descriptor, S);
+    cclib_descriptor_t(my_things) const	* const D = cclib_call_method(descriptor, S);
 
-    assert(a_val == cclib_call(get_a, S));
-    assert(b_val == cclib_call(get_b, S));
-    assert(c_val == cclib_call(get_c, S));
-    assert(0 == strcmp("my_gamma_t", cclib_call(descriptor, S)->name));
+    assert(a_val == cclib_call_method(get_a, S));
+    assert(b_val == cclib_call_method(get_b, S));
+    assert(c_val == cclib_call_method(get_c, S));
+    assert(0 == strcmp("my_gamma_t", cclib_call_method(descriptor, S)->name));
     assert(&cclib_descriptor(my_beta_t) == D->parent);
   }
   cclib_delete(my_gamma_t)(S);
@@ -565,12 +565,12 @@ initialise_methods_tables (void)
 
   /* Override methods for "my_beta_t". */
   {
-    cclib_methods_table(my_beta_t).descriptor	= cclib_method(my_beta_t, descriptor);
+    cclib_methods_table(my_beta_t).descriptor	= cclib_method_implementation(my_beta_t, descriptor);
   }
 
   /* Override methods for "my_gamma_t". */
   {
-    cclib_methods_table(my_gamma_t).descriptor	= cclib_method(my_gamma_t, descriptor);
+    cclib_methods_table(my_gamma_t).descriptor	= cclib_method_implementation(my_gamma_t, descriptor);
   }
 }
 

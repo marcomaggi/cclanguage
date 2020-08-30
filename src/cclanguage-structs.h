@@ -177,61 +177,52 @@ extern "C" {
 
 /* Given  a struct  type  name STRUCT,  a  method name  METHOD,  an optional  variant
    specification VAR: expand into the name of the method for that type. */
-#define cclib_method_2(STRUCT, METHOD)				STRUCT ## __cclib_method__ ## METHOD
-#define cclib_method_3(STRUCT, METHOD, VAR)			STRUCT ## __cclib_method__ ## METHOD ## __ ## VAR
-#define cclib_method_4(STRUCT, METHOD, VAR1, VAR2)		STRUCT ## __cclib_method__ ## METHOD ## __ ## VAR1 ## _ ## VAR2
-#define cclib_method_5(STRUCT, METHOD, VAR1, VAR2, VAR3)	STRUCT ## __cclib_method__ ## METHOD ## __ ## VAR1 ## _ ## VAR2 ## _ ## VAR3
-#define cclib_method(...)					CCLIB_VNAME(cclib_method, __VA_ARGS__)
+#define cclib_method_implementation_2(STRUCT, METHOD)			STRUCT ## __cclib_method_implementation__ ## METHOD
+#define cclib_method_implementation_3(STRUCT, METHOD, VAR)		STRUCT ## __cclib_method_implementation__ ## METHOD ## __ ## VAR
+#define cclib_method_implementation_4(STRUCT, METHOD, VAR1, VAR2)	STRUCT ## __cclib_method_implementation__ ## METHOD ## __ ## VAR1 ## _ ## VAR2
+#define cclib_method_implementation_5(STRUCT, METHOD, VAR1, VAR2, VAR3)	STRUCT ## __cclib_method_implementation__ ## METHOD ## __ ## VAR1 ## _ ## VAR2 ## _ ## VAR3
+#define cclib_method_implementation(...)				CCLIB_VNAME(cclib_method_implementation, __VA_ARGS__)
 
 
 /** --------------------------------------------------------------------
- ** Automatically generated definitions API: data structure with descriptor.
+ ** Automatically generated definitions API: data structure with table of methods.
  ** ----------------------------------------------------------------- */
 
-/* Given a data  structure name STRUCT, which  is meant to be a  "struct with descr":
-   expand into the type name of its descriptor field. */
-#define cclib_struct_descriptor_type(STRUCT)			STRUCT ## __cclib_struct_descriptor_type
-#define cclib_struct_descriptor_t(STRUCT)			STRUCT ## __cclib_struct_descriptor_type
+#define cclib_struct_with_methods_field_type_1(STRUCT)			STRUCT ## __cclib_struct_with_methods_field_type
+#define cclib_struct_with_methods_field_type_2(STRUCT, VAR)		STRUCT ## __cclib_struct_with_methods_field_type__ ## VAR
+#define cclib_struct_with_methods_field_type_3(STRUCT, VAR1, VAR2)	STRUCT ## __cclib_struct_with_methods_field_type__ ## VAR1 ## _ ## VAR2
+#define cclib_struct_with_methods_field_type_4(STRUCT, VAR1, VAR2, VAR3)	STRUCT ## __cclib_struct_with_methods_field_type__ ## VAR1 ## _ ## VAR2 ## __ ## VAR3
+#define cclib_struct_with_methods_field_type(...)			CCLIB_VNAME(cclib_struct_with_methods_field_type, __VA_ARGS__)
+#define cclib_struct_with_methods_field_t(...)				CCLIB_VNAME(cclib_struct_with_methods_field_type, __VA_ARGS__)
 
-#undef  cclib_define_struct_with_descriptor
-#define cclib_define_struct_with_descriptor(STRUCT)					\
+#define cclib_define_struct_with_methods(STRUCT)					\
   cclib_struct_typedef(STRUCT);								\
   cclib_struct_typedef(cclib_methods_table_type(STRUCT));				\
-  cclib_struct_typedef(cclib_struct_descriptor_type(STRUCT));				\
+  cclib_struct_typedef(cclib_struct_with_methods_field_type(STRUCT));			\
 											\
-  struct cclib_struct_descriptor_type(STRUCT) {						\
+  struct cclib_struct_with_methods_field_type(STRUCT) {					\
     cclib_methods_table_type(STRUCT) const	*cclib_table_of_methods_pointer;	\
   }
 
-/* Given the  name of a data  structure STRUCT, which is  meant to be a  "struct with
-   descr": expand into the descriptor struct field declaration. */
-#define cclib_struct_descriptor(STRUCT)		cclib_struct_descriptor_type(STRUCT) cclib_struct_descr
+#define cclib_struct_with_methods_field(STRUCT)		cclib_struct_with_methods_field_type(STRUCT) cclib_struct_methods_field
 
-/* Given a pointer do data structure PTR, which is meant to be a "struct with descr":
-   return a pointer to its methods table usable as both lvalue and rvalue. */
-#define cclib_struct_descriptor_ref_methods_table_pointer(PTR)	\
-  ((PTR)->cclib_struct_descr.cclib_table_of_methods_pointer)
+#define cclib_struct_with_methods_field_ref_methods_table_pointer(PTR)	\
+  ((PTR)->cclib_struct_methods_field.cclib_table_of_methods_pointer)
 
-/* Given a pointer do data structure PTR, which is meant to be a "struct with descr":
-   set its pointer to methods table to METHODS_TABLE_POINTER. */
-#define cclib_struct_descriptor_set_methods_table_pointer(PTR, METHODS_TABLE_POINTER)	\
-  (cclib_struct_descriptor_ref_methods_table_pointer(PTR) = (METHODS_TABLE_POINTER))
+#define cclib_struct_with_methods_field_set_methods_table_pointer(STRUCT_PTR, METHODS_TABLE_POINTER)	\
+  (cclib_struct_with_methods_field_ref_methods_table_pointer(STRUCT_PTR) = (METHODS_TABLE_POINTER))
 
-/* Given a struct type  name STRUCT, a method name METHOD:  expand into an expression
-   evaluating to a pointer to the method implementation. */
-#define cclib_method_pointer(PTR, METHOD)	(cclib_struct_descriptor_ref_methods_table_pointer(PTR)->METHOD)
+#define cclib_struct_with_methods_method_pointer(STRUCT_PTR, METHOD)	\
+  (cclib_struct_with_methods_field_ref_methods_table_pointer(STRUCT_PTR)->METHOD)
 
-/* Given the name of a variable PTR holding  a data structure pointer and the name of
-   a method METHOD: expand into an expression evaluating to the pointer to the method
-   implementation in the table of methods, usable to call the method. */
-#define cclib_call_worker(METHOD, PTR, ...)	cclib_method_pointer(PTR, METHOD)
-#define cclib_call(METHOD, ...)			(cclib_call_worker(METHOD, __VA_ARGS__, CCLIB_DUMMY)(__VA_ARGS__))
+/* The purpose  of CCLIB_DUMMY is to  make sure that  there is at least  one argument
+   after  __VA_ARGS__ in  the use  of  "_worker()" macros;  so that  "..."  in  their
+   arguments list matches at least one argument. */
+#define cclib_call_method_worker(METHOD, STRUCT_PTR, ...)	((STRUCT_PTR)->cclib_struct_methods_field.cclib_table_of_methods_pointer->METHOD)
+#define cclib_call_method(METHOD, ...)				(cclib_call_method_worker(METHOD, __VA_ARGS__, CCLIB_DUMMY)(__VA_ARGS__))
 
-/* Given the name of a variable VAR holding a data structure and the name of a method
-   METHD:  expand  into  an  expression  evaluating to  the  pointer  to  the  method
-   implementation in the table of methods, usable to call the method itself. */
-#define cclib_vcall_worker(METHOD, VAR, ...)	cclib_method_pointer(&(VAR), METHOD)
-#define cclib_vcall(METHOD, ...)		(cclib_vcall_worker(METHOD, __VA_ARGS__, CCLIB_DUMMY)(__VA_ARGS__))
+#define cclib_vcall_method_worker(METHOD, STRUCT_VAR, ...)	((STRUCT_VAR) .cclib_struct_methods_field.cclib_table_of_methods_pointer->METHOD)
+#define cclib_vcall_method(METHOD, ...)				(cclib_vcall_method_worker(METHOD, __VA_ARGS__, CCLIB_DUMMY)(__VA_ARGS__))
 
 
 /** --------------------------------------------------------------------
@@ -240,11 +231,10 @@ extern "C" {
 
 #undef  CCLIB_DEFINE_TRAIT
 #define CCLIB_DEFINE_TRAIT(TRAIT)										\
-  cclib_define_struct_with_descriptor(TRAIT);									\
-  cclib_struct_typedef(TRAIT);											\
+  cclib_define_struct_with_methods(TRAIT);									\
 														\
   struct TRAIT {												\
-    cclib_struct_descriptor(TRAIT);										\
+    cclib_struct_with_methods_field(TRAIT);									\
     cclib_resource_data_t const *self;										\
   };														\
 														\
@@ -256,7 +246,7 @@ extern "C" {
   {														\
     TRAIT	impl = { .self = self };									\
 														\
-    cclib_struct_descriptor_set_methods_table_pointer(&impl, methods);						\
+    cclib_struct_with_methods_field_set_methods_table_pointer(&impl, methods);					\
     return impl;												\
   }														\
 														\

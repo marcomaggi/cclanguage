@@ -46,24 +46,24 @@
  ** ----------------------------------------------------------------- */
 
 /* A prototype for every method. */
-static cclib_method_type(my_complex_t, name)	cclib_method(my_complex_t, name);
-static cclib_method_type(my_complex_t, destroy) cclib_method(my_complex_t, destroy, embedded);
-static cclib_method_type(my_complex_t, destroy) cclib_method(my_complex_t, destroy, standalone);
-static cclib_method_type(my_complex_t, print)	cclib_method(my_complex_t, print);
+static cclib_method_type(my_complex_t, name)	cclib_method_implementation(my_complex_t, name);
+static cclib_method_type(my_complex_t, destroy) cclib_method_implementation(my_complex_t, destroy, embedded);
+static cclib_method_type(my_complex_t, destroy) cclib_method_implementation(my_complex_t, destroy, standalone);
+static cclib_method_type(my_complex_t, print)	cclib_method_implementation(my_complex_t, print);
 
 /* Table of methods  for data structures allocated  on the stack or  embedded into an
    enveloping structure. */
 static cclib_methods_table_type(my_complex_t) const cclib_methods_table(my_complex_t, embedded) = {
-  .name		= cclib_method(my_complex_t, name),
-  .destroy	= cclib_method(my_complex_t, destroy, embedded),
-  .print	= cclib_method(my_complex_t, print)
+  .name		= cclib_method_implementation(my_complex_t, name),
+  .destroy	= cclib_method_implementation(my_complex_t, destroy, embedded),
+  .print	= cclib_method_implementation(my_complex_t, print)
 };
 
 /* Table of methods for data structures allocated on the heap. */
 static cclib_methods_table_type(my_complex_t) const cclib_methods_table(my_complex_t, standalone) = {
-  .name		= cclib_method(my_complex_t, name),
-  .destroy	= cclib_method(my_complex_t, destroy, standalone),
-  .print	= cclib_method(my_complex_t, print)
+  .name		= cclib_method_implementation(my_complex_t, name),
+  .destroy	= cclib_method_implementation(my_complex_t, destroy, standalone),
+  .print	= cclib_method_implementation(my_complex_t, print)
 };
 
 
@@ -74,7 +74,7 @@ static cclib_methods_table_type(my_complex_t) const cclib_methods_table(my_compl
 void
 cclib_init(my_complex_t, rec) (my_complex_t * S, my_real_part_t re, my_imag_part_t im)
 {
-  cclib_struct_descriptor_set_methods_table_pointer(S, &cclib_methods_table(my_complex_t, embedded));
+  cclib_struct_with_methods_field_set_methods_table_pointer(S, &cclib_methods_table(my_complex_t, embedded));
   S->re		= re;
   S->im		= im;
 }
@@ -82,7 +82,7 @@ cclib_init(my_complex_t, rec) (my_complex_t * S, my_real_part_t re, my_imag_part
 void
 cclib_init(my_complex_t, pol) (my_complex_t * S, my_magnitude_t rho, my_angle_t theta)
 {
-  cclib_struct_descriptor_set_methods_table_pointer(S, &cclib_methods_table(my_complex_t, embedded));
+  cclib_struct_with_methods_field_set_methods_table_pointer(S, &cclib_methods_table(my_complex_t, embedded));
   S->re		= cclib_make(my_real_part_t, pol)(rho, theta);
   S->im		= cclib_make(my_imag_part_t, pol)(rho, theta);
 }
@@ -122,7 +122,7 @@ cclib_new(my_complex_t, rec) (my_real_part_t re, my_imag_part_t im)
   my_complex_t *	S = cclib_alloc(my_complex_t)();
 
   cclib_init(my_complex_t, rec)(S, re, im);
-  cclib_struct_descriptor_set_methods_table_pointer(S, &cclib_methods_table(my_complex_t, standalone));
+  cclib_struct_with_methods_field_set_methods_table_pointer(S, &cclib_methods_table(my_complex_t, standalone));
   return (my_complex_t const *) S;
 }
 
@@ -132,7 +132,7 @@ cclib_new(my_complex_t, pol) (my_magnitude_t rho, my_angle_t theta)
   my_complex_t *	S = cclib_alloc(my_complex_t)();
 
   cclib_init(my_complex_t, pol)(S, rho, theta);
-  cclib_struct_descriptor_set_methods_table_pointer(S, &cclib_methods_table(my_complex_t, standalone));
+  cclib_struct_with_methods_field_set_methods_table_pointer(S, &cclib_methods_table(my_complex_t, standalone));
   return (my_complex_t const *) S;
 }
 
@@ -153,7 +153,7 @@ cclib_delete(my_complex_t) (my_complex_t const * S)
  ** ----------------------------------------------------------------- */
 
 void
-cclib_method(my_complex_t, destroy, embedded) (my_complex_t const * self)
+cclib_method_implementation(my_complex_t, destroy, embedded) (my_complex_t const * self)
 {
   if (1) { fprintf(stderr, "%-35s: enter method destroy\n", __func__); }
   cclib_final(my_complex_t)(self);
@@ -161,7 +161,7 @@ cclib_method(my_complex_t, destroy, embedded) (my_complex_t const * self)
 }
 
 void
-cclib_method(my_complex_t, destroy, standalone) (my_complex_t const * self)
+cclib_method_implementation(my_complex_t, destroy, standalone) (my_complex_t const * self)
 {
   if (1) { fprintf(stderr, "%-35s: enter method destroy\n", __func__); }
   cclib_delete(my_complex_t)(self);
@@ -169,15 +169,15 @@ cclib_method(my_complex_t, destroy, standalone) (my_complex_t const * self)
 }
 
 void
-cclib_method(my_complex_t, print) (my_complex_t const * self, FILE * stream)
+cclib_method_implementation(my_complex_t, print) (my_complex_t const * self, FILE * stream)
 {
   fprintf(stream, "%s: %s: re=%f, im=%f\n",
-	  cclib_call(name, self),
+	  cclib_call_method(name, self),
 	  __func__, self->re.val, self->im.val);
 }
 
 char const *
-cclib_method(my_complex_t, name) (my_complex_t const * self CCLIB_UNUSED)
+cclib_method_implementation(my_complex_t, name) (my_complex_t const * self CCLIB_UNUSED)
 {
   return "my_complex_t";
 }

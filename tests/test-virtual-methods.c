@@ -50,13 +50,19 @@ cclib_struct_typedef(cclib_methods_table_t(my_thing_t));
 typedef int cclib_method_t(my_thing_t, alpha) (int a);
 typedef int cclib_method_t(my_thing_t, beta)  (int b);
 
-#define my_thing_t__methods_table_fields		    \
+#if 1
+#define my_thing_t__cclib_methods_table_fields		    \
   cclib_method_t(my_thing_t, alpha)	*alpha;		    \
   cclib_method_t(my_thing_t, beta)	*beta
+#else
+#define my_thing_t__cclib_methods_table_fields		    \
+  my_thing_t__cclib_method_type__alpha * alpha;		    \
+  my_thing_t__cclib_method_type__beta * beta
+#endif
 
 struct cclib_methods_table_t(my_thing_t) {
 #if 1
-  my_thing_t__methods_table_fields;
+  my_thing_t__cclib_methods_table_fields;
 #else
   cclib_methods_table_fields(my_thing_t);
 #endif
@@ -67,17 +73,17 @@ struct cclib_methods_table_t(my_thing_t) {
  ** Thing struct methods.
  ** ----------------------------------------------------------------- */
 
-static cclib_method_t(my_thing_t, alpha)	cclib_method(my_thing_t, alpha);
-static cclib_method_t(my_thing_t, beta)		cclib_method(my_thing_t, beta);
+static cclib_method_t(my_thing_t, alpha)	cclib_method_implementation(my_thing_t, alpha);
+static cclib_method_t(my_thing_t, beta)		cclib_method_implementation(my_thing_t, beta);
 
 int
-cclib_method(my_thing_t, alpha) (int a)
+cclib_method_implementation(my_thing_t, alpha) (int a)
 {
   return a;
 }
 
 int
-cclib_method(my_thing_t, beta) (int b)
+cclib_method_implementation(my_thing_t, beta) (int b)
 {
   return b;
 }
@@ -88,8 +94,8 @@ cclib_method(my_thing_t, beta) (int b)
  ** ----------------------------------------------------------------- */
 
 static cclib_methods_table_t(my_thing_t) const cclib_methods_table(my_thing_t) = {
-  .alpha	= cclib_method(my_thing_t, alpha),
-  .beta		= cclib_method(my_thing_t, beta),
+  .alpha	= cclib_method_implementation(my_thing_t, alpha),
+  .beta		= cclib_method_implementation(my_thing_t, beta),
 };
 
 
@@ -104,7 +110,7 @@ typedef int cclib_method_t(my_stuff_t, gamma) (int g);
 
 struct cclib_methods_table_t(my_stuff_t) {
 #if 1
-  my_thing_t__methods_table_fields;
+  my_thing_t__cclib_methods_table_fields;
 #else
   cclib_methods_table_fields(my_thing_t);
 #endif
@@ -117,24 +123,24 @@ struct cclib_methods_table_t(my_stuff_t) {
  ** Stuff struct methods.
  ** ----------------------------------------------------------------- */
 
-static cclib_method_t(my_thing_t, beta)		cclib_method(my_stuff_t, beta);
-static cclib_method_t(my_stuff_t, delta)	cclib_method(my_stuff_t, delta);
-static cclib_method_t(my_stuff_t, gamma)	cclib_method(my_stuff_t, gamma);
+static cclib_method_t(my_thing_t, beta)		cclib_method_implementation(my_stuff_t, beta);
+static cclib_method_t(my_stuff_t, delta)	cclib_method_implementation(my_stuff_t, delta);
+static cclib_method_t(my_stuff_t, gamma)	cclib_method_implementation(my_stuff_t, gamma);
 
 int
-cclib_method(my_stuff_t, beta) (int b)
+cclib_method_implementation(my_stuff_t, beta) (int b)
 {
   return 10 + b;
 }
 
 int
-cclib_method(my_stuff_t, delta) (int d)
+cclib_method_implementation(my_stuff_t, delta) (int d)
 {
   return d;
 }
 
 int
-cclib_method(my_stuff_t, gamma) (int g)
+cclib_method_implementation(my_stuff_t, gamma) (int g)
 {
   return g;
 }
@@ -145,8 +151,8 @@ cclib_method(my_stuff_t, gamma) (int g)
  ** ----------------------------------------------------------------- */
 
 static cclib_methods_table_t(my_stuff_t) cclib_methods_table(my_stuff_t) = {
-  .delta	= cclib_method(my_stuff_t, delta),
-  .gamma	= cclib_method(my_stuff_t, gamma),
+  .delta	= cclib_method_implementation(my_stuff_t, delta),
+  .gamma	= cclib_method_implementation(my_stuff_t, gamma),
 };
 
 cclib_methods_table_t(my_stuff_t) const * const cclib_methods_table_ptr(my_stuff_t) = &cclib_methods_table(my_stuff_t);
@@ -164,7 +170,7 @@ initialise_methods_tables (void)
   *T = cclib_methods_table(my_thing_t);
 
   /* Override method "beta" for "my_stuff_t". */
-  cclib_methods_table(my_stuff_t).beta = cclib_method(my_stuff_t, beta);
+  cclib_methods_table(my_stuff_t).beta = cclib_method_implementation(my_stuff_t, beta);
 }
 
 int
