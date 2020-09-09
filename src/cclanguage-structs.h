@@ -238,9 +238,9 @@ extern "C" {
     cclib_resource_data_t const *self;										\
   };														\
 														\
-  CCLIB_FUNC_ATTRIBUTE_UNUSED											\
-  CCLIB_FUNC_ATTRIBUTE_ALWAYS_INLINE										\
-  CCLIB_FUNC_ATTRIBUTE_NONNULL(1,2)										\
+  cclib_func_attribute_unused											\
+  cclib_func_attribute_always_inline										\
+  cclib_func_attribute_nonnull(1,2)										\
     static inline TRAIT												\
     cclib_make(TRAIT) (cclib_resource_data_t const * self, cclib_methods_table_type(TRAIT) const * methods)	\
   {														\

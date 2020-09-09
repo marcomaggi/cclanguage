@@ -42,97 +42,100 @@ extern "C" {
  ** ----------------------------------------------------------------- */
 
 #if (((defined __GNUC__) && (__GNUC__ >= 4)) || (defined __clang__))
-#  define CCLIB_FUNC_ATTRIBUTE_ALWAYS_INLINE	__attribute__((__always_inline__))
+#  define cclib_func_attribute_always_inline	__attribute__((__always_inline__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_ALWAYS_INLINE	/* empty string */
+#  define cclib_func_attribute_always_inline	/* empty string */
 #endif
 
 #if (((defined __GNUC__) && (__GNUC__ >= 4)) || (defined __clang__))
-#  define CCLIB_FUNC_ATTRIBUTE_CONST		__attribute__((__const__))
+#  define cclib_func_attribute_const		__attribute__((__const__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_CONST	/* empty string */
+#  define cclib_func_attribute_const	/* empty string */
 #endif
 
 #if (((defined __GNUC__) && (__GNUC__ >= 4)) || (defined __clang__))
-#  define CCLIB_FUNC_ATTRIBUTE_CONSTRUCTOR	__attribute__((__constructor__))
+#  define cclib_func_attribute_constructor	__attribute__((__constructor__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_CONSTRUCTOR	/* empty string */
+#  define cclib_func_attribute_constructor	/* empty string */
 #endif
 
 #if (((defined __GNUC__) && (__GNUC__ >= 4)) || (defined __clang__))
-#  define CCLIB_FUNC_ATTRIBUTE_DLLEXPORT	__attribute__((__dllexport__))
+#  define cclib_func_attribute_dllexport	__attribute__((__dllexport__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_DLLEXPORT	/* empty string */
+#  define cclib_func_attribute_dllexport	/* empty string */
 #endif
 
 #if (((defined __GNUC__) && (__GNUC__ >= 4)) || (defined __clang__))
-#  define CCLIB_FUNC_ATTRIBUTE_DLLIMPORT	__attribute__((__dllimport__))
+#  define cclib_func_attribute_dllimport	__attribute__((__dllimport__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_DLLIMPORT	/* empty string */
+#  define cclib_func_attribute_dllimport	/* empty string */
 #endif
 
 #if (((defined __GNUC__) && (__GNUC__ >= 4)) || (defined __clang__))
-#  define CCLIB_FUNC_ATTRIBUTE_FORMAT(...)	__attribute__((__format__(__VA_ARGS__)))
+#  define cclib_func_attribute_format(...)	__attribute__((__format__(__VA_ARGS__)))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_FORMAT	/* empty string */
+#  define cclib_func_attribute_format	/* empty string */
 #endif
 
 #if (((defined __GNUC__) && (__GNUC__ >= 4)) || (defined __clang__))
-#  define CCLIB_FUNC_ATTRIBUTE_HOT		__attribute__((__hot__))
+#  define cclib_func_attribute_hot		__attribute__((__hot__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_HOT	/* empty string */
+#  define cclib_func_attribute_hot	/* empty string */
 #endif
 
 #if ((defined __GNUC__) && (__GNUC__ >= 4))
-#  define CCLIB_FUNC_ATTRIBUTE_LEAF		__attribute__((__leaf__))
+#  define cclib_func_attribute_leaf		__attribute__((__leaf__))
 #elif (defined __clang__)
 /* Clang does not recognise "leaf".  (Marco Maggi; Apr 21, 2020) */
-#  define CCLIB_FUNC_ATTRIBUTE_LEAF	/* empty string */
+#  define cclib_func_attribute_leaf	/* empty string */
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_LEAF	/* empty string */
+#  define cclib_func_attribute_leaf	/* empty string */
 #endif
 
 #if ((defined __GNUC__) && (__GNUC__ >= 4))
-#  define CCLIB_FUNC_ATTRIBUTE_NONNULL(...)	__attribute__((__nonnull__(__VA_ARGS__)))
+#  define cclib_func_attribute_nonnull(...)	__attribute__((__nonnull__(__VA_ARGS__)))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_NONNULL	/* empty string */
+#  define cclib_func_attribute_nonnull	/* empty string */
 #endif
 
 #if ((defined __GNUC__) && (__GNUC__ >= 4))
-#  define CCLIB_FUNC_ATTRIBUTE_NORETURN		__attribute__((__noreturn__))
+#  define cclib_func_attribute_noreturn		__attribute__((__noreturn__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_NORETURN	/* empty string */
+#  define cclib_func_attribute_noreturn	/* empty string */
 #endif
 
 #if ((defined __GNUC__) && (__GNUC__ >= 4))
-#  define CCLIB_FUNC_ATTRIBUTE_PURE		__attribute__((__pure__))
+#  define cclib_func_attribute_pure		__attribute__((__pure__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_PURE	/* empty string */
+#  define cclib_func_attribute_pure	/* empty string */
 #endif
 
 #if ((defined __GNUC__) && (__GNUC__ >= 4))
-#  define CCLIB_FUNC_ATTRIBUTE_RETURNS_NONNULL	__attribute__((__returns_nonnull__))
+#  define cclib_func_attribute_returns_nonnull	__attribute__((__returns_nonnull__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_RETURNS_NONNULL	/* empty string */
+#  define cclib_func_attribute_returns_nonnull	/* empty string */
 #endif
 
 #if ((defined __GNUC__) && (__GNUC__ >= 4))
-#  define CCLIB_FUNC_ATTRIBUTE_UNUSED		__attribute__((__unused__))
+#  define cclib_func_attribute_unused		__attribute__((__unused__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_UNUSED	/* empty string */
+#  define cclib_func_attribute_unused	/* empty string */
 #endif
 
 #if ((defined __GNUC__) && (__GNUC__ >= 4))
-#  define CCLIB_FUNC_ATTRIBUTE_USED		__attribute__((__used__))
+#  define cclib_func_attribute_used		__attribute__((__used__))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_USED	/* empty string */
+#  define cclib_func_attribute_used	/* empty string */
 #endif
 
 #if ((defined __GNUC__) && (__GNUC__ >= 4))
-#  define CCLIB_FUNC_ATTRIBUTE_VISIBILITY(...)	__attribute__((__visibility__(__VA_ARGS__)))
+#  define cclib_func_attribute_visibility(...)	__attribute__((__visibility__(__VA_ARGS__)))
 #else
-#  define CCLIB_FUNC_ATTRIBUTE_VISIBILITY	/* empty string */
+#  define cclib_func_attribute_visibility	/* empty string */
 #endif
+
+#define cclib_func_attribute_visibility_default		cclib_func_attribute_visibility("default")
+#define cclib_func_attribute_visibility_hidden		cclib_func_attribute_visibility("hidden")
 
 
 /** --------------------------------------------------------------------
@@ -146,7 +149,7 @@ extern "C" {
    int foo (char unused_argument CCLIB_UNUSED);
    int unused_variable CCLIB_UNUSED;
 */
-#define CCLIB_UNUSED		CCLIB_FUNC_ATTRIBUTE_UNUSED
+#define CCLIB_UNUSED		cclib_func_attribute_unused
 
 #ifndef __GNUC__
 #  define __builtin_expect(...)	/* empty */
@@ -155,21 +158,21 @@ extern "C" {
 #if (defined _WIN32 || defined __CYGWIN__)
 #  ifdef BUILDING_DLL
 #    ifdef __GNUC__
-#      define cclib_decl	CCLIB_FUNC_ATTRIBUTE_DLLEXPORT extern
+#      define cclib_decl	cclib_func_attribute_dllexport extern
 #    else
 #      define cclib_decl	__declspec(dllexport) extern
 #    endif
 #  else
 #    ifdef __GNUC__
-#      define cclib_decl	CCLIB_FUNC_ATTRIBUTE_DLLIMPORT extern
+#      define cclib_decl	cclib_func_attribute_dllimport extern
 #    else
 #      define cclib_decl	__declspec(dllimport) extern
 #    endif
 #  endif
 #  define cclib_private_decl	extern
 #else
-#  define cclib_decl		CCLIB_FUNC_ATTRIBUTE_VISIBILITY("default") extern
-#  define cclib_private_decl	CCLIB_FUNC_ATTRIBUTE_VISIBILITY("hidden")  extern
+#  define cclib_decl		cclib_func_attribute_visibility_default extern
+#  define cclib_private_decl	cclib_func_attribute_visibility_hidden  extern
 #endif
 
 

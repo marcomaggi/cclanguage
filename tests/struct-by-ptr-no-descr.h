@@ -62,7 +62,7 @@ extern "C" {
     double	val;					    \
   };							    \
 							    \
-  CCLIB_FUNC_ATTRIBUTE_ALWAYS_INLINE			    \
+  cclib_func_attribute_always_inline			    \
   static inline my_ ## NAME ## _t			    \
   cclib_make(my_ ## NAME ## _t) (double val)		    \
   {							    \
@@ -74,14 +74,14 @@ MY_DEFINE_PARM(y)
 MY_DEFINE_PARM(rho)
 MY_DEFINE_PARM(theta)
 
-CCLIB_FUNC_ATTRIBUTE_ALWAYS_INLINE
+cclib_func_attribute_always_inline
 static inline my_x_t
 cclib_make(my_x_t, pol) (my_rho_t rho, my_theta_t theta)
 {
   return (my_x_t) { .val = rho.val * cos(theta.val) };
 }
 
-CCLIB_FUNC_ATTRIBUTE_ALWAYS_INLINE
+cclib_func_attribute_always_inline
 static inline my_y_t
 cclib_make(my_y_t, pol) (my_rho_t rho, my_theta_t theta)
 {
@@ -106,28 +106,28 @@ struct my_coords_t {
  ** ----------------------------------------------------------------- */
 
 cclib_decl void cclib_init(my_coords_t, rec) (my_coords_t * S, my_x_t X, my_y_t Y)
-  CCLIB_FUNC_ATTRIBUTE_NONNULL(1);
+  cclib_func_attribute_nonnull(1);
 
 cclib_decl void cclib_init(my_coords_t, pol) (my_coords_t * S, my_rho_t RHO, my_theta_t THETA)
-  CCLIB_FUNC_ATTRIBUTE_NONNULL(1);
+  cclib_func_attribute_nonnull(1);
 
 /* ------------------------------------------------------------------ */
 
 cclib_decl void cclib_final(my_coords_t) (my_coords_t const * S)
-  CCLIB_FUNC_ATTRIBUTE_NONNULL(1);
+  cclib_func_attribute_nonnull(1);
 
 /* ------------------------------------------------------------------ */
 
 cclib_decl my_coords_t const * cclib_new(my_coords_t, rec) (my_x_t X, my_y_t Y)
-  CCLIB_FUNC_ATTRIBUTE_RETURNS_NONNULL;
+  cclib_func_attribute_returns_nonnull;
 
 cclib_decl my_coords_t const * cclib_new(my_coords_t, pol) (my_rho_t RHO, my_theta_t THETA)
-  CCLIB_FUNC_ATTRIBUTE_RETURNS_NONNULL;
+  cclib_func_attribute_returns_nonnull;
 
 /* ------------------------------------------------------------------ */
 
 cclib_decl void cclib_delete(my_coords_t) (my_coords_t const * S)
-  CCLIB_FUNC_ATTRIBUTE_NONNULL(1);
+  cclib_func_attribute_nonnull(1);
 
 
 /** --------------------------------------------------------------------
