@@ -48,8 +48,8 @@
 @set PackageCflagsVar                   @env{CCLANGUAGE_CFLAGS}
 @c This is the stem of the library in "libcclanguage.so".
 @set PackageLibstem                     cclanguage
-@set PackageApiPrefixLower              cct_
-@set PackageApiPrefixUpper              CCT_
+@set PackageApiPrefixLower              cclib_
+@set PackageApiPrefixUpper              CCLIB_
 
 @set PackageHeader                      cclanguage.h
 @set PackageHeaderFile                  @file{@value{PackageHeader}}
@@ -72,8 +72,10 @@
 
 @copying
 This document describes version @value{VERSION} of @value{PACKAGE}, a C11 language library
-implementing language adaptations and extensions.  It implements basic definitions used by all the
-packages in the CCLibraries project.
+implementing language adaptations and extensions: everything is just standard C11 code, but this
+library proposes a way to organise the @api{} in such a way that the resulting logic resembles a
+language extension.  This is a core package in the CCLibraries project: all the other packages
+depend on it.
 
 The package supports @posix{} platforms.
 
@@ -159,8 +161,10 @@ Indexes
 
 
 This document describes version @value{VERSION} of @value{PACKAGE}, a C11 language library
-implementing language adaptations and extensions.  It implements basic definitions used by all the
-packages in the CCLibraries project.
+implementing language adaptations and extensions: everything is just standard C11 code, but this
+library proposes a way to organise the @api{} in such a way that the resulting logic resembles a
+language extension.  This is a core package in the CCLibraries project: all the other packages
+depend on it.
 
 The package supports @posix{} platforms.
 
@@ -170,7 +174,7 @@ it gives access to the whole @api{}.  All the macro definitions are prefixed wit
 with @code{_t}.
 
 Usage examples for this package, and all the CCLibraries packages, are available in the companion
-package CCLibraries Examples, @ref{references, CCLibraries Examples} for details.
+package CCLibraries Examples, @ref{references, CCLibraries Examples}.
 
 @menu
 * overview linking::            Linking code with the library.
