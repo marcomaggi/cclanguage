@@ -239,19 +239,14 @@ like this:
 
 @example
 cclib_decl void * cce_sys_malloc (cce_destination_t L, size_t size)
-  cclib_func_attribute_nonnull(1)
-  cclib_func_attribute_returns_nonnull
-  cclib_func_attribute_leaf;
+  cclib_function_attributes(nonnull(1),returns_nonnull,leaf);
 @end example
 
 @noindent
 while a @code{static} and @code{inline} function definition looks like this:
 
 @example
-cclib_func_attribute_always_inline
-cclib_func_attribute_pure
-cclib_func_attribute_nonnull(1)
-cclib_func_attribute_returns_nonnull
+cclib_function_attributes(always_inline,pure,nonnull(1),returns_nonnull)
 static inline cce_handler_t *
 cce_clean_handler_handler (cce_clean_handler_t * const H)
 @{
@@ -260,7 +255,7 @@ cce_clean_handler_handler (cce_clean_handler_t * const H)
 @end example
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_always_inline
+@deffn {Preprocessor Macro} cclib_function_attribute_always_inline
 Expand into:
 
 @example
@@ -269,7 +264,7 @@ __attribute__((__always_inline__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_const
+@deffn {Preprocessor Macro} cclib_function_attribute_const
 Expand into:
 
 @example
@@ -278,7 +273,7 @@ __attribute__((__const__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_constructor
+@deffn {Preprocessor Macro} cclib_function_attribute_constructor
 Expand into:
 
 @example
@@ -287,7 +282,7 @@ __attribute__((__constructor__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_dllexport
+@deffn {Preprocessor Macro} cclib_function_attribute_dllexport
 Expand into:
 
 @example
@@ -296,7 +291,7 @@ __attribute__((__dllexport__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_dllimport
+@deffn {Preprocessor Macro} cclib_function_attribute_dllimport
 Expand into:
 
 @example
@@ -305,7 +300,7 @@ __attribute__((__dllimport__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_format (...)
+@deffn {Preprocessor Macro} cclib_function_attribute_format (...)
 Expand into:
 
 @example
@@ -314,7 +309,7 @@ __attribute__((__format__(__VA_ARGS__)))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_hot
+@deffn {Preprocessor Macro} cclib_function_attribute_hot
 Expand into:
 
 @example
@@ -323,7 +318,7 @@ __attribute__((__hot__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_leaf
+@deffn {Preprocessor Macro} cclib_function_attribute_leaf
 Expand into:
 
 @example
@@ -332,7 +327,7 @@ __attribute__((__leaf__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_nonnull (...)
+@deffn {Preprocessor Macro} cclib_function_attribute_nonnull (...)
 Expand into:
 
 @example
@@ -343,12 +338,12 @@ We can use this macro as follows:
 
 @example
 cclib_decl void my_func (int * dst, int * src)
-  cclib_func_attribute_nonnull(1,2);
+  cclib_function_attribute_nonnull(1,2);
 @end example
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_noreturn
+@deffn {Preprocessor Macro} cclib_function_attribute_noreturn
 Expand into:
 
 @example
@@ -357,7 +352,7 @@ __attribute__((__noreturn__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_pure
+@deffn {Preprocessor Macro} cclib_function_attribute_pure
 Expand into:
 
 @example
@@ -366,7 +361,7 @@ __attribute__((__pure__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_returns_nonnull
+@deffn {Preprocessor Macro} cclib_function_attribute_returns_nonnull
 Expand into:
 
 @example
@@ -375,7 +370,7 @@ __attribute__((__returns_nonnull__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_unused
+@deffn {Preprocessor Macro} cclib_function_attribute_unused
 Expand into:
 
 @example
@@ -384,7 +379,7 @@ __attribute__((__unused__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_used
+@deffn {Preprocessor Macro} cclib_function_attribute_used
 Expand into:
 
 @example
@@ -393,7 +388,7 @@ __attribute__((__used__))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_visibility (...)
+@deffn {Preprocessor Macro} cclib_function_attribute_visibility (...)
 Expand into:
 
 @example
@@ -402,20 +397,20 @@ __attribute__((__visibility__(__VA_ARGS__)))
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_visibility_default
+@deffn {Preprocessor Macro} cclib_function_attribute_visibility_default
 Expand into:
 
 @example
-cclib_func_attribute_visibility("default")
+cclib_function_attribute_visibility("default")
 @end example
 @end deffn
 
 
-@deffn {Preprocessor Macro} cclib_func_attribute_visibility_hidden
+@deffn {Preprocessor Macro} cclib_function_attribute_visibility_hidden
 Expand into:
 
 @example
-cclib_func_attribute_visibility("hidden")
+cclib_function_attribute_visibility("hidden")
 @end example
 @end deffn
 
@@ -424,7 +419,24 @@ cclib_func_attribute_visibility("hidden")
 Preprocessor macro that is meant to expand into an attribute declaration.  It expands into:
 
 @example
-cclib_func_attribute_unused
+cclib_function_attribute_unused
+@end example
+@end deffn
+
+
+@deffn {Preprocesor Macro} cclib_function_attributes (@var{ATTR}, @dots{})
+Expand into a sequence of function attributes macro uses.  The following macro use:
+
+@example
+cclib_function_attributes(returns_nonnull,nonnull(1,2))
+@end example
+
+@noindent
+expands into:
+
+@example
+cclib_function_attributes_returns_nonnull
+cclib_function_attributes_nonnull(1,2)
 @end example
 @end deffn
 
@@ -438,7 +450,7 @@ Expand into the qualifiers for a public @api{} declaration.  When using the @gnu
 @posix{} system, it should expand into:
 
 @example
-cclib_func_attribute_visibility_default extern
+cclib_function_attribute_visibility_default extern
 @end example
 @end deffn
 
@@ -449,7 +461,7 @@ meant to be visible only inside the namespace of a shared library.  When using t
 on a @posix{} system, it should expand into:
 
 @example
-cclib_func_attribute_visibility_hidden extern
+cclib_function_attribute_visibility_hidden extern
 @end example
 @end deffn
 

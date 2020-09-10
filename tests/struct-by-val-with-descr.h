@@ -62,7 +62,7 @@ extern "C" {
     double	val;					    \
   };							    \
 							    \
-  cclib_func_attribute_always_inline			    \
+  cclib_function_attribute_always_inline		    \
   static inline my_ ## NAME ## _t			    \
   cclib_make(my_ ## NAME ## _t) (double val)		    \
   {							    \
@@ -74,14 +74,14 @@ MY_DEFINE_PARM(y)
 MY_DEFINE_PARM(rho)
 MY_DEFINE_PARM(theta)
 
-cclib_func_attribute_always_inline
+cclib_function_attribute_always_inline
 static inline my_x_t
 cclib_make(my_x_t, pol) (my_rho_t rho, my_theta_t theta)
 {
   return (my_x_t) { .val = rho.val * cos(theta.val) };
 }
 
-cclib_func_attribute_always_inline
+cclib_function_attribute_always_inline
 static inline my_y_t
 cclib_make(my_y_t, pol) (my_rho_t rho, my_theta_t theta)
 {

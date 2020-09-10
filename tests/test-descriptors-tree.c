@@ -123,16 +123,16 @@ cclib_method_implementation(my_alpha_t, get_a) (cclib_resource_data_t const * _s
 /* ------------------------------------------------------------------ */
 
 cclib_decl void cclib_init(my_alpha_t) (my_alpha_t * S, int a)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 cclib_decl my_alpha_t const * cclib_new(my_alpha_t) (int a)
-  cclib_func_attribute_returns_nonnull;
+  cclib_function_attribute_returns_nonnull;
 
 cclib_decl void cclib_final(my_alpha_t) (my_alpha_t const * self)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 cclib_decl void cclib_delete(my_alpha_t) (my_alpha_t const * self)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 /* ------------------------------------------------------------------ */
 
@@ -237,16 +237,16 @@ cclib_method_implementation(my_beta_t, get_b) (cclib_resource_data_t const * _se
 /* ------------------------------------------------------------------ */
 
 cclib_decl void cclib_init(my_beta_t) (my_beta_t * S, int a, int b)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 cclib_decl my_beta_t const * cclib_new(my_beta_t) (int a, int b)
-  cclib_func_attribute_returns_nonnull;
+  cclib_function_attribute_returns_nonnull;
 
 cclib_decl void cclib_final(my_beta_t) (my_beta_t const * self)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 cclib_decl void cclib_delete(my_beta_t) (my_beta_t const * self)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 /* ------------------------------------------------------------------ */
 
@@ -353,16 +353,16 @@ cclib_method_implementation(my_gamma_t, get_c) (cclib_resource_data_t const * _s
 /* ------------------------------------------------------------------ */
 
 cclib_decl void cclib_init(my_gamma_t) (my_gamma_t * S, int a, int b, int c)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 cclib_decl my_gamma_t const * cclib_new(my_gamma_t) (int a, int b, int c)
-  cclib_func_attribute_returns_nonnull;
+  cclib_function_attribute_returns_nonnull;
 
 cclib_decl void cclib_final(my_gamma_t) (my_gamma_t const * self)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 cclib_decl void cclib_delete(my_gamma_t) (my_gamma_t const * self)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 /* ------------------------------------------------------------------ */
 

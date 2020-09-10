@@ -62,7 +62,7 @@ extern "C" {
     double	val;					    \
   };							    \
 							    \
-  cclib_func_attribute_always_inline			    \
+  cclib_function_attribute_always_inline		    \
   static inline my_ ## NAME ## _t			    \
   cclib_make(my_ ## NAME ## _t) (double val)		    \
   {							    \
@@ -74,28 +74,28 @@ MY_DEFINE_PARM(imag_part)
 MY_DEFINE_PARM(magnitude)
 MY_DEFINE_PARM(angle)
 
-cclib_func_attribute_always_inline
+cclib_function_attribute_always_inline
 static inline my_real_part_t
 cclib_make(my_real_part_t, pol) (my_magnitude_t magnitude, my_angle_t angle)
 {
   return (my_real_part_t) { .val = magnitude.val * cos(angle.val) };
 }
 
-cclib_func_attribute_always_inline
+cclib_function_attribute_always_inline
 static inline my_imag_part_t
 cclib_make(my_imag_part_t, pol) (my_magnitude_t magnitude, my_angle_t angle)
 {
   return (my_imag_part_t) { .val = magnitude.val * sin(angle.val) };
 }
 
-cclib_func_attribute_always_inline
+cclib_function_attribute_always_inline
 static inline my_magnitude_t
 cclib_make(my_magnitude_t, pol) (my_real_part_t real_part, my_imag_part_t imag_part)
 {
   return (my_magnitude_t) { .val = hypot(real_part.val, imag_part.val) };
 }
 
-cclib_func_attribute_always_inline
+cclib_function_attribute_always_inline
 static inline my_angle_t
 cclib_make(my_angle_t, pol) (my_real_part_t real_part, my_imag_part_t imag_part)
 {
@@ -135,12 +135,12 @@ struct cclib_methods_table_type(my_complex_t) {
 /* Initialisation  function  that  initialises  an already  allocated  struct.   This
    constructor initialises the structure from rectangular coordinates. */
 cclib_decl void cclib_init(my_complex_t, rec) (my_complex_t * S, my_real_part_t re, my_imag_part_t im)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 /* Initialisation  function  that  initialises  an already  allocated  struct.   This
    constructor initialises the structure from polar coordinates. */
 cclib_decl void cclib_init(my_complex_t, pol) (my_complex_t * S, my_magnitude_t magnitude, my_angle_t angle)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 /* ------------------------------------------------------------------ */
 
@@ -148,21 +148,21 @@ cclib_decl void cclib_init(my_complex_t, pol) (my_complex_t * S, my_magnitude_t 
    memory allocator  implemented by  CCExceptions.  This constructor  initialises the
    structure from polar coordinates. */
 cclib_decl my_complex_t const * cclib_new(my_complex_t, rec) (my_real_part_t re, my_imag_part_t im)
-  cclib_func_attribute_returns_nonnull;
+  cclib_function_attribute_returns_nonnull;
 
 /* Constructor function  that allocates  the struct  on the  heap using  the standard
    memory allocator  implemented by  CCExceptions.  This constructor  initialises the
    structure from polar coordinates. */
 cclib_decl my_complex_t const * cclib_new(my_complex_t, pol) (my_magnitude_t magnitude, my_angle_t angle)
-  cclib_func_attribute_returns_nonnull;
+  cclib_function_attribute_returns_nonnull;
 
 /* ------------------------------------------------------------------ */
 
 cclib_decl void cclib_final(my_complex_t) (my_complex_t const * S)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 cclib_decl void cclib_delete(my_complex_t) (my_complex_t const * S)
-  cclib_func_attribute_nonnull(1);
+  cclib_function_attribute_nonnull(1);
 
 
 /** --------------------------------------------------------------------

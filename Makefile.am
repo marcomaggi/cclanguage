@@ -59,6 +59,7 @@ include_HEADERS			=		\
 	src/cclanguage.h			\
 	src/cclanguage-compiler.h		\
 	src/cclanguage-typedefs.h		\
+	src/cclanguage-map-macro.h		\
 	src/cclanguage-variadic-macros.h	\
 	src/cclanguage-structs.h
 
@@ -70,6 +71,7 @@ libcclanguage_la_SOURCES	=		\
 	src/cclanguage-compiler.h		\
 	src/cclanguage-typedefs.h		\
 	src/cclanguage-variadic-macros.h	\
+	src/cclanguage-map-macro.h		\
 	src/cclanguage-structs.h		\
 	src/cclanguage-library.c
 
