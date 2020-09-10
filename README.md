@@ -131,6 +131,13 @@ project, are available in the companion package CCLibraries Examples.
 The  stuff was  written by  Marco Maggi.   If this  package exists  it's
 because of the great GNU software tools that he uses all the time.
 
+The  file  `cclanguage-map-macro.h`  is  copyright  2012,  2020  William
+Swanson and it is distributed at (last verified on Sep 10, 2020):
+
+[https://github.com/swansontec/map-macro](https://github.com/swansontec/map-macro)
+
+with only minor editing (added `CCLANG_` prefix).
+
 ## Bugs
 
 Bug  and vulnerability  reports are  appreciated, all  the vulnerability
