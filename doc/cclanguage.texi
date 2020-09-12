@@ -518,7 +518,7 @@ CCLIB_PC(cce_exceptional_condition_object_t(ccevents_timeval_invalid), C, cce_co
 @chapter Common type definitions and related macros
 
 
-The C11 language facilities for type definitions are defined in the header file
+The language facilities for type definitions are defined in the header file
 @file{cclanguage-typedefs.h}; this header is included by @file{cclanguage.h}.
 
 @menu
@@ -530,9 +530,6 @@ The C11 language facilities for type definitions are defined in the header file
 @node typedefs aliases
 @section Aliases of @posix{} standard types
 
-
-All the definitions documented in this section are defined in the header file
-@file{cclanguage-typedefs.h}; this header file is included by @file{cclanguage.h}.
 
 @menu
 * typedefs aliases macros::     Generic type--handling macros.
