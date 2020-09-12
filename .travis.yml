@@ -199,21 +199,4 @@ matrix:
         (umask 0; sudo make install);
         make installcheck;
 
-    # Codecov support under Ubuntu GNU+Linux "xenial", GCC 9.
-    - os: linux
-      dist: xenial
-      compiler: gcc-9
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-9
-      script: |
-        ./configure --enable-maintainer-mode CFLAGS='-O0 --coverage';
-        make all;
-        make check;
-      after_success:
-        bash <(curl -s https://codecov.io/bash) -xgcov-9
-
 ### end of file

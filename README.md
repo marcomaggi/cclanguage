@@ -1,9 +1,6 @@
 # CCLanguage
 
 [![Build Status](https://travis-ci.org/marcomaggi/cclanguage.svg?branch=master)](https://travis-ci.org/marcomaggi/cclanguage)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6faa0b600ca148b2ba288dfa46438da1)](https://www.codacy.com/app/marcomaggi/cclanguage?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=marcomaggi/cclanguage&amp;utm_campaign=Badge_Grade)
-[![codecov](https://codecov.io/gh/marcomaggi/cclanguage/branch/master/graph/badge.svg)](https://codecov.io/gh/marcomaggi/cclanguage)
-
 
 ## Introduction
 
@@ -13,7 +10,6 @@ adaptations and extensions to the language.
 The package targets  POSIX systems.  The package uses  the GNU Autotools
 and it is tested, using Travis  CI, on both Ubuntu GNU+Linux systems and
 OS X systems.
-
 
 ## License
 
@@ -31,7 +27,6 @@ General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 
 ## Install
 
@@ -145,7 +140,6 @@ reports  are  public; register  them  using  the  Issue Tracker  at  the
 project's GitHub  site.  For  contributions and  patches please  use the
 Pull Requests feature at the project's GitHub site.
 
-
 ## Resources
 
 The latest release of this package can be downloaded from:
@@ -174,7 +168,6 @@ the companion package CCLibraries Examples is available from:
 
 ## Badges and static analysis
 
-
 ### Travis CI
 
 Travis CI is  a hosted, distributed continuous  integration service used
@@ -186,7 +179,6 @@ project's dashboard at:
 Usage of this  service is configured through the  file `.travis.yml` and
 additional scripts are under the directory `meta/travis-ci`.
 
-
 ### Clang's Static Analyzer
 
 The Clang Static Analyzer is a source code analysis tool that finds bugs
@@ -197,27 +189,4 @@ and we can find it at:
 
 Usage of this  service is implemented with make rules;  see the relevant
 section in the file `Makefile.am`.
-
-
-### Codecov
-
-Codecov is a service providing code  coverage reports.  We can find this
-project's dashboard at:
-
-[https://codecov.io/gh/marcomaggi/cclanguage](https://codecov.io/gh/marcomaggi/cclanguage)
-
-Usage of  this service is  implemented through direct  interface between
-GitHub and Codecov  sites; it configured through  the file `codecov.yml`
-and appropriate entries in Travis CI's matrix of builds.
-
-
-### Codacy
-
-Codacy is  an online service  providing code  review.  We can  find this
-project's dashboard at:
-
-[https://www.codacy.com/app/marcomaggi/cclanguage](https://www.codacy.com/app/marcomaggi/cclanguage)
-
-Usage of this service is  implemented through direct integration between
-GitHub and Codacy sites.
 
